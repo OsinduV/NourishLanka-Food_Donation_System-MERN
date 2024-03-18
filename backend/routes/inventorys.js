@@ -1,27 +1,27 @@
-const express=require('express')
+const express = require('express');
 const {
     createInventory,
     getInventory,
     getInventorys,
     deleteInventory,
     updateInventory
-}=require('../controllers/inventoryController')
+} = require('../controllers/inventoryController');
 
-const router= express.Router()
+const router = express.Router();
 
-//GET all workouts
-router.get('/',getInventorys)
+// GET all inventory items
+router.get('/', getInventorys);
 
-//GET a single workout
-router.get('/:id',getInventory)
+// GET a single inventory item
+router.get('/:id', getInventory);
 
-//POST a new workout
-router.post('/', createInventory)
+// POST a new inventory item
+router.post('/', createInventory);
 
-//DELETE a workout
-router.delete('/:id',deleteInventory)
+// DELETE an inventory item
+router.delete('/:id', deleteInventory);
 
-//UPDATE a workout
-router.patch('/:id',updateInventory)
+// UPDATE an inventory item
+router.patch('/:id', updateInventory);
 
-module.exports=router
+module.exports = router;
