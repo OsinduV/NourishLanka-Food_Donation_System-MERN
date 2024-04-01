@@ -14,6 +14,10 @@ const inventorySchema=new Schema({
     desc1:{
         type:String,
         required:true
+    },
+    expdate:{
+        type:String,
+        required:true
     }
 },{timestamps:true})
 
