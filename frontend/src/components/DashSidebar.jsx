@@ -1,12 +1,13 @@
 import { Sidebar } from 'flowbite-react';
-import { HiUser, HiArrowSmRight } from 'react-icons/hi';
+import { HiUser, HiArrowSmRight, HiDocumentText } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function DashSidebar() {
   const location = useLocation();
+  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [tab, setTab] = useState('');
   useEffect(() => {
@@ -46,6 +47,19 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
+
+          {currentUser.isEventOrganiser && (
+              <Link to='/dashboard?tab=events'>
+              <Sidebar.Item
+                active={tab === 'events'}
+                icon={HiDocumentText}
+                as='div'
+              >
+                Events
+              </Sidebar.Item>
+              </Link>
+          )}
+
           <Sidebar.Item
             icon={HiArrowSmRight}
             className='cursor-pointer'

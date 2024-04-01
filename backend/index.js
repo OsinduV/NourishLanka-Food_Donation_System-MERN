@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
+import eventRoutes from './Event/routes/event.route.js';
 
 dotenv.config()
 mongoose
@@ -19,12 +20,13 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.listen(5000 ,() =>{
-    console.log  ('Server is runnning on port 5000 !!')
+app.listen(3500 ,() =>{
+    console.log  ('Server is runnning on port 3500 !!')
 })
 
 app.use('/api/user', userRoutes)
 app.use('/api/auth',authRoutes)
+app.use('/api/event', eventRoutes); 
 
 app.use((err,req,res,next) =>{
     const statusCode = err.statusCode || 500;

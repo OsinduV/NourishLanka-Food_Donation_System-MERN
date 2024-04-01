@@ -8,6 +8,8 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
+import CreateEvent from "./Event/pages/CreateEvent"
+import OnlyEventOgPrivateRoute from "./Event/components/OnlyEventOgPrivateRoute"
 
 export default function App() {
   return (
@@ -24,6 +26,11 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
+
+           {/*only for event organiser */}
+      <Route element={<OnlyEventOgPrivateRoute />}>
+        <Route path='/create-event' element={<CreateEvent />} />
+      </Route>
         <Route path="/projects" element={<Project/>} />
         
       </Routes>
