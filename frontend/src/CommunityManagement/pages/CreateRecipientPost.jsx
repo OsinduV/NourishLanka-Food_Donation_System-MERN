@@ -149,7 +149,7 @@ export default function CreateRecipientPost() {
           setFormData({ ...formData, content: value });
         }}
       />
-      <Button type='submit' gradientDuoTone='purpleToPink'>
+      <Button type='submit' gradientDuoTone='greenToBlue'>
         Publish
       </Button>
       {publishError && (
