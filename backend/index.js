@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
+import ReicipientpostRoutes from './CommunityManagement/routes/recipientpostroute.js'
 
 dotenv.config()
 mongoose
@@ -25,6 +26,7 @@ app.listen(5000 ,() =>{
 
 app.use('/api/user', userRoutes)
 app.use('/api/auth',authRoutes)
+app.use('/api/post',ReicipientpostRoutes)
 
 app.use((err,req,res,next) =>{
     const statusCode = err.statusCode || 500;
