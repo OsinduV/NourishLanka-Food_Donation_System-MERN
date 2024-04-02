@@ -97,12 +97,12 @@ export default function CreateRecipientPost() {
             setFormData({ ...formData, title: e.target.value })
           }
         />
-        <Select>
-          <option value='uncategorized'>Select a category</option>
-          <option value='Low-Income Families'>Low-Income Families</option>
-          <option value='Orphanages'>Orphanages</option>
-          <option value='Elderly Individuals'>Elderly Individuals</option>
-        </Select>
+        <Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
+         <option value='uncategorized'>Select a category</option>
+         <option value='Low-Income Families'>Low-Income Families</option>
+         <option value='Orphanages'>Orphanages</option>
+         <option value='Elderly Individuals'>Elderly Individuals</option>
+         </Select>
       </div>
       <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
       <FileInput
