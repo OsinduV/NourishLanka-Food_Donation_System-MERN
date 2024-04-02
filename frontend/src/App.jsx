@@ -8,6 +8,8 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
+import OnlyCommunityAdminPrivateRoute from "./CommunityManagement/components/OnlyCommunityAdminPrivateRoute"
+import CreateRecipientPost from "./CommunityManagement/pages/CreateRecipientPost"
 
 export default function App() {
   return (
@@ -23,6 +25,9 @@ export default function App() {
         <Route path="/sign-up" element={<SignUp/>} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
+        </Route>
+        <Route element={<OnlyCommunityAdminPrivateRoute/>}>
+          <Route path='/create-recipientpost' element={<CreateRecipientPost/>} />
         </Route>
         <Route path="/projects" element={<Project/>} />
         
