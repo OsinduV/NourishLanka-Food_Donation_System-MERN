@@ -83,21 +83,21 @@ const InventoryDetails = ({ inventory }) => {
         <div className="workout-details">
             {isEditing ? (
                 <>
-                    <input type="text" name="title" value={editedTitle} onChange={handleChange} />
-                    <input type="text" name="desc1" value={editedDesc1} onChange={handleChange} />
-                    <input type="text" name="desc2" value={editedDesc2} onChange={handleChange} />
-                    <input type="text" name="expdate" value={editedDate} onChange={handleChange} />
-                    <button onClick={handleSaveEdit}>Save</button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
+                    <input className='inputTh' type="text" name="title" value={editedTitle} onChange={handleChange} />
+                    <input className='inputTh' type="text" name="desc1" value={editedDesc1} onChange={handleChange} />
+                    <input className='inputTh' type="text" name="desc2" value={editedDesc2} onChange={handleChange} />
+                    <input className='inputTh' type="text" name="expdate" value={editedDate} onChange={handleChange} />
+                    <button className='buttonTh' onClick={handleSaveEdit}>Save</button>
+                    <button className='buttonTh' onClick={handleCancelEdit}>Cancel</button>
                 </>
             ) : (
                 <>
-                    <h4>{inventory.title}</h4>
-                    <p><strong>Quantity :</strong> {inventory.desc1}</p>
-                    <p><strong>Location :</strong> {inventory.desc2}</p>
-                    <p><strong>Exp.Date :</strong> {inventory.expdate}</p>
-                    <button onClick={handleDeleteClick}>Delete</button>
-                    <button onClick={handleEditClick}>Edit</button>
+                    <h4 className='h4Th'>{inventory.title}</h4>
+                    <p className='pTh'><strong>Quantity :</strong> {inventory.desc1}</p>
+                    <p className='pTh'><strong>Location :</strong> {inventory.desc2}</p>
+                    <p className='pTh'><strong>Exp.Date :</strong> {inventory.expdate}</p>
+                    <button className='buttonTh' onClick={handleDeleteClick}>Delete</button>
+                    <button className='buttonTh' onClick={handleEditClick}>Edit</button>
                 </>
             )}
         </div>

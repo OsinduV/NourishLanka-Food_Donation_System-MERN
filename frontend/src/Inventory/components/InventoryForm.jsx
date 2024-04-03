@@ -39,16 +39,16 @@ const InventoryForm = () => {
 
     return (
         <form className="workout-details" onSubmit={handleSubmit}>
-            <h3>Add an Inventory</h3>
-            <label>Inventory Title</label>
-            <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} required />
-            <label>Quantity</label>
-            <input type="text" onChange={(e) => setDesc1(e.target.value)} value={desc1} required />
-            <label>Location</label>
-            <input type="text" onChange={(e) => setDesc2(e.target.value)} value={desc2} required />
-            <label>Exp.Date</label>
-            <input type="text" onChange={(e) => setExpDate(e.target.value)} value={expdate} required />
-            <button type="submit">Add Detail</button>
+            <h3 className='h3Th'>Add an Inventory</h3>
+            <label className='labelTh'>Inventory Title</label>
+            <input className='inputTh' type="text" onChange={(e) => setTitle(e.target.value)} value={title} required />
+            <label className='labelTh'>Quantity</label>
+            <input className='inputTh' type="text" onChange={(e) => setDesc1(e.target.value)} value={desc1} required />
+            <label className='labelTh'>Location</label>
+            <input className='inputTh' type="text" onChange={(e) => setDesc2(e.target.value)} value={desc2} required />
+            <label className='labelTh'>Exp.Date</label>
+            <input className='inputTh' type="text" onChange={(e) => setExpDate(e.target.value)} value={expdate} required />
+            <button className='buttonTh' type="submit">Add Detail</button>
         </form>
     );
 };
