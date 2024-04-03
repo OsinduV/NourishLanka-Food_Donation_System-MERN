@@ -1,5 +1,10 @@
+/*
+  Based on TailwindCSS recommendations,
+  consider using classes instead of the `@apply` directive
+  @see https://tailwindcss.com/docs/reusing-styles#avoiding-premature-abstraction
+*/
 /* google font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
 
 /* layout */
 :root {
@@ -7,115 +12,66 @@
   --error: #e7195a;
 }
 body {
+  @apply m-0;
   background: #f1f1f1;
-  margin: 0;
   font-family: "Poppins";
 }
 header {
   background: #fff;
 }
 header .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @apply max-w-[1400px] flex items-center justify-between mx-auto my-0 px-5 py-2.5;
 }
 header a {
-  color: #333;
-  text-decoration: none;
+  @apply text-[#333] no-underline;
 }
-.pages{
-  max-width: 1400px;
-  padding: 20px;
-  margin: 0 auto;
+.pages {
+  @apply max-w-[1400px] mx-auto my-0 p-5;
 }
 
 /* homepage */
 .home {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 100px;
+  @apply grid grid-cols-[3fr_1fr] gap-[100px];
 }
 .workout-details {
+  @apply rounded relative shadow-[2px_2px_5px_rgba(0,0,0,0.05)] mx-auto my-5 p-5;
   background: #fff;
-  border-radius: 4px;
-  margin: 20px auto;
-  padding: 20px;
-  position: relative;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
 .workout-details h4 {
-  margin: 0 0 10px 0;
-  font-size: 1.2em;
-  color: var(--primary);
+  @apply text-[1.2em] text-[color:var(--primary)] mt-0 mb-2.5 mx-0;
 }
 .workout-details p {
-  margin: 0;
-  font-size: 0.9em;
-  color: #555;
+  @apply text-[0.9em] text-[#555] m-0;
 }
 .workout-details span {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
+  @apply absolute cursor-pointer text-[#333] p-1.5 rounded-[50%] right-5 top-5;
   background: #090909;
-  padding: 6px;
-  border-radius: 50%;
-  color: #333;
 }
 
 /* new workout form */
-label, input {
-  display: block;
+label,
+input {
+  @apply block;
 }
 input {
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
+  @apply w-full border rounded box-border mt-2.5 mb-5 p-2.5 border-solid border-[#ddd];
 }
 form button {
+  @apply text-black rounded cursor-pointer p-2.5 border-0;
   background: var(--primary);
-  border: 0;
-  color: #000000;
-  padding: 10px;
   font-family: "Poppins";
-  border-radius: 4px;
-  cursor: pointer;
 }
 div.error {
-  padding: 10px;
+  @apply border border-[color:var(--error)] text-[color:var(--error)] rounded mx-0 my-5 p-2.5 border-solid;
   background: #ffefef;
-  border: 1px solid var(--error);
-  color: var(--error);
-  border-radius: 4px;
-  margin: 20px 0;
 }
 input.error {
-  border: 1px solid var(--error);
+  @apply border border-[color:var(--error)] border-solid;
 }
 /* Button styles */
 button {
-  background-color: var(--primary);
-  color: rgb(0, 0, 0);
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-right: 10px; /* Add margin-right for spacing between buttons */
+  @apply bg-[color:var(--primary)] text-black rounded cursor-pointer transition-[background-color] duration-[0.3s] ease-[ease] mr-2.5 px-5 py-2.5 border-[none] last:mr-0 hover:bg-[darken(var(--primary),10%)]; /* Add margin-right for spacing between buttons */
 }
-
 button:last-child {
-  margin-right: 0; /* Remove margin-right for the last button */
-}
-
-button:hover {
-  background-color: darken(var(--primary), 10%);
+  /* Remove margin-right for the last button */
 }
