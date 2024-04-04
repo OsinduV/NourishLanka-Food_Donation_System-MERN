@@ -8,6 +8,7 @@ export default function DashEvents() {
   console.log(currentUser);
   const [userEvents, setUserEvents] = useState([]);
   console.log(userEvents);
+  const [showMore, setShowMore] = useState(true);
   useEffect(() => {
     console.log("useEffect triggered");
     const fetchEvents = async () => {
@@ -32,6 +33,24 @@ export default function DashEvents() {
       fetchEvents();
     }
   },[currentUser._id])
+
+  const handleShowMore = async () => {
+    const startIndex = userEvents.length;
+    try {
+      const res = await fetch(
+        `/api/event/getevents?userId=${currentUser._id}&startIndex=${startIndex}`
+      );
+      const data = await res.json();
+      if (res.ok) {
+        setUserEvents((prev) => [...prev, ...data.events]);
+        if (data.events.length < 9) {
+          setShowMore(false);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
@@ -82,6 +101,15 @@ export default function DashEvents() {
               </Table.Body>
             ))}
             </Table>
+
+            {showMore && (
+            <button
+              onClick={handleShowMore}
+              className='w-full text-teal-500 self-center text-sm py-7'
+            >
+              Show more
+            </button>
+          )}
           </>
         ) : (
           <p>You have no events yet!</p>
