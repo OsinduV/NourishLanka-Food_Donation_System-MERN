@@ -1,5 +1,6 @@
-import { Table } from 'flowbite-react';
+import { Button, Modal, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +10,8 @@ export default function DashEvents() {
   const [userEvents, setUserEvents] = useState([]);
   console.log(userEvents);
   const [showMore, setShowMore] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [eventIdToDelete, setEventIdToDelete] = useState('');
   useEffect(() => {
     console.log("useEffect triggered");
     const fetchEvents = async () => {
@@ -52,6 +55,29 @@ export default function DashEvents() {
     }
   };
 
+  const handleDeleteEvent = async () => {
+    setShowModal(false);
+    try {
+      const res = await fetch(
+        `/api/event/deleteevent/${eventIdToDelete}/${currentUser._id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUserEvents((prev) =>
+          prev.filter((event) => event._id !== eventIdToDelete)
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
 
@@ -90,7 +116,10 @@ export default function DashEvents() {
                 </Table.Cell>
                 <Table.Cell>{event.category}</Table.Cell>
                 <Table.Cell>
-                  <span className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
+                  <span onClick={() => {
+                        setShowModal(true);
+                        setEventIdToDelete(event._id);
+                      }} className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
                 </Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/update-event/${event._id}`}>
@@ -114,7 +143,31 @@ export default function DashEvents() {
         ) : (
           <p>You have no events yet!</p>
         )}
-  
+
+    <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size='md'
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className='text-center'>
+            <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
+            <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
+              Are you sure you want to delete this event?
+            </h3>
+            <div className='flex justify-center gap-4'>
+              <Button color='failure' onClick={handleDeleteEvent}>
+                Yes, I'm sure
+              </Button>
+              <Button color='gray' onClick={() => setShowModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
