@@ -101,3 +101,27 @@ export const deleteevent = async (req, res, next) => {
     next(error);
   }
 };
+
+
+export const updateevent = async (req, res, next) => {
+  if (!req.user.isEventOrganiser || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to update this post'));
+  }
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+      req.params.eventId,
+      {
+        $set: {
+          title: req.body.title,
+          content: req.body.content,
+          category: req.body.category,
+          image: req.body.image,
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedEvent);
+  } catch (error) {
+    next(error);
+  }
+};

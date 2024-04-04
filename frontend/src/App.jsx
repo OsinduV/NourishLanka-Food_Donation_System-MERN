@@ -10,6 +10,8 @@ import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
 import CreateEvent from "./Event/pages/CreateEvent"
 import OnlyEventOgPrivateRoute from "./Event/components/OnlyEventOgPrivateRoute"
+import UpdateEvent from "./Event/pages/UpdateEvent"
+
 
 export default function App() {
   return (
@@ -30,6 +32,7 @@ export default function App() {
            {/*only for event organiser */}
       <Route element={<OnlyEventOgPrivateRoute />}>
         <Route path='/create-event' element={<CreateEvent />} />
+        <Route path='/update-event/:eventId' element={<UpdateEvent />} />
       </Route>
         <Route path="/projects" element={<Project/>} />
         
