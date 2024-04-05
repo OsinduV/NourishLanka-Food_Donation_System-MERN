@@ -40,7 +40,7 @@ export default function DashSidebar() {
             <Sidebar.Item
               active={tab === 'profile'}
               icon={HiUser}
-              label={'User'}
+              label={currentUser.isEventOrganiser ? 'Event Organiser' : 'User'}
               labelColor='dark'
               as='div'
             >
