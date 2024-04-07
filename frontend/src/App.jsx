@@ -12,6 +12,7 @@ import OnlyEventOgPrivateRoute from "./Event/components/OnlyEventOgPrivateRoute"
 import UpdateEvent from "./Event/pages/UpdateEvent"
 import EventPage from "./Event/pages/EventPage"
 import EventHome from "./Event/pages/EventHome"
+import Search from "./Event/pages/Search"
 
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+        <Route path="/search" element={<Search/>} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
