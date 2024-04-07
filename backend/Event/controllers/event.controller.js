@@ -1,6 +1,13 @@
 import Event from "../models/event.model.js";
 import { errorHandler } from "../../utills/error.js";
 
+const validateTime = (time) => {
+  const timeRegex = /^\d{1,2}(\:\d{1,2})?\s?(?:AM|PM|am|pm)$/;
+  return timeRegex.test(time);
+};
+
+
+
 export const create = async (req, res, next) => {
 
         //check the person is event organiser or not
@@ -8,8 +15,12 @@ export const create = async (req, res, next) => {
             return next(errorHandler(403, 'You are not allowed to create a post'));
         }
         //if there is no title or ocontent for the publishing podt
-        if (!req.body.title || !req.body.content) {
+        if (!req.body.title || !req.body.content || !req.body.date || !req.body.location || !req.body.time || !req.body.donorid || !req.body.status) {
             return next(errorHandler(400, 'Please provide all required fields'))
+        }
+
+        if (!validateTime(req.body.time)) {
+          return next(errorHandler(400, 'Please provide a valid time (e.g., "12:00 PM")'));
         }
 
         //a slug to split it and join it again by dash(-) and make it lowercase and also and remove anything that is not letters and numbers with the dash(-)
@@ -116,6 +127,11 @@ export const updateevent = async (req, res, next) => {
           content: req.body.content,
           category: req.body.category,
           image: req.body.image,
+          date: req.body.date,
+          time: req.body.time,
+          location: req.body.location,
+          donorid: req.body.donorid,
+          status: req.body.status,
         },
       },
       { new: true }

@@ -21,7 +21,32 @@ const eventSchema = new mongoose.Schema(
     image: {
         type: String,
         default:
-          'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/09/how-to-write-a-blog-post.png',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFJVV0iPy0DhxTgaVWIWZZgXT8EBxYJU4G75at09iQSMy2nFRqD_rwDlQ2bzDeNNEyfE8&usqp=CAU',
+    },
+
+    date: {
+        type: String,
+        required: true,
+    },
+
+    time: {
+        type: String,
+        required: true,
+    },
+
+    location: {
+        type: String,
+        required: true,
+    },
+
+    donorid: {
+        type: String,
+        required: true,
+    },
+
+    status: {
+        type: String,
+        required: true,
     },
 
     category: {

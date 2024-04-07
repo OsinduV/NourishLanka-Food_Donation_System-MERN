@@ -8,6 +8,10 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { BsCalendar2DateFill } from "react-icons/bs";
+import { FaLocationDot } from "react-icons/fa6";
+import { IoIosTime } from "react-icons/io";
+import { FaUserCheck } from "react-icons/fa";
 
 export default function UpdateEvent() {
   const [file, setFile] = useState(null);
@@ -119,7 +123,6 @@ export default function UpdateEvent() {
                  onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
                 }
-
                 value={formData.title}
                />
 
@@ -171,6 +174,72 @@ export default function UpdateEvent() {
               className='w-full h-72 object-cover'
             />
            )}
+
+              <TextInput
+                 type='text'
+                 placeholder='dd/mm/yyyy'
+                 required
+                 icon={BsCalendar2DateFill}
+                 id='date'
+                 className='flex-1'
+                 onChange={(e) =>
+                  setFormData({ ...formData, date: e.target.value })
+                }
+                value={formData.date}
+               />
+
+
+             <TextInput
+                 type='text'
+                 placeholder='Expected starting time'
+                 required
+                 icon={IoIosTime}
+                 id='time'
+                 className='flex-1'
+                 onChange={(e) =>
+                  setFormData({ ...formData, time: e.target.value })
+                }
+                value={formData.time}
+               />
+
+              <TextInput
+                 type='text'
+                 placeholder='Event location'
+                 required
+                 icon={FaLocationDot}
+                 id='location'
+                 className='flex-1'
+                 onChange={(e) =>
+                  setFormData({ ...formData, location: e.target.value })
+                }
+                value={formData.location}
+               />
+
+              <TextInput
+                 type='text'
+                 placeholder='Organizing donor ID'
+                 required
+                 icon={FaUserCheck}
+                 id='donorid'
+                 className='flex-1'
+                 onChange={(e) =>
+                  setFormData({ ...formData, donorid: e.target.value })
+                }
+                value={formData.donorid}
+               />
+
+
+              {/* dropdown */}
+             <Select
+                         onChange={(e) =>
+                          setFormData({ ...formData, status: e.target.value })
+                        }
+             >
+                 <option value='nostatus'>Event status</option>
+                 <option value='approved'>Approved</option>
+                 <option value='processing'>Processing</option>
+                 <option value='ongoing'>Ongoing</option>
+            </Select>
 
             <ReactQuill 
               theme="snow"

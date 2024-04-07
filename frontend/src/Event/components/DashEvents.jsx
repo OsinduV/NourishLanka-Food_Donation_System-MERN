@@ -90,6 +90,11 @@ export default function DashEvents() {
               <Table.HeadCell>Post image</Table.HeadCell>
               <Table.HeadCell>Post title</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
+              <Table.HeadCell>Organzer(donor) ID</Table.HeadCell>
+              <Table.HeadCell>Event status</Table.HeadCell>
+              <Table.HeadCell>Hosting date</Table.HeadCell>
+              <Table.HeadCell>Hosting time</Table.HeadCell>
+              <Table.HeadCell>Hosting Location</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit</span>
@@ -115,6 +120,11 @@ export default function DashEvents() {
                   </Link>
                 </Table.Cell>
                 <Table.Cell>{event.category}</Table.Cell>
+                <Table.Cell>{event.donorid}</Table.Cell>
+                <Table.Cell>{event.status}</Table.Cell>
+                <Table.Cell>{event.date}</Table.Cell>
+                <Table.Cell>{event.time}</Table.Cell>
+                <Table.Cell>{event.location}</Table.Cell>
                 <Table.Cell>
                   <span onClick={() => {
                         setShowModal(true);
