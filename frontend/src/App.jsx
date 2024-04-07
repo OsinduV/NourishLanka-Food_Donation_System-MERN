@@ -3,7 +3,6 @@ import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import Project from "./pages/Project"
 import Dashboard from "./pages/Dashboard"
-import Home from "./pages/Home"
 import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
@@ -12,6 +11,7 @@ import CreateEvent from "./Event/pages/CreateEvent"
 import OnlyEventOgPrivateRoute from "./Event/components/OnlyEventOgPrivateRoute"
 import UpdateEvent from "./Event/pages/UpdateEvent"
 import EventPage from "./Event/pages/EventPage"
+import EventHome from "./Event/pages/EventHome"
 
 
 export default function App() {
@@ -22,7 +22,7 @@ export default function App() {
 
       <Routes>
 
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<EventHome/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
