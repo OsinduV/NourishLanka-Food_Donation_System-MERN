@@ -87,8 +87,8 @@ export default function DashEvents() {
           <Table hoverable className='shadow-md'>
             <Table.Head>
               <Table.HeadCell>Date updated</Table.HeadCell>
-              <Table.HeadCell>Post image</Table.HeadCell>
-              <Table.HeadCell>Post title</Table.HeadCell>
+              <Table.HeadCell>Event image</Table.HeadCell>
+              <Table.HeadCell>Event title</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
               <Table.HeadCell>Organzer(donor) ID</Table.HeadCell>
               <Table.HeadCell>Event status</Table.HeadCell>
