@@ -12,6 +12,7 @@ import OnlyCommunityAdminPrivateRoute from "./CommunityManagement/components/Onl
 import CreateRecipientPost from "./CommunityManagement/pages/CreateRecipientPost"
 import UpdateRecipientPost from "./CommunityManagement/pages/UpdateRecipientPost"
 import RecipientPostPage from "./CommunityManagement/pages/RecipientPostPage"
+import CommunityHome from "./CommunityManagement/pages/CommunityHome"
 
 export default function App() {
   return (
@@ -33,6 +34,8 @@ export default function App() {
           <Route path='/update-recipientpost/:postId' element={<UpdateRecipientPost/>} />
         </Route>
         <Route path="/projects" element={<Project/>} />
+        <Route path="/community" element={<CommunityHome/>} />
+
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
       </Routes>
       <Footer/>
