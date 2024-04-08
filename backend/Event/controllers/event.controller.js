@@ -15,7 +15,7 @@ export const create = async (req, res, next) => {
             return next(errorHandler(403, 'You are not allowed to create a post'));
         }
         //if there is no title or ocontent for the publishing podt
-        if (!req.body.title || !req.body.content || !req.body.date || !req.body.location || !req.body.time || !req.body.donorid || !req.body.status) {
+        if (!req.body.title || !req.body.content || !req.body.date || !req.body.location || !req.body.time || !req.body.donorid) {
             return next(errorHandler(400, 'Please provide all required fields'))
         }
 
@@ -59,6 +59,7 @@ export const getevents = async (req, res, next) => {
     const events = await Event.find({
         ...(req.query.userId && { userId: req.query.userId }),
         ...(req.query.category && { category: req.query.category }),
+        ...(req.query.status && { status: req.query.status }),
         ...(req.query.slug && { slug: req.query.slug }),
         ...(req.query.eventId && { _id: req.query.eventId }),
         ...(req.query.searchTerm && {

@@ -7,6 +7,7 @@ export default function Search() {
     const [sidebarData, setSidebarData] = useState({
         searchTerm: '',
         sort: 'desc',
+        status: 'nostatus',
         category: 'uncategorized',
       });
     console.log(sidebarData);
@@ -20,12 +21,14 @@ export default function Search() {
         const urlParams = new URLSearchParams(location.search);
         const searchTermFromUrl = urlParams.get('searchTerm');
         const sortFromUrl = urlParams.get('sort');
+        const statusFromUrl = urlParams.get('status');
         const categoryFromUrl = urlParams.get('category');
-        if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
+        if (searchTermFromUrl || sortFromUrl || statusFromUrl || categoryFromUrl) {
           setSidebarData({
             ...sidebarData,
             searchTerm: searchTermFromUrl,
             sort: sortFromUrl,
+            status: statusFromUrl,
             category: categoryFromUrl,
           });
         }
@@ -60,17 +63,22 @@ export default function Search() {
           const order = e.target.value || 'desc';
           setSidebarData({ ...sidebarData, sort: order });
         }
+        if (e.target.id === 'status') {
+          const status = e.target.value || 'nostatus'; 
+          setSidebarData({ ...sidebarData, status }); 
+        }
         if (e.target.id === 'category') {
           const category = e.target.value || 'uncategorized';
           setSidebarData({ ...sidebarData, category });
         }
-      };
+        };
 
       const handleSubmit = (e) => {
         e.preventDefault();
         const urlParams = new URLSearchParams(location.search);
         urlParams.set('searchTerm', sidebarData.searchTerm);
         urlParams.set('sort', sidebarData.sort);
+        urlParams.set('status', sidebarData.status);
         urlParams.set('category', sidebarData.category);
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`);
@@ -124,6 +132,20 @@ export default function Search() {
               id='sort'>
                 <option value='desc'>Latest</option>
                 <option value='asc'>Oldest</option>
+            </Select>
+          </div>
+
+          <div className='flex items-center gap-2'>
+            <label className='font-semibold'>Status:</label>
+            <Select
+              onChange={handleChange} 
+              value={sidebarData.status} 
+              id='status'>
+                 <option value='nostatus'>Event status</option>
+                 <option value='approved'>Approved</option>
+                 <option value='processing'>Processing</option>
+                 <option value='ongoing'>Ongoing</option>
+                 <option value='completed'>Completed</option>
             </Select>
           </div>
 
