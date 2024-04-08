@@ -6,7 +6,7 @@ import { IoIosTime } from "react-icons/io";
 
 export default function EventCard({ event }) {
   return (
-    <div className='group flex flex-col sm:flex-row p-7 border bg-white shadow-md hover:shadow-lg transition-shadow justify-center items-center rounded-xl text-center mb-7 w-full'>
+    <div className='group flex flex-col sm:flex-row p-7 border bg-white dark:bg-slate-200 shadow-md hover:shadow-lg transition-shadow justify-center items-center rounded-xl text-center mb-7 w-full'>
     <Link to={`/event/${event.slug}`}>
         <img
           src={event.image}
@@ -15,7 +15,7 @@ export default function EventCard({ event }) {
         />
       </Link>
       
-      <div className="flex-1 justify-center flex flex-col ml-4 gap-2 w-full">
+      <div className="flex-1 justify-center flex flex-col ml-10 mr-10 gap-2 w-full">
         <p className='truncate text-lg font-semibold text-slate-700'>{event.title}</p>
 
 
@@ -38,8 +38,10 @@ export default function EventCard({ event }) {
           <p className='text-sm text-gray-600 truncate'>{event.time}</p>
         </div>
 
-        
-        <span className='text-sm gap-2'>{event.category}</span>
+        <div className='flex mx-auto'>
+        <p className='font-semibold text-slate-700 mr-11'>category - {event.category}</p>
+        <p className='font-semibold text-slate-700'>status - {event.status}</p>
+        </div>
         <div className="mt-3">
           <Link to={`/event/${event.slug}`} className='z-10 border border-gray-500 px-3 py-1 rounded-md text-gray-500 transition-all duration-300 hover:text-teal-500 hover:border-teal-500'>
             View more details
