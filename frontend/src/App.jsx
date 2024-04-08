@@ -13,6 +13,7 @@ import CreateRecipientPost from "./CommunityManagement/pages/CreateRecipientPost
 import UpdateRecipientPost from "./CommunityManagement/pages/UpdateRecipientPost"
 import RecipientPostPage from "./CommunityManagement/pages/RecipientPostPage"
 import CommunityHome from "./CommunityManagement/pages/CommunityHome"
+import CommunitySearch from "./CommunityManagement/pages/CommunitySearch"
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+        <Route path='/communitysearch' element={<CommunitySearch />} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
