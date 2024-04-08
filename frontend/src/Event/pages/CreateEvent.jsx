@@ -106,7 +106,7 @@ export default function CreateEvent() {
                           setFormData({ ...formData, category: e.target.value })
                         }
              >
-                 <option value='uncategorized'>Select a category</option>
+                 <option value='uncategorized' selected>Select a category</option>
                  <option value='DonationEvent'>Donation event</option>
                  <option value='FoodDrive'>food drive</option>
             </Select>
@@ -207,6 +207,7 @@ export default function CreateEvent() {
                  <option value='approved'>Approved</option>
                  <option value='processing'>Processing</option>
                  <option value='ongoing'>Ongoing</option>
+                 <option value='completed'>Completed</option>
             </Select>
 
             
