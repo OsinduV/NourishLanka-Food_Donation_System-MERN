@@ -15,6 +15,7 @@ import RecipientPostPage from "./CommunityManagement/pages/RecipientPostPage"
 import CommunityHome from "./CommunityManagement/pages/CommunityHome"
 import CommunitySearch from "./CommunityManagement/pages/CommunitySearch"
 
+
 export default function App() {
   return (
     <div>
@@ -37,6 +38,7 @@ export default function App() {
         </Route>
         <Route path="/projects" element={<Project/>} />
         <Route path="/community" element={<CommunityHome/>} />
+       
 
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
       </Routes>

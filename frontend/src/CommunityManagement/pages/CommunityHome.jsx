@@ -1,64 +1,35 @@
-
-import{AiOutlineSearch} from 'react-icons/ai'//icons
-import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react'
 import React from 'react'
-import RecipientPostCard from '../components/RecipientPostCard';
-import CallToAction from '../components/CallToAction';
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
+import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
+import CommunityFeatures from '../components/CommunityFeatures';
 
 export default function CommunityHome() {
-    const [posts, setPosts] = useState([]);
-
-    useEffect(() => {
-      const fetchPosts = async () => {
-        const res = await fetch('/api/post/getPosts');
-        const data = await res.json();
-        setPosts(data.posts);
-      };
-      fetchPosts();
-    }, []);
-
   return (
+    <div className='md:px-12 p-4 max-w-screen-2xl mx-auto mt-20'>
     <div>
-      <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
-        <h1 className='text-3xl font-bold lg:text-6xl'>Are you a person who is need of food?</h1>
-       
-        <p className='text-gray-500 text-xs sm:text-sm'>
-        
-"Welcome to our compassionate hub, where every click makes a difference! Our Community Management platform in Sri Lanka is not just about food assistance—it's about fostering hope and unity in the face of food insecurity.
-In a world where every meal counts, we're here to make sure no one goes hungry. Our innovative platform empowers individuals and families facing food insecurity to customize their needs, ensuring dignity and respect for every request.
-        </p>
-    
-      
-        
-         
-        <div class="flex justify-center">
-          <div class="p-7">
-        <img src="https://www.heraldmalaysia.com/uploads/news/2018/8/16149695011533117175.jpg" class="rounded-lg" />
+        <div className='flex flex-col md:flex-row-reverse justify-between items-center gap-10'>
+            <div className='flex flex-col sm:flex-row p-3 border border-teal-500 justify-center items-center rounded-tl-3xl rounded-br-3xl text-center'>
+                {/* Banner content */}
+                <div className='md:w-3/5 text-left'>
+                    <h2 className='md:text-4xl text-4xl font-bold mb-6 leading-relaxed'>Uniting Communities, Nourishing Lives: Empowering Sri Lanka's Fight Against Hunger"</h2>
+                    <p className='mb-8'>Step into our world of compassion and action, where each click resonates with the heartbeat of humanity! Here at our Community Management platform in Sri Lanka, we're not just fighting hunger; we're sowing seeds of hope and weaving threads of unity in the fabric of our community. In a world where every meal is a lifeline, we stand as guardians of dignity and empathy. Through our innovative platform, we empower individuals and families grappling with food insecurity to tailor their needs, transforming mere requests into profound expressions of self-worth and resilience.</p>
+
+                    <div className="flex gap-10 mb-8 justify-start">
+                        <Button type='button' gradientDuoTone='greenToBlue'>Send a Food Request</Button>
+                        <a href="/communitysearch">
+                            <Button type='button' gradientDuoTone='greenToBlue'>Find Recipients </Button>
+                        </a>
+                    </div>
+                </div>
+                
+                {/* Banner image */}
+                <div>
+                    <img src="https://cdni.iconscout.com/illustration/premium/thumb/social-help-to-people-in-need-6497644-5432348.png?f=webp" className='lg:h-[300px]'/>
+                </div>
+            </div>
         </div>
-      </div>
-
-        <p className='text-gray-500 text-xs sm:text-sm'>
-          Here you'll find a variety of articles and tutorials on topics such as
-          web development, software engineering, and programming languages.
-        </p>
-        <Link
-          to='/search'
-          className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'
-        >
-          View all posts
-        </Link>
-      </div>
-      <div className="max-w-4xl mx-auto w-full">
-        <CallToAction/>
     </div>
+    <CommunityFeatures/>
+</div>
 
-     
-   
-    </div>
-  );
+  )
 }
-  
-
