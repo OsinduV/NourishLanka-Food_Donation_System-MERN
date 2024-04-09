@@ -6,7 +6,7 @@ import InventoryDetails from '../components/InventoryDetails';
 import InventoryForm from '../components/InventoryForm';
 
 const Home = () => {
-    const { inventorys, dispatch } = useInventorysContext();
+    const { inventorys, inventory, dispatch} = useInventorysContext();
 
     useEffect(() => {
         const fetchInventorys = async () => {
@@ -28,14 +28,20 @@ const Home = () => {
 
     return (
         <div className="home">
-            <div className="workouts">
-                {inventorys && inventorys.map(inventory => (
-                    <InventoryDetails key={inventory._id} inventory={inventory} />
-                ))}
-            </div>
-            <InventoryForm />
+            {inventory ? (
+                <InventoryDetails inventory={inventory} />
+            ) : (
+                <>
+                    <div className="workouts">
+                        {inventorys && inventorys.map(inventory => (
+                            <InventoryDetails key={inventory._id} inventory={inventory} />
+                        ))}
+                    </div>
+                    <InventoryForm />
+                </>
+            )}
         </div>
-    );
+    )
 };
 
 export default Home;

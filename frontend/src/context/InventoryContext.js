@@ -28,7 +28,11 @@ export const inventorysReducer = (state, action) => {
                     inventory._id === action.payload._id ? action.payload : inventory
                 )
             };
-
+        case 'SEARCH_INVENTORY':
+            return {
+                 ...state,
+                inventory: action.payload
+            };
         default:
             return state;
     }
@@ -40,7 +44,8 @@ export const useInventorysContext = () => useContext(InventorysContext);
 // Provider component
 export const InventorysContextProvider = ({ children }) => {
     const initialState = {
-        inventorys: null
+        inventorys: null,
+        inventory:null
     };
 
     const [state, dispatch] = useReducer(inventorysReducer, initialState);

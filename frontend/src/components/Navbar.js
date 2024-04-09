@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { useInventorysContext } from '../hooks/useInventorysContext';
 
 const Navbar = () => {
@@ -10,8 +10,8 @@ const Navbar = () => {
         try {
             const response = await fetch(`/api/inventorys/search?title=${searchTerm}`);
             if (response.ok) {
-                const searchResults = await response.json();
-                dispatch({ type: 'SET_INVENTORYS', payload: searchResults });
+                const searchResult = await response.json();
+                dispatch({ type: 'SEARCH_INVENTORY', payload: searchResult });
             } else {
                 console.error('Error searching inventory:', response.statusText);
             }
@@ -51,9 +51,9 @@ const Navbar = () => {
     return (
         <header>
             <div className="container flex items-center justify-between mx-auto my-0 px-5 py-2.5">
-                <Link to="/">
+                
                     <h1>Inventory</h1>
-                </Link>
+
                 <div className="search-bar">
                     <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                     <button onClick={handleSearch}>Search</button>

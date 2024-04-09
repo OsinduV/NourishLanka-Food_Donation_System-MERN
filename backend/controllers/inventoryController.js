@@ -66,8 +66,8 @@ const updateInventory = async (req, res) => {
 const searchInventory = async (req, res) => {
     const { title } = req.query;
     try {
-        const inventorys = await Inventory.find({ title: { $regex: title, $options: 'i' } }).sort({ createdAt: -1 });
-        res.status(200).json(inventorys);
+        const inventory = await Inventory.findOne({ title: { $regex: title, $options: 'i' } });
+        res.status(200).json(inventory);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
