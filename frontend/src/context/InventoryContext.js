@@ -28,6 +28,7 @@ export const inventorysReducer = (state, action) => {
                     inventory._id === action.payload._id ? action.payload : inventory
                 )
             };
+
         default:
             return state;
     }

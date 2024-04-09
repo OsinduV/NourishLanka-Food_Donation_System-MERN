@@ -62,11 +62,46 @@ const updateInventory = async (req, res) => {
     }
 };
 
+// Search inventory items by title
+const searchInventory = async (req, res) => {
+    const { title } = req.query;
+    try {
+        const inventorys = await Inventory.find({ title: { $regex: title, $options: 'i' } }).sort({ createdAt: -1 });
+        res.status(200).json(inventorys);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Sort inventory items by quantity
+const sortInventoryByQuantity = async (req, res) => {
+    try {
+        const inventorys = await Inventory.find({}).sort({ desc1: 1 });
+        res.status(200).json(inventorys);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Sort inventory items by expiration date
+const sortInventoryByExpDate = async (req, res) => {
+    try {
+        const inventorys = await Inventory.find({}).sort({ expdate: 1 });
+        res.status(200).json(inventorys);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 
 module.exports = {
     getInventorys,
     getInventory,
     createInventory,
     deleteInventory,
-    updateInventory
+    updateInventory,
+    updateInventory,
+    searchInventory,
+    sortInventoryByQuantity,
+    sortInventoryByExpDate
 };

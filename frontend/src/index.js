@@ -13,5 +13,3 @@ root.render(
     </InventorysContextProvider>
   </React.StrictMode>
 );
-
-

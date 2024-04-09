@@ -4,7 +4,10 @@ const {
     getInventory,
     getInventorys,
     deleteInventory,
-    updateInventory
+    updateInventory,
+    searchInventory,
+    sortInventoryByQuantity,
+    sortInventoryByExpDate
 } = require('../controllers/inventoryController');
 
 const router = express.Router();
@@ -23,5 +26,14 @@ router.delete('/:id', deleteInventory);
 
 // UPDATE an inventory item
 router.patch('/:id', updateInventory);
+
+//Search an item
+router.get('/search', searchInventory);
+
+//Sort by quantity
+router.get('/sort/quantity', sortInventoryByQuantity);
+
+//Sort by date
+router.get('/sort/expdate', sortInventoryByExpDate);
 
 module.exports = router;
