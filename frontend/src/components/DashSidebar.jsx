@@ -41,14 +41,14 @@ export default function DashSidebar() {
             <Sidebar.Item
               active={tab === 'profile'}
               icon={HiUser}
-              label={currentUser.isAdmin ? 'Community Admin' : 'User'}
+              label={currentUser.isCommunityAdmin ? 'Community Admin' : 'User'}
               labelColor='dark'
               as='div'
             >
               Profile
             </Sidebar.Item>
           </Link>
-          {currentUser.isAdmin && (
+          {currentUser.isCommunityAdmin && (
             <Link to='/dashboard?tab=posts'>
               <Sidebar.Item
                 active={tab === 'posts'}

@@ -53,7 +53,7 @@ export const signin = async (req, res, next) => {
       return next(errorHandler(400, 'Invalid password'));
     }
     const token = jwt.sign(
-      { id: validUser._id, isAdmin: validUser.isAdmin },
+      { id: validUser._id, isCommunityAdmin: validUser.isCommunityAdmin },
       process.env.JWT_SECRET
     );
 
@@ -77,7 +77,7 @@ export const google = async (req, res, next) => {
     if (user) {
 
       const token = jwt.sign(
-        { id: user._id, isAdmin: user.isAdmin },
+        { id: user._id, isCommunityAdmin: user.isCommunityAdmin },
         process.env.JWT_SECRET
       );
       const { password, ...rest } = user._doc;
@@ -102,7 +102,7 @@ export const google = async (req, res, next) => {
       });
       await newUser.save();
       const token = jwt.sign(
-        { id: newUser._id, isAdmin: newUser.isAdmin },
+        { id: newUser._id, isCommunityAdmin: newUser.isCommunityAdmin },
         process.env.JWT_SECRET
       );
       const { password, ...rest } = newUser._doc;

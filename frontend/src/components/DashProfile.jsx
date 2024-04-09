@@ -245,7 +245,7 @@ export default function DashProfile() {
         >
           {loading ? 'Loading...' : 'Update'}
           </Button>
-          {currentUser.isAdmin && (
+          {currentUser.isCommunityAdmin && (
           <Link to={'/create-recipientpost'}>
             <Button
               type='button'

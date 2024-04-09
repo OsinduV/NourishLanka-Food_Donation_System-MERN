@@ -23,7 +23,7 @@ export default function CommunityHome() {
                 
                 {/* Banner image */}
                 <div>
-                    <img src="https://cdni.iconscout.com/illustration/premium/thumb/social-help-to-people-in-need-6497644-5432348.png?f=webp" className='lg:h-[300px]'/>
+                    <img src="https://www.thefoodcloset.org/uploads/2/2/4/3/22433308/4_orig.png" className='lg:h-[300px]'/>
                 </div>
             </div>
         </div>

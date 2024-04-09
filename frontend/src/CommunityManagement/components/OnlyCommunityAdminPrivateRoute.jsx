@@ -3,7 +3,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 
 export default function OnlyCommunityAdminPrivateRoute() {
   const { currentUser } = useSelector((state) => state.user);
-  return currentUser && currentUser.isAdmin ? <Outlet /> : <Navigate to='/sign-in' />;
+  return currentUser && currentUser.isCommunityAdmin ? <Outlet /> : <Navigate to='/sign-in' />;
 }
 
 

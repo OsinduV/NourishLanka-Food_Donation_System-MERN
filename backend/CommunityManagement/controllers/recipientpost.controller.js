@@ -2,7 +2,7 @@ import { errorHandler } from '../../utills/error.js';
 import RecipientPost from '../models/recipientpost.model.js';
 
 export const create = async (req, res, next) => {
-    if (!req.user.isAdmin) {
+    if (!req.user.isCommunityAdmin) {
       return next(errorHandler(403, 'You are not allowed to create a post'));
     }
     if (!req.body.title || !req.body.content) {
@@ -72,7 +72,7 @@ export const create = async (req, res, next) => {
   };
 
   export const deletepost = async (req,res,next) =>{
-    if(!req.user.isAdmin || req.user.id !== req.params.userId){
+    if(!req.user.isCommunityAdmin || req.user.id !== req.params.userId){
       return next(errorHandler(403, 'You are not allowed to delete this post'));
     }
     try{
@@ -84,7 +84,7 @@ export const create = async (req, res, next) => {
     }
 
     export const updatepost = async (req, res, next) => {
-      if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+      if (!req.user.isCommunityAdmin || req.user.id !== req.params.userId) {
         return next(errorHandler(403, 'You are not allowed to update this post'));
       }
       try {
