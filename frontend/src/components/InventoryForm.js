@@ -11,29 +11,35 @@ const InventoryForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const inventory = { title, desc1, desc2, expdate };
+        // Check if desc1 is a valid number
+        if (!isNaN(desc1)) {
+            const inventory = { title, desc1: Number(desc1), desc2, expdate };
 
-        try {
-            const response = await fetch('/api/inventorys', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(inventory)
-            });
+            try {
+                const response = await fetch('/api/inventorys', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(inventory)
+                });
 
-            if (response.ok) {
-                const newInventory = await response.json();
-                dispatch({ type: 'CREATE_INVENTORY', payload: newInventory });
-                setTitle('');
-                setDesc1('');
-                setDesc2('');
-                setExpDate('');
-            } else {
-                console.error('Error adding inventory:', response.statusText);
+                if (response.ok) {
+                    const newInventory = await response.json();
+                    dispatch({ type: 'CREATE_INVENTORY', payload: newInventory });
+                    setTitle('');
+                    setDesc1('');
+                    setDesc2('');
+                    setExpDate('');
+                } else {
+                    console.error('Error adding inventory:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error adding inventory:', error);
             }
-        } catch (error) {
-            console.error('Error adding inventory:', error);
+        } else {
+            // Display error message for invalid desc1
+            console.error('Invalid desc1. Please enter a number.');
         }
     };
 
@@ -43,11 +49,11 @@ const InventoryForm = () => {
             <label>Inventory Title</label>
             <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} required />
             <label>Quantity</label>
-            <input type="text" onChange={(e) => setDesc1(e.target.value)} value={desc1} required />
+            <input type="text" pattern="[0-9]*" onChange={(e) => setDesc1(e.target.value)} value={desc1} required />
             <label>Location</label>
             <input type="text" onChange={(e) => setDesc2(e.target.value)} value={desc2} required />
             <label>Exp.Date</label>
-            <input type="text" onChange={(e) => setExpDate(e.target.value)} value={expdate} required />
+            <input type="date" onChange={(e) => setExpDate(e.target.value)} value={expdate} required />
             <button type="submit">Add Detail</button>
         </form>
     );
