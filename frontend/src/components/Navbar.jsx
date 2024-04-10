@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 //import { Link } from 'react-router-dom';
 import { useInventorysContext } from '../hooks/useInventorysContext';
+import endpoints from '../api/endpoints';
 
 const Navbar = () => {
     const { dispatch } = useInventorysContext();
@@ -13,7 +14,7 @@ const Navbar = () => {
         }
 
         try {
-            const response = await fetch(`/api/inventorys/search?title=${searchTerm}`);
+            const response = await fetch(`${endpoints.inventorys}/search?title=${searchTerm}`);
             if (response.ok) {
                 const searchResult = await response.json();
                 dispatch({ type: 'SEARCH_INVENTORY', payload: searchResult });
@@ -31,7 +32,7 @@ const Navbar = () => {
 
     const handleSortByQuantity = async () => {
         try {
-            const response = await fetch(`/api/inventorys/sort/quantity`);
+            const response = await fetch(`${endpoints.inventorys}/sort/quantity`);
             if (response.ok) {
                 const sortedInventory = await response.json();
                 dispatch({ type: 'SET_INVENTORYS', payload: sortedInventory });
@@ -45,7 +46,7 @@ const Navbar = () => {
 
     const handleSortByExpDate = async () => {
         try {
-            const response = await fetch(`/api/inventorys/sort/expdate`);
+            const response = await fetch(`${endpoints.inventorys}/sort/expdate`);
             if (response.ok) {
                 const sortedInventory = await response.json();
                 dispatch({ type: 'SET_INVENTORYS', payload: sortedInventory });

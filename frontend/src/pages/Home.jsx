@@ -4,13 +4,14 @@ import { useInventorysContext } from '../hooks/useInventorysContext';
 // Components
 import InventoryDetails from '../components/InventoryDetails';
 import InventoryForm from '../components/InventoryForm';
+import endpoints from '../api/endpoints';
 
 const Home = () => {
     const { inventorys, api_message, dispatch} = useInventorysContext();
 
     const fetchInventorys = async () => {
         try {
-            const response = await fetch('/api/inventorys');
+            const response = await fetch(endpoints.inventorys);
             if (response.ok) {
                 const inventoryData = await response.json();
                 dispatch({ type: 'SET_INVENTORYS', payload: inventoryData });

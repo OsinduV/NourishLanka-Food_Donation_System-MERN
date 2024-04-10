@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useInventorysContext } from '../hooks/useInventorysContext';
+import endpoints from '../api/endpoints';
 
 const InventoryForm = () => {
     const { dispatch } = useInventorysContext();
@@ -16,7 +17,7 @@ const InventoryForm = () => {
             const inventory = { title, desc1: Number(desc1), desc2, expdate };
 
             try {
-                const response = await fetch('/api/inventorys', {
+                const response = await fetch(endpoints.inventorys, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

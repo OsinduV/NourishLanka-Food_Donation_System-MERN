@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useInventorysContext } from '../hooks/useInventorysContext';
+import endpoints from '../api/endpoints';
 
 const InventoryDetails = ({ inventory }) => {
     const { dispatch } = useInventorysContext();
@@ -11,7 +12,7 @@ const InventoryDetails = ({ inventory }) => {
 
     const handleDeleteClick = async () => {
         try {
-            const response = await fetch(`/api/inventorys/${inventory._id}`, {
+            const response = await fetch(`${endpoints.inventorys}/${inventory._id}`, {
                 method: 'DELETE'
             });
             if (response.ok) {
@@ -40,7 +41,7 @@ const InventoryDetails = ({ inventory }) => {
     const handleSaveEdit = async () => {
         const editedInventory = { ...inventory, title: editedTitle, desc1: editedDesc1, desc2: editedDesc2,expdate:  editedDate};
         try {
-            const response = await fetch(`/api/inventorys/${inventory._id}`, {
+            const response = await fetch(`${endpoints.inventorys}/${inventory._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
