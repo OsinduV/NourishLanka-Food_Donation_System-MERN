@@ -6,7 +6,7 @@ import InventoryDetails from '../components/InventoryDetails';
 import InventoryForm from '../components/InventoryForm';
 
 const Home = () => {
-    const { inventorys, inventory, dispatch} = useInventorysContext();
+    const { inventorys, api_message, dispatch} = useInventorysContext();
 
     const fetchInventorys = async () => {
         try {
@@ -26,6 +26,13 @@ const Home = () => {
         fetchInventorys();
     }, [dispatch]);
 
+    useEffect(() => {
+        if (!api_message) return;
+        if (api_message[0] !== "fetch_home") return;
+
+        fetchInventorys();
+    }, [api_message]);
+
     return (
         <div className="home">
             <>
@@ -33,6 +40,12 @@ const Home = () => {
                     {inventorys && inventorys.map(inventory => (
                         <InventoryDetails key={inventory._id} inventory={inventory} />
                     ))}
+                    {
+                        (api_message && api_message[0] === "empty_search") &&
+                        <div className='no-search-result-message'>
+                            No items found for given search entry!
+                        </div>
+                    }
                 </div>
                 <InventoryForm />
             </>

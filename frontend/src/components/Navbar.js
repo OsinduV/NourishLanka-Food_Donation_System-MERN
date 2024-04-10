@@ -7,11 +7,20 @@ const Navbar = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = async () => {
+        if (searchTerm === '') {
+            dispatch({ type: 'FETCH_HOME' });
+            return;
+        }
+
         try {
             const response = await fetch(`/api/inventorys/search?title=${searchTerm}`);
             if (response.ok) {
                 const searchResult = await response.json();
                 dispatch({ type: 'SEARCH_INVENTORY', payload: searchResult });
+
+                if (searchResult.length === 0) {
+                    dispatch({ type: 'EMPTY_SEARCH' })
+                }
             } else {
                 console.error('Error searching inventory:', response.statusText);
             }
