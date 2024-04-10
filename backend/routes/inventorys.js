@@ -15,6 +15,9 @@ const router = express.Router();
 // GET all inventory items
 router.get('/', getInventorys);
 
+//Search an item
+router.get('/search', searchInventory);
+
 // GET a single inventory item
 router.get('/:id', getInventory);
 
@@ -26,9 +29,6 @@ router.delete('/:id', deleteInventory);
 
 // UPDATE an inventory item
 router.patch('/:id', updateInventory);
-
-//Search an item
-router.get('/search', searchInventory);
 
 //Sort by quantity
 router.get('/sort/quantity', sortInventoryByQuantity);
