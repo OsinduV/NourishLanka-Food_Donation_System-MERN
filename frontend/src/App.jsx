@@ -14,6 +14,7 @@ import UpdateRecipientPost from "./CommunityManagement/pages/UpdateRecipientPost
 import RecipientPostPage from "./CommunityManagement/pages/RecipientPostPage"
 import CommunityHome from "./CommunityManagement/pages/CommunityHome"
 import CommunitySearch from "./CommunityManagement/pages/CommunitySearch"
+import CreateFoodRequest from "./CommunityManagement/pages/CreateFoodRequest"
 
 
 export default function App() {
@@ -38,7 +39,7 @@ export default function App() {
         </Route>
         <Route path="/projects" element={<Project/>} />
         <Route path="/community" element={<CommunityHome/>} />
-       
+        <Route path="/create-foodrequest" element={<CreateFoodRequest/>} />
 
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
       </Routes>
