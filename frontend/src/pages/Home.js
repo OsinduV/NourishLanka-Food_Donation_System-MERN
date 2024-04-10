@@ -6,40 +6,49 @@ import InventoryDetails from '../components/InventoryDetails';
 import InventoryForm from '../components/InventoryForm';
 
 const Home = () => {
-    const { inventorys, inventory, dispatch} = useInventorysContext();
+    const { inventorys, api_message, dispatch} = useInventorysContext();
+
+    const fetchInventorys = async () => {
+        try {
+            const response = await fetch('/api/inventorys');
+            if (response.ok) {
+                const inventoryData = await response.json();
+                dispatch({ type: 'SET_INVENTORYS', payload: inventoryData });
+            } else {
+                console.error('Error fetching inventory data:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching inventory data:', error);
+        }
+    }
 
     useEffect(() => {
-        const fetchInventorys = async () => {
-            try {
-                const response = await fetch('/api/inventorys');
-                if (response.ok) {
-                    const inventoryData = await response.json();
-                    dispatch({ type: 'SET_INVENTORYS', payload: inventoryData });
-                } else {
-                    console.error('Error fetching inventory data:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error fetching inventory data:', error);
-            }
-        };
-
         fetchInventorys();
     }, [dispatch]);
 
+    useEffect(() => {
+        if (!api_message) return;
+        if (api_message[0] !== "fetch_home") return;
+
+        fetchInventorys();
+    }, [api_message]);
+
     return (
         <div className="home">
-            {inventory ? (
-                <InventoryDetails inventory={inventory} />
-            ) : (
-                <>
-                    <div className="workouts">
-                        {inventorys && inventorys.map(inventory => (
-                            <InventoryDetails key={inventory._id} inventory={inventory} />
-                        ))}
-                    </div>
-                    <InventoryForm />
-                </>
-            )}
+            <>
+                <div className="workouts">
+                    {inventorys && inventorys.map(inventory => (
+                        <InventoryDetails key={inventory._id} inventory={inventory} />
+                    ))}
+                    {
+                        (api_message && api_message[0] === "empty_search") &&
+                        <div className='no-search-result-message'>
+                            No items found for given search entry!
+                        </div>
+                    }
+                </div>
+                <InventoryForm />
+            </>
         </div>
     )
 };

@@ -31,8 +31,18 @@ export const inventorysReducer = (state, action) => {
         case 'SEARCH_INVENTORY':
             return {
                  ...state,
-                inventory: action.payload
+                inventorys: action.payload
             };
+        case 'FETCH_HOME':
+            return {
+                ...state,
+                api_message: ["fetch_home", Math.random()] 
+            }
+        case 'EMPTY_SEARCH':
+            return {
+                ...state,
+                api_message: ["empty_search", Math.random()]
+            }
         default:
             return state;
     }
@@ -45,7 +55,7 @@ export const useInventorysContext = () => useContext(InventorysContext);
 export const InventorysContextProvider = ({ children }) => {
     const initialState = {
         inventorys: null,
-        inventory:null
+        api_message:null
     };
 
     const [state, dispatch] = useReducer(inventorysReducer, initialState);

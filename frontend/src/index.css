@@ -89,3 +89,8 @@ button:last-child {
   @apply bg-[color:var(--primary)] text-black rounded cursor-pointer px-5 py-2.5;
 }
 
+.no-search-result-message {
+  @apply bg-white p-5 rounded shadow-[2px_2px_5px_rgba(0,0,0,0.05)]
+    text-slate-600 font-medium text-lg;
+}
+
