@@ -8,6 +8,12 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
+import FRHome from "./fundRaising/pages/FRHome"
+import FRReg from "./fundRaising/pages/FRReg"
+import FRPage from "./fundRaising/pages/FRPage"
+import DonatePage from "./fundRaising/pages/DonatePage"
+import OsinduTst from "./fundRaising/pages/OsinduTst"
+import FRPCreate from "./fundRaising/pages/FRPCreate"
 
 export default function App() {
   return (
@@ -25,7 +31,12 @@ export default function App() {
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
         <Route path="/projects" element={<Project/>} />
-        
+        <Route path="/fr-home" element={<FRHome/>} />
+        <Route path="/fr-reg" element={<FRReg/>} />
+        <Route path="/fr-page" element={<FRPage/>} />
+        <Route path="/donate-page" element={<DonatePage/>} />
+        <Route path="/osindutst" element={<OsinduTst/>} />
+        <Route path="/frp-create" element={<FRPCreate/>} />
       </Routes>
       <Footer/>
     </BrowserRouter>
