@@ -141,9 +141,95 @@ export default function EventDescription() {
         </div>
       </div>
 
+      {/*new */}
+      <div className='flex flex-row'>
+        <div className='w-1/2 mr-3'>
+          <div className='w-full mt-5 text-lg'>
+            <h1 className='max-w-3xl mt-3 font-bold text-center'>
+            Feed people for your Birthday
+            </h1>
+
+            <img
+            src='https://i.pinimg.com/564x/9a/5a/1b/9a5a1b197b12e5cf0e3777956876732e.jpg'
+            alt='Image 1'
+            className='w-3/4 h-1/4 object-cover mx-auto'
+          />
+          </div>
+
+          <div className='w-full mt-10 text-lg text-center'>
+            <p>A birthday food drive allows you to collect online donations rather than food.
+                 The money you collect from your virtual food drive.</p>
+
+          </div>
+        </div>
+        <div className='w-1/2 mr-3'>
+          <div className='w-full mt-5 text-lg'>
+            <h1 className='max-w-3xl mt-3 font-bold text-center'>
+            Feed people for your Birthday
+            </h1>
+
+            <img
+            src='https://i.pinimg.com/564x/3a/01/ce/3a01ce30936cef93737bd94035c44242.jpg'
+            alt='Image 1'
+            className='w-3/4 h-1/4 object-cover mx-auto'
+          />
+          </div>
+
+          <div className='w-full mt-10 text-lg text-center ml-10'>
+            <p>A birthday food drive allows you to collect online donations rather than food.
+                 The money you collect from your virtual food drive.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div className='flex flex-row mt-10 mb-10'>
+        <div className='w-1/2 mr-3'>
+          <div className='w-full mt-5 text-lg'>
+            <h1 className='max-w-3xl mt-3 font-bold text-center'>
+            Feed people for your Birthday
+            </h1>
+
+            <img
+            src='https://i.pinimg.com/564x/a8/50/89/a85089be8f59ae1c01a02a737b9e2897.jpg'
+            alt='Image 1'
+            className='w-3/4 h-1/4 object-cover mx-auto mt-8'
+          />
+          </div>
+
+          <div className='w-full mt-12 text-lg text-center'>
+            <p>A birthday food drive allows you to collect online donations rather than food.
+                 The money you collect from your virtual food drive.</p>
+          </div>
+        </div>
+        <div className='w-1/2 mr-3'>
+          <div className='w-full mt-5 text-lg'>
+            <h1 className='max-w-3xl mt-3 font-bold text-center'>
+            Feed people for your Birthday
+            </h1>
+
+            <img
+            src='https://i.pinimg.com/564x/c6/03/f2/c603f284eb93a9a96149abb304b4621a.jpg'
+            alt='Image 1'
+            className='w-3/4 h-1/4 object-cover mx-auto'
+          />
+          </div>
+
+          <div className='w-full mt-10 text-lg text-center ml-10'>
+            <p>A birthday food drive allows you to collect online donations rather than food.
+                 The money you collect from your virtual food drive.</p>
+          </div>
+        </div>
+      </div>
+
+{/*four cards */}
+{/** 
       <div class="flex">
-      <div class="w-1/2 p-3 md:min-h-screen">
-       <div class='mr-10 sm:flex-row p-40 border bg-white dark:bg-green-100 shadow-md hover:shadow-lg transition-shadow rounded-xl mb-7'>
+        <div class="w-1/2 p-3 md:min-h-screen">
+           <div class='mr-10 sm:flex-row p-40 border bg-white dark:bg-green-100 shadow-md hover:shadow-lg transition-shadow rounded-xl mb-7'>
+       <div class="w-1/2 flex justify-center items-center">
+
+       </div>
        </div>
        <div class='mr-10 sm:flex-row p-40 border bg-white dark:bg-green-100 shadow-md hover:shadow-lg transition-shadow justify-center items-center rounded-xl text-center mb-7'></div>
       </div>
@@ -154,7 +240,7 @@ export default function EventDescription() {
       </div>
 
       </div>
-
+*/}
 
     </main>
   );
