@@ -86,26 +86,40 @@ export default function UpdateEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/event/updateevent/${formData._id}/${currentUser._id}`, {
+      if (!eventId) {
+        // Handle the case where eventId is undefined
+        console.error('Event ID is undefined');
+        return;
+      }
+  
+      if (!currentUser || !currentUser._id) {
+        // Handle the case where currentUser or currentUser._id is undefined
+        console.error('Current user or user ID is undefined');
+        return;
+      }
+  
+      const res = await fetch(`/api/event/updateevent/${eventId}/${currentUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
+      
       const data = await res.json();
       if (!res.ok) {
-        setPublishError(data.message);
+        setPublishError(data.message || 'Failed to update event');
         return;
       }
-      if (res.ok) {
-        setPublishError(null);
-        navigate(`/event/${data.slug}`);
-      }
+  
+      setPublishError(null);
+      navigate(`/event/${data.slug}`);
     } catch (error) {
+      console.error('Error updating event:', error);
       setPublishError('Something went wrong');
     }
   };
+  
 
 
   return (
@@ -234,11 +248,13 @@ export default function UpdateEvent() {
                          onChange={(e) =>
                           setFormData({ ...formData, status: e.target.value })
                         }
+                        value={formData.status}
              >
                  <option value='nostatus'>Event status</option>
                  <option value='approved'>Approved</option>
                  <option value='processing'>Processing</option>
                  <option value='ongoing'>Ongoing</option>
+                 <option value='completed'>Completed</option>
             </Select>
 
             <ReactQuill 
