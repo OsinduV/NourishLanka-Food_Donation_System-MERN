@@ -16,6 +16,9 @@ export default function ContentUpdate() {
           placeholder="write your story"
           className="h-72"
           required
+          onChange={(value) => {
+            setFormData({...formData, content: value});
+          }}
         />
       </div>
     </div>
