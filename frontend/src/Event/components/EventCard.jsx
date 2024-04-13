@@ -6,7 +6,7 @@ import { IoIosTime } from "react-icons/io";
 
 export default function EventCard({ event }) {
   return (
-    <div className='group flex flex-col sm:flex-row p-7 border bg-white dark:bg-slate-200 shadow-md hover:shadow-lg transition-shadow justify-center items-center rounded-xl text-center mb-7 w-full'>
+    <div className='group flex flex-col sm:flex-row p-7 border bg-white dark:bg-green-100 shadow-md hover:shadow-lg transition-shadow justify-center items-center rounded-xl text-center mb-7 w-full'>
     <Link to={`/event/${event.slug}`}>
         <img
           src={event.image}

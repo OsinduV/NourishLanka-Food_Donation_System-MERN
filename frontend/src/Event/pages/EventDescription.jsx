@@ -40,7 +40,7 @@ export default function EventDescription() {
             </Link>
 
 
-            <Link to={'/event-request'}>
+            <Link to={'/donation-request'}>
             <Button
               type='button'
               className='bg-gradient-to-r from-green-500 via-green-300 to-green-400 text-white'
@@ -118,7 +118,7 @@ export default function EventDescription() {
             </Link>
 
 
-            <Link to={'/event-request'}>
+            <Link to={'/donation-request'}>
             <Button
               type='button'
               className='bg-gradient-to-r from-green-500 via-green-300 to-green-400 text-white'

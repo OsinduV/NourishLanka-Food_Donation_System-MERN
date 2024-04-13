@@ -221,7 +221,7 @@ export default function CreateEvent() {
               }}
               />
 
-        <Button type='submit' gradientDuoTone='purpleToPink'>
+        <Button type='submit' gradientDuoTone='greenToBlue'>
           Publish
         </Button>
 

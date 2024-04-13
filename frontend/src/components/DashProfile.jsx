@@ -244,7 +244,7 @@ export default function DashProfile() {
           <Link to={'/create-event'}>
             <Button
               type='button'
-              gradientDuoTone='purpleToPink'
+              gradientDuoTone='greenToBlue'
               className='w-full'
             >
               Publish Event

@@ -30,7 +30,7 @@ Hunger is a crisis, but it's a challenge we can overcome. Join us in tackling th
     <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {events && events.length > 0 && (
           <div className='flex flex-col gap-6'>
-            <h2 className='text-2xl font-semibold text-center'>Recent Events</h2>
+            <h2 className='text-2xl font-semibold text-center'>Upcoming Events</h2>
             <div className='flex-col gap-4'>
               {events.map((event) => (
                 <EventCard key={event._id} event={event} />

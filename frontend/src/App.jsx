@@ -13,7 +13,7 @@ import UpdateEvent from "./Event/pages/UpdateEvent"
 import EventPage from "./Event/pages/EventPage"
 import EventHome from "./Event/pages/EventHome"
 import Search from "./Event/pages/Search"
-import EventRequest from "./Event/pages/EventRequest"
+import DonationRequest from "./Event/pages/DonationRequest"
 import EventDescription from "./Event/pages/EventDescription"
 
 
@@ -26,7 +26,7 @@ export default function App() {
       <Routes>
 
         <Route path="/" element={<EventHome/>} />
-        <Route path="/event-request" element={<EventRequest/>} />
+        <Route path="/donation-request" element={<DonationRequest />} />
         <Route path="/event-description" element={<EventDescription/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
