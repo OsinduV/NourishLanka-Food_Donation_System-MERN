@@ -33,7 +33,7 @@ export default function DonationRequest() {
                  placeholder='Requesting Donor ID'
                  required
                  icon={FaUserCheck}
-                 id='donorid'
+                 id='dnid'
                  className='flex-1 ml-11'
                />
       </div>
