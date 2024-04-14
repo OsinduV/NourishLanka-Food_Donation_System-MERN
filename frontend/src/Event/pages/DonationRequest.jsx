@@ -1,16 +1,66 @@
 import { Button, FileInput, Select, TextInput, Textarea } from 'flowbite-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosTime } from "react-icons/io";
 import { FaUserCheck } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { app } from '../../firebase';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function DonationRequest() {
+  const [file1, setFile1] = useState(null);
+  const [file2, setFile2] = useState(null);
+  const [file3, setFile3] = useState(null);
+  const [imageUploadProgress1, setImageUploadProgress1] = useState(null);
+  const [imageUploadProgress2, setImageUploadProgress2] = useState(null);
+  const [imageUploadProgress3, setImageUploadProgress3] = useState(null);
+  const [imageUploadError, setImageUploadError] = useState(null);
+  const [formData, setFormData] = useState({});
+
+  const handleUpdloadImage = async (file, setImageUploadProgress) => {
+    try {
+      if (!file) {
+        setImageUploadError('Please select an image');
+        return;
+      }
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + '-' + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setImageUploadProgress(progress.toFixed(0));
+      },
+      (error) => {
+        setImageUploadError('Image upload failed');
+        setImageUploadProgress(null);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImageUploadProgress(null);
+          setImageUploadError(null);
+          setFormData({ ...formData, image: downloadURL });
+        });
+      }
+    );
+    }
+    catch (error) {
+      setImageUploadError('Image upload failed');
+      setImageUploadProgress(null);
+      console.log(error);
+    }
+  };
+
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-3xl font-semibold text-center my-7'>Hosting Donation Event Request Form</h1>
-      <form className='flex flex-col gap-4'>
+      <form className='flex flex-col gap-4 mb-20'>
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
         Event title 
                <TextInput
@@ -111,6 +161,7 @@ export default function DonationRequest() {
               <FileInput
                 type='file'
                 accept='image1/*'
+                onChange={(e) => setFile1(e.target.files[0])}
               />
 
               <Button
@@ -118,9 +169,23 @@ export default function DonationRequest() {
                 gradientDuoTone='greenToBlue'
                 size='sm'
                 outline
->
+                onClick={() => handleUpdloadImage(file1, setImageUploadProgress1)}
+                disabled={imageUploadProgress1 || !file1}
+              >
+              {imageUploadProgress1 ? (
+                   <div className='w-16 h-16'>
+                      <CircularProgressbar
+                        value={imageUploadProgress1}
+                        text={`${imageUploadProgress1 || 0}%`}
+                      />
+                  </div>
+            ) : (
+              'Upload Bank Statement'
+            )}
               </Button>
             </div>
+
+          {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
           </div>
 <br></br>
           Event Sacle
@@ -150,6 +215,7 @@ export default function DonationRequest() {
               <FileInput
                 type='file'
                 accept='image2/*'
+                onChange={(e) => setFile2(e.target.files[0])}
               />
 
               <Button
@@ -157,9 +223,22 @@ export default function DonationRequest() {
                 gradientDuoTone='greenToBlue'
                 size='sm'
                 outline
->
+                onClick={() => handleUpdloadImage(file2, setImageUploadProgress2)}
+                disabled={imageUploadProgress2 || !file2}
+              >
+              {imageUploadProgress2 ? (
+                   <div className='w-16 h-16'>
+                      <CircularProgressbar
+                        value={imageUploadProgress2}
+                        text={`${imageUploadProgress2 || 0}%`}
+                      />
+                  </div>
+            ) : (
+              'Upload Event Proposal'
+            )}
               </Button>
             </div>
+            {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
           </div>
 
           <div className='flex flex-col gap-4 sm:flex-row justify-between mt-2'> 
@@ -168,6 +247,8 @@ export default function DonationRequest() {
               <FileInput
                 type='file'
                 accept='image3/*'
+                onChange={(e) => setFile3(e.target.files[0])}
+               
               />
 
               <Button
@@ -175,12 +256,25 @@ export default function DonationRequest() {
                 gradientDuoTone='greenToBlue'
                 size='sm'
                 outline
->
+                onClick={() => handleUpdloadImage(file3, setImageUploadProgress3)}
+                disabled={imageUploadProgress3 || !file3}
+              >
+              {imageUploadProgress3 ? (
+                   <div className='w-16 h-16'>
+                      <CircularProgressbar
+                        value={imageUploadProgress3}
+                        text={`${imageUploadProgress3 || 0}%`}
+                      />
+                  </div>
+            ) : (
+              'Upload Partnership Agreement'
+            )}
               </Button>
             </div>
+            {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
           </div>
 
-          <div className='flex flex-col gap-4 sm:flex-row justify-between mb-20'>
+          <div className='flex flex-col gap-4 sm:flex-row justify-between'>
               Conernrs or Requests
               <Textarea
                   type='text'
@@ -189,8 +283,11 @@ export default function DonationRequest() {
                   rows='8'
                 >
               </Textarea>
-        </div>
 
+          </div>
+          <Button type='submit' gradientDuoTone='greenToBlue'>
+          Send Request
+        </Button>
       </form>
     </div>
   )
