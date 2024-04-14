@@ -1,4 +1,4 @@
-import { Button, FileInput, Select, TextInput, Textarea } from 'flowbite-react'
+import { Alert, Button, FileInput, Select, TextInput, Textarea } from 'flowbite-react'
 import React, { useState } from 'react'
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { FaLocationDot } from "react-icons/fa6";
@@ -9,6 +9,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 import { app } from '../../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function DonationRequest() {
   const [file1, setFile1] = useState(null);
@@ -19,8 +20,12 @@ export default function DonationRequest() {
   const [imageUploadProgress3, setImageUploadProgress3] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
+  const [publishError, setPublishError] = useState(null);
+  console.log(formData);
 
-  const handleUpdloadImage = async (file, setImageUploadProgress) => {
+  const navigate = useNavigate();
+
+  const handleUpdloadImage = async (file, setImageUploadProgress, imageField) => {
     try {
       if (!file) {
         setImageUploadError('Please select an image');
@@ -45,7 +50,7 @@ export default function DonationRequest() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImageUploadProgress(null);
           setImageUploadError(null);
-          setFormData({ ...formData, image: downloadURL });
+          setFormData({ ...formData, [imageField]: downloadURL });
         });
       }
     );
@@ -57,10 +62,35 @@ export default function DonationRequest() {
     }
   };
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/donation/createdonation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
+      }
+      if (res.ok) {
+        setPublishError(null);
+        navigate(`/donation/${data.slug}`);
+      }
+    } catch (error) {
+      setPublishError('Something went wrong');
+    }
+  };
+
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-3xl font-semibold text-center my-7'>Hosting Donation Event Request Form</h1>
-      <form className='flex flex-col gap-4 mb-20'>
+      <form className='flex flex-col gap-4 mb-20' onSubmit={handleSubmit}>
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
         Event title 
                <TextInput
@@ -69,10 +99,17 @@ export default function DonationRequest() {
                  required
                  id='eventtitle'
                  className='flex-1 ml-9'
+                 onChange={(e) =>
+                  setFormData({ ...formData, eventtitle: e.target.value })
+                }
                />
 
 
-                <Select>
+                <Select
+                    onChange={(e) =>
+                      setFormData({ ...formData, category: e.target.value })
+                    }
+                >
                  <option value='donationevent'>Donation Event</option>
                 </Select>
       </div>
@@ -85,6 +122,9 @@ export default function DonationRequest() {
                  icon={FaUserCheck}
                  id='dnid'
                  className='flex-1 ml-11'
+                 onChange={(e) =>
+                  setFormData({ ...formData, dnid: e.target.value })
+                }
                />
       </div>
 
@@ -97,6 +137,9 @@ export default function DonationRequest() {
                  icon={MdEmail}
                  id='donoremail'
                  className='flex-1 ml-5'
+                 onChange={(e) =>
+                  setFormData({ ...formData, donoremail: e.target.value })
+                }
                />
       </div>
 
@@ -109,6 +152,9 @@ export default function DonationRequest() {
                  icon={BsCalendar2DateFill}
                  id='eventdate'
                  className='flex-1 ml-7'
+                 onChange={(e) =>
+                  setFormData({ ...formData, eventdate: e.target.value })
+                }
                />
       </div>
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -120,6 +166,9 @@ export default function DonationRequest() {
                  icon={IoIosTime}
                  id='eventtime'
                  className='flex-1 ml-7'
+                 onChange={(e) =>
+                  setFormData({ ...formData, eventtime: e.target.value })
+                }
                />
       </div>
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -131,6 +180,9 @@ export default function DonationRequest() {
                  icon={FaLocationDot}
                  id='eventlocation'
                  className='flex-1'
+                 onChange={(e) =>
+                  setFormData({ ...formData, eventlocation: e.target.value })
+                }
                />
       </div>
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -140,6 +192,9 @@ export default function DonationRequest() {
                   placeholder=' Provide a detailed description of the event, including its purpose, goals, and any specific activities planned.'
                   id='eventdescription'
                   rows='5'
+                  onChange={(e) =>
+                    setFormData({ ...formData, eventdescription: e.target.value })
+                  }
                 >
               </Textarea>
         </div>
@@ -147,7 +202,11 @@ export default function DonationRequest() {
         Financial Stability
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
            Your Event Budget
-           <Select className='w-full ml-12'>
+           <Select className='w-full ml-12'
+                            onChange={(e) =>
+                              setFormData({ ...formData, budget: e.target.value })
+                            }
+           >
                  <option value='nobudget'>Select Your Event Budget</option>
                  <option value='nobudget'>less than Rs.30000.00</option>
                  <option value='nobudget'>less than Rs.60000.00</option>
@@ -169,7 +228,7 @@ export default function DonationRequest() {
                 gradientDuoTone='greenToBlue'
                 size='sm'
                 outline
-                onClick={() => handleUpdloadImage(file1, setImageUploadProgress1)}
+                onClick={() => handleUpdloadImage(file1, setImageUploadProgress1, 'image1')}
                 disabled={imageUploadProgress1 || !file1}
               >
               {imageUploadProgress1 ? (
@@ -197,6 +256,9 @@ export default function DonationRequest() {
                  required
                  id='attendees'
                  className='flex-1 mr-5'
+                 onChange={(e) =>
+                  setFormData({ ...formData, attendees: e.target.value })
+                }
                />
 
               No. of Volunteers needed
@@ -206,6 +268,9 @@ export default function DonationRequest() {
                  required
                  id='volunteers'
                  className='flex-1'
+                 onChange={(e) =>
+                  setFormData({ ...formData,volunteers: e.target.value })
+                }
                /> 
       </div>
 
@@ -223,7 +288,7 @@ export default function DonationRequest() {
                 gradientDuoTone='greenToBlue'
                 size='sm'
                 outline
-                onClick={() => handleUpdloadImage(file2, setImageUploadProgress2)}
+                onClick={() => handleUpdloadImage(file2, setImageUploadProgress2, 'image2')}
                 disabled={imageUploadProgress2 || !file2}
               >
               {imageUploadProgress2 ? (
@@ -256,7 +321,7 @@ export default function DonationRequest() {
                 gradientDuoTone='greenToBlue'
                 size='sm'
                 outline
-                onClick={() => handleUpdloadImage(file3, setImageUploadProgress3)}
+                onClick={() => handleUpdloadImage(file3, setImageUploadProgress3, 'image3')}
                 disabled={imageUploadProgress3 || !file3}
               >
               {imageUploadProgress3 ? (
@@ -281,6 +346,9 @@ export default function DonationRequest() {
                   placeholder=' Any concerns or requests?'
                   id='conserns'
                   rows='8'
+                  onChange={(e) =>
+                    setFormData({ ...formData, conserns: e.target.value })
+                  }
                 >
               </Textarea>
 
@@ -288,6 +356,12 @@ export default function DonationRequest() {
           <Button type='submit' gradientDuoTone='greenToBlue'>
           Send Request
         </Button>
+
+        {publishError && (
+          <Alert className='mt-5' color='failure'>
+            {publishError}
+          </Alert>
+        )}
       </form>
     </div>
   )
