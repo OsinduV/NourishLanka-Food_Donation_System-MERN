@@ -1,4 +1,4 @@
-import { Alert, Button, FileInput, Select, TextInput, Textarea } from 'flowbite-react'
+import { Alert, Button, FileInput, Modal, Select, TextInput, Textarea } from 'flowbite-react'
 import React, { useState } from 'react'
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { FaLocationDot } from "react-icons/fa6";
@@ -21,6 +21,7 @@ export default function DonationRequest() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   console.log(formData);
 
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ export default function DonationRequest() {
       }
       if (res.ok) {
         setPublishError(null);
-        navigate(`/donation/${data.slug}`);
+       // navigate(`/donation/${data.slug}`);
       }
     } catch (error) {
       setPublishError('Something went wrong');
@@ -353,7 +354,10 @@ export default function DonationRequest() {
               </Textarea>
 
           </div>
-          <Button type='submit' gradientDuoTone='greenToBlue'>
+          <Button type='submit' gradientDuoTone='greenToBlue' 
+          onClick={() => {
+            setShowModal(true);
+          }} >
           Send Request
         </Button>
 
@@ -362,6 +366,28 @@ export default function DonationRequest() {
             {publishError}
           </Alert>
         )}
+
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size='md'
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className='text-center'>
+          <h1 className=' text-black dark:text-gray-200 mb-4 mx-auto font-semibold'>
+          Grateful for Your Giving: Thank You for Hosting a Donation Event!.</h1>
+            <h2 className=' text-black dark:text-gray-200 mb-4'>
+            Your Request is sent. The status of the event will be updated in your event Page.</h2>
+            <div className='flex justify-center gap-4'>
+              <Button onClick={() => setShowModal(false)} gradientDuoTone='greenToBlue'>
+                Ok.
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
       </form>
     </div>
   )
