@@ -24,7 +24,7 @@ export default function Header() {
     if (searchTermFromUrl) {
       setSearchTerm(searchTermFromUrl);
     }
-  }, [location.search]);
+  }, [location.search]);//url of search
 
     const handleSignout = async () => {
       try {
@@ -62,7 +62,7 @@ export default function Header() {
             rightIcon={AiOutlineSearch}
             className='hidden lg:inline'
             value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}//from this chnages in the search will chnage the url also
         />
        </form>
 
