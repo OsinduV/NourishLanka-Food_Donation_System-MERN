@@ -39,7 +39,9 @@ const FoodRequestSchema = new mongoose.Schema(
         email:{
             type: String,
           },
-
+          address:{
+            type: String,
+          },
         image: {
           type: String,
           

@@ -12,6 +12,7 @@ import{app} from '../../firebase'
 import { useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CreateFoodRequest() {
@@ -19,6 +20,10 @@ export default function CreateFoodRequest() {
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});//save to the form
+  const [publishError, setPublishError] = useState(null);
+
+  const navigate = useNavigate();
+
   const handleUpdloadImage = async () => {//save the image in firebase
     try {
       if (!file) {
@@ -55,6 +60,30 @@ export default function CreateFoodRequest() {
       console.log(error);
     }
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/foodrequest/createfoodrequest', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
+      }
+
+      if (res.ok) {
+        setPublishError(null);
+        navigate(`/foodrequest/${data.slug}`);
+      }
+    } catch (error) {
+      setPublishError('Something went wrong');
+    }
+  };
   return (
     
       <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
@@ -65,7 +94,7 @@ export default function CreateFoodRequest() {
         </p>
        <div className='container mx-auto'>
   <h1 className='text-center text-3xl my-7 font-semibold'>Send a Food Request</h1>
-  <form className='flex flex-col gap-4' >
+  <form className='flex flex-col gap-4'  onSubmit={handleSubmit}>
     <div className='flex flex-col gap-4 sm:flex-row justify-between'>
       <TextInput
         type='text'
@@ -73,11 +102,17 @@ export default function CreateFoodRequest() {
         required
         id='name'
         className='flex-1'
+        onChange={(e) =>
+          setFormData({ ...formData, recipientname: e.target.value })
+        }
       />
       <Select
         required
         id='district'
         className='flex-1'
+        onChange={(e) =>
+          setFormData({ ...formData, district: e.target.value })
+        }
       >
         <option value=''>Select  a District</option>
         <option value='Colombo'>Colombo</option>
@@ -112,6 +147,9 @@ export default function CreateFoodRequest() {
         required
         id='category'
         className='flex-1 '
+        onChange={(e) =>
+          setFormData({ ...formData,  category: e.target.value })
+        }
       >
         <option value='uncategorized'>Select a category</option>
         <option value='Low-Income Families'>Low-Income Families</option>
@@ -127,6 +165,10 @@ export default function CreateFoodRequest() {
         className='flex-1 '
         pattern="[0-9]{10}"
         title="Phone number must be 10 digits"
+        onChange={(e) =>
+          setFormData({ ...formData,  contactnumber: e.target.value })
+        }
+
       />
     </div>
     <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -137,40 +179,53 @@ export default function CreateFoodRequest() {
         id='children'
         className='flex-1'
         min="0"
+        onChange={(e) =>
+          setFormData({ ...formData,  nochildren: e.target.value })
+        }
       />
       <TextInput
         type='number'
         placeholder='Number of males'
         required
-        id='males'
+        id='nomales'
         className='flex-1'
         min="0"
+        onChange={(e) =>
+          setFormData({ ...formData,  nomales: e.target.value })
+        }
       />
       <TextInput
         type='number'
         placeholder='Number of females'
         required
-        id='females'
+        id='nofemales'
         className='flex-1'
         min="0"
+        onChange={(e) =>
+          setFormData({ ...formData,  nofemales: e.target.value })
+        }
       />
     </div>
     <div className='flex flex-col gap-4 sm:flex-row justify-between'>
       <TextInput
         type='email'
         placeholder='Gmail'
-        required
-        id='gmail'
+        id='email'
         className='flex-1 '
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
         title="Enter a valid email address"
+        onChange={(e) =>
+          setFormData({ ...formData,  email: e.target.value })
+        }
       />
       <TextInput
         type='text'
         placeholder='Address'
-        required
         id='address'
         className='flex-1'
+        onChange={(e) =>
+          setFormData({ ...formData,  address: e.target.value })
+        }
       />
     </div>
     <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
@@ -214,6 +269,9 @@ export default function CreateFoodRequest() {
           placeholder='Add special needs here...'
           className='h-72 mb-12'
           required
+          onChange={(value) => {
+            setFormData({ ...formData, content: value });
+          }}
         />
     
     <Button
@@ -222,6 +280,11 @@ export default function CreateFoodRequest() {
     >
       Submit the Food Request
     </Button>
+    {publishError && (
+          <Alert className='mt-5' color='failure'>
+            {publishError}
+          </Alert>
+        )}
   </form>
 </div>
 
