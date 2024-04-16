@@ -85,13 +85,18 @@ export default function CreateFoodRequest() {
     }
   };
   return (
-    
-      <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
+    <div className='relative flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto'>
+    <div className='flex items-center justify-between'>
         <h1 className='text-3xl font-bold lg:text-6xl'>Are you facing food scarcity, finding it challenging to access enough nourishing meals?</h1>
-        <p className='text-gray-500 text-xs sm:text-sm'>
-        Submitting a food request through our form allows us to gather essential information about your specific food needs. By completing the form, you provide us with valuable details that enable us to better understand how we can assist you in accessing the food support you require. 
-        Your submission helps us tailor our assistance to best serve your needs.
-        </p>
+        <a href="view-foodrequest" className="absolute top-0 right-0 mt-4 mr-4">
+            <Button type='button' gradientDuoTone='greenToBlue'>My Food Requests</Button>
+        </a>
+    </div>
+    <p className='text-gray-500 text-xs sm:text-sm'>
+        Submitting a food request through our form allows us to gather essential information about your specific food needs. By completing the form, you provide us with valuable details that enable us to better understand how we can assist you in accessing the food support you require. Your submission helps us tailor our assistance to best serve your needs.
+    </p>
+    
+    
        <div className='container mx-auto'>
   <h1 className='text-center text-3xl my-7 font-semibold'>Send a Food Request</h1>
   <form className='flex flex-col gap-4'  onSubmit={handleSubmit}>

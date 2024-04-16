@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { BiSolidFoodMenu } from "react-icons/bi";
 
 export default function DashSidebar() {
   const location = useLocation();
@@ -48,6 +49,21 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
+           
+          {!currentUser.isCommunityAdmin && (
+          <Link to='/dashboard?tab=myfoodrequests'>
+            <Sidebar.Item 
+              active={tab === 'myfoodrequests'}
+              icon={BiSolidFoodMenu}
+              labelColor='dark'
+              as='div'
+            >
+            My Food Requests
+            </Sidebar.Item>
+          </Link>
+          )}
+               
+ 
           {currentUser.isCommunityAdmin && (
             <Link to='/dashboard?tab=posts'>
               <Sidebar.Item
@@ -59,6 +75,7 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
+
           <Sidebar.Item
             icon={HiArrowSmRight}
             className='cursor-pointer'
