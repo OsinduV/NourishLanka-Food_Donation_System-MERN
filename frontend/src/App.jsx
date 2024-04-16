@@ -32,6 +32,7 @@ export default function App() {
         <Route path='/communitysearch' element={<CommunitySearch />} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path="/create-foodrequest" element={<CreateFoodRequest/>} />
         </Route>
         <Route element={<OnlyCommunityAdminPrivateRoute/>}>
           <Route path='/create-recipientpost' element={<CreateRecipientPost/>} />
@@ -39,7 +40,7 @@ export default function App() {
         </Route>
         <Route path="/projects" element={<Project/>} />
         <Route path="/community" element={<CommunityHome/>} />
-        <Route path="/create-foodrequest" element={<CreateFoodRequest/>} />
+      
 
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
       </Routes>
