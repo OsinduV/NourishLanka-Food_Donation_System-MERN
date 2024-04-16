@@ -8,6 +8,10 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
+import VolunteerOne from "./Volunteer/VolunteerOne"
+import VolunteerTwo from "./Volunteer/VolunteerTwo"
+import VolunteerThree from "./Volunteer/VolunteerThree"
+import VolunteerFour from "./Volunteer/VolunteerFour"
 
 export default function App() {
   return (
@@ -21,6 +25,10 @@ export default function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+        <Route path="/volunteer-one" element={<VolunteerOne/>} />
+        <Route path="/volunteer-two" element={<VolunteerTwo/>} />
+        <Route path="/volunteer-three" element={<VolunteerThree/>} />
+        <Route path="/volunteer-four" element={<VolunteerFour/>} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
