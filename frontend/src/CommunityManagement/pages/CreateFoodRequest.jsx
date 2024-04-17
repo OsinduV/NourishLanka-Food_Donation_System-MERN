@@ -88,7 +88,7 @@ export default function CreateFoodRequest() {
     <div className='relative flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto'>
     <div className='flex items-center justify-between'>
         <h1 className='text-3xl font-bold lg:text-6xl'>Are you facing food scarcity, finding it challenging to access enough nourishing meals?</h1>
-        <a href="view-foodrequest" className="absolute top-0 right-0 mt-4 mr-4">
+        <a href="dashboard?tab=myfoodrequests" className="absolute top-0 right-0 mt-4 mr-4">
             <Button type='button' gradientDuoTone='greenToBlue'>My Food Requests</Button>
         </a>
     </div>
