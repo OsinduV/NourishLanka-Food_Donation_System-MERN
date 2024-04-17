@@ -7,11 +7,11 @@ const inventorySchema=new Schema({
         type:String,
         required:true
     },
-    desc2:{
+    location:{
         type:String,
         required:true
     },
-    desc1:{
+    quantity:{
         type:Number,
         required:true
     },

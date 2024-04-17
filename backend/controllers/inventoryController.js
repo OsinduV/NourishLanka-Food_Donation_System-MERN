@@ -76,7 +76,7 @@ const searchInventory = async (req, res) => {
 // Sort inventory items by quantity
 const sortInventoryByQuantity = async (req, res) => {
     try {
-        const inventorys = await Inventory.find({}).sort({ desc1: 1 });
+        const inventorys = await Inventory.find({}).sort({ quantity: 1 });
         res.status(200).json(inventorys);
     } catch (error) {
         res.status(500).json({ error: error.message });

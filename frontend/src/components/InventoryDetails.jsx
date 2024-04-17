@@ -6,8 +6,8 @@ const InventoryDetails = ({ inventory }) => {
     const { dispatch } = useInventorysContext();
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(inventory.title);
-    const [editedDesc1, setEditedDesc1] = useState(inventory.desc1);
-    const [editedDesc2, setEditedDesc2] = useState(inventory.desc2);
+    const [editedQuantity, setEditedQuantity] = useState(inventory.quantity);
+    const [editedlocation, setEditedlocation] = useState(inventory.location);
     const [editedDate, setEditedDate] = useState(new Date(inventory.expdate).toLocaleDateString());
 
     const handleDeleteClick = async () => {
@@ -33,13 +33,13 @@ const InventoryDetails = ({ inventory }) => {
     const handleCancelEdit = () => {
         setIsEditing(false);
         setEditedTitle(inventory.title);
-        setEditedDesc1(inventory.desc1);
-        setEditedDesc2(inventory.desc2);
+        setEditedQuantity(inventory.quantity);
+        setEditedlocation(inventory.location);
         setEditedDate(inventory.expdate);
     };
 
     const handleSaveEdit = async () => {
-        const editedInventory = { ...inventory, title: editedTitle, desc1: editedDesc1, desc2: editedDesc2,expdate:  editedDate};
+        const editedInventory = { ...inventory, title: editedTitle, quantity: editedQuantity, location: editedlocation,expdate:  editedDate};
         try {
             const response = await fetch(`${endpoints.inventorys}/${inventory._id}`, {
                 method: 'PATCH',
@@ -66,11 +66,11 @@ const InventoryDetails = ({ inventory }) => {
             case 'title':
                 setEditedTitle(value);
                 break;
-            case 'desc1':
-                setEditedDesc1(value);
+            case 'quantity':
+                setEditedQuantity(value);
                 break;
-            case 'desc2':
-                setEditedDesc2(value);
+            case 'location':
+                setEditedlocation(value);
                 break;
                 case 'expdate':
                     setEditedDate(value);
@@ -85,8 +85,8 @@ const InventoryDetails = ({ inventory }) => {
             {isEditing ? (
                 <>
                     <input type="text" name="title" value={editedTitle} onChange={handleChange} />
-                    <input type="text" name="desc1" value={editedDesc1} onChange={handleChange} />
-                    <input type="text" name="desc2" value={editedDesc2} onChange={handleChange} />
+                    <input type="text" name="quantity" value={editedQuantity} onChange={handleChange} />
+                    <input type="text" name="location" value={editedlocation} onChange={handleChange} />
                     <input type="date" name="expdate" value={editedDate} onChange={handleChange} />
                     <button onClick={handleSaveEdit}>Save</button>
                     <button onClick={handleCancelEdit}>Cancel</button>
@@ -94,9 +94,11 @@ const InventoryDetails = ({ inventory }) => {
             ) : (
                 <>
                     <h4>{inventory.title}</h4>
-                    <p><strong>Quantity :</strong> {inventory.desc1}</p>
-                    <p><strong>Location :</strong> {inventory.desc2}</p>
+
+                    <p><strong>Quantity :</strong> {inventory.quantity}</p>
+                    <p><strong>Location :</strong> {inventory.location}</p>
                     <p><strong>Exp.Date :</strong> {inventory.expdate.split("T")[0]}</p>
+
                     <button onClick={handleDeleteClick}>Delete</button>
                     <button onClick={handleEditClick}>Edit</button>
                 </>

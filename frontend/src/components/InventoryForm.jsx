@@ -5,16 +5,16 @@ import endpoints from '../api/endpoints';
 const InventoryForm = () => {
     const { dispatch } = useInventorysContext();
     const [title, setTitle] = useState('');
-    const [desc1, setDesc1] = useState('');
-    const [desc2, setDesc2] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [location, setlocation] = useState('');
     const [expdate, setExpDate] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if desc1 is a valid number
-        if (!isNaN(desc1)) {
-            const inventory = { title, desc1: Number(desc1), desc2, expdate };
+        // Check if quantity is a valid number
+        if (!isNaN(quantity)) {
+            const inventory = { title, quantity: Number(quantity), location, expdate };
 
             try {
                 const response = await fetch(endpoints.inventorys, {
@@ -29,8 +29,8 @@ const InventoryForm = () => {
                     const newInventory = await response.json();
                     dispatch({ type: 'CREATE_INVENTORY', payload: newInventory });
                     setTitle('');
-                    setDesc1('');
-                    setDesc2('');
+                    setQuantity('');
+                    setlocation('');
                     setExpDate('');
                 } else {
                     console.error('Error adding inventory:', response.statusText);
@@ -39,8 +39,8 @@ const InventoryForm = () => {
                 console.error('Error adding inventory:', error);
             }
         } else {
-            // Display error message for invalid desc1
-            console.error('Invalid desc1. Please enter a number.');
+            // Display error message for invalid quantity
+            console.error('Invalid quantity. Please enter a number.');
         }
     };
 
@@ -50,9 +50,9 @@ const InventoryForm = () => {
             <label>Inventory Title</label>
             <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} required />
             <label>Quantity</label>
-            <input type="text" pattern="[0-9]*" onChange={(e) => setDesc1(e.target.value)} value={desc1} required />
+            <input type="text" pattern="[0-9]*" onChange={(e) => setQuantity(e.target.value)} value={quantity} required />
             <label>Location</label>
-            <input type="text" onChange={(e) => setDesc2(e.target.value)} value={desc2} required />
+            <input type="text" onChange={(e) => setlocation(e.target.value)} value={location} required />
             <label>Exp.Date</label>
             <input type="date" onChange={(e) => setExpDate(e.target.value)} value={expdate} required />
             <button type="submit">Add Detail</button>
