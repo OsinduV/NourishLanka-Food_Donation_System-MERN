@@ -7,7 +7,8 @@ import { Button } from 'flowbite-react';
 export default function DashFoodRequests() {
     const { currentUser } = useSelector((state) => state.user);
     const [userFoodRequests, setUserFoodRequests] = useState([]);
-    
+    const [showMore, setShowMore] = useState(true);
+
     useEffect(() => {
       const fetchmyFoodRequests = async () => {
         try {
@@ -15,6 +16,9 @@ export default function DashFoodRequests() {
           const data = await res.json();
           if (res.ok) {
             setUserFoodRequests(data.myfoodrequests);
+            if (data.myfoodrequests.length < 9) {
+              setShowMore(false);
+            }
           }
         } catch (error) {
           console.log(error.message);
@@ -25,6 +29,24 @@ export default function DashFoodRequests() {
       }
     }, [currentUser._id]);
 
+    const handleShowMore = async () => {
+      const startIndex = userFoodRequests.length;
+      try {
+        const res = await fetch(
+          `/api/foodrequest/getmyfoodrequests?userId=${currentUser._id}&startIndex=${startIndex}`
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setUserFoodRequests((prev) => [...prev, ...data.myfoodrequests]);
+          if (data.myfoodrequests.length < 9) {
+            setShowMore(false);
+          }
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
     return (
 
         
@@ -34,7 +56,7 @@ export default function DashFoodRequests() {
             <div className="flex items-center mb-4"> {/* Flex container to align heading and button */}
               <h2 className="text-2xl font-bold mr-4">My Food Requests</h2>
               <a href="create-foodrequest" className="ml-auto"> {/* Adjust button positioning */}
-                <Button type='button' gradientDuoTone='greenToBlue'>Add New Food Request</Button>
+                <Button type='button' gradientDuoTone='greenToBlue'>Add a New Food Request</Button>
               </a>
             </div>
             <Table hoverable className='shadow-md'>
@@ -77,6 +99,14 @@ export default function DashFoodRequests() {
                 </Table.Body>
               ))}
             </Table>
+            {showMore && (
+            <button
+              onClick={handleShowMore}
+              className='w-full text-teal-500 self-center text-sm py-7'
+            >
+              Show more
+            </button>
+          )}
           </>
         ) : (
           <p>Currently you haven't any food requests!</p>
