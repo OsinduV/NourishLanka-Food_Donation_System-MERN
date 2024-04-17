@@ -48,14 +48,17 @@ export const getmyfoodrequests = async (req, res, next) => {
 
     const userId = req.user.id; // Get the authenticated user's ID
 
-    // Rest of your code remains the same
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.order === 'asc' ? 1 : -1;
 
     const myfoodrequests = await FoodRequest.find({
-      userId: userId, // Filter by the authenticated user's ID
-      // Other filters...
+      userId: userId,
+      ...(req.query.userId && { userId: req.query.userId }),
+      ...(req.query.category && { category: req.query.category }),
+      ...(req.query.slug && { slug: req.query.slug }),
+      ...(req.query.myfoodrequestId && { _id: req.query.myfoodrequestId }),
+       
     })
     .sort({ updatedAt: sortDirection })
     .skip(startIndex)
