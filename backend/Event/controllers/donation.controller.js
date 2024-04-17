@@ -49,3 +49,61 @@ export const createdonation = async (req, res, next) => {
     }
 };
 
+export const getdonations = async (req, res, next) => {
+    try {
+    //localhost:3500/api/donation/getdonations?startIndex=1
+    const startIndex = parseInt(req.query.startIndex) || 0;
+
+    //localhost:3500/api/donation/getdonations?limit=1
+    const limit = parseInt(req.query.limit) || 9; //9 is the requesting number of requests to the page
+
+    //localhost:3500/api/donation/getdonations?oder=asc
+    const sortDirection = req.query.order === 'asc' ? 1 : -1;
+
+    //some more queries
+    const donations = await Donation.find({
+        ...(req.query.userId && { userId: req.query.userId }),
+        ...(req.query.category && { category: req.query.category }),
+        ...(req.query.status && { status: req.query.status }),
+        ...(req.query.slug && { slug: req.query.slug }),
+        ...(req.query.donationId && { _id: req.query.donationId }),
+        ...(req.query.searchTerm && {
+            //using or it alows us to search between two places
+          $or: [ 
+            { title: { $regex: req.query.searchTerm, $options: 'i' } }, //by regex tool it allows to search inside the title and from i, it tells that lowecase or uppercase is not important
+            { content: { $regex: req.query.searchTerm, $options: 'i' } },
+          ],
+        }),
+      })
+
+      .sort({ updatedAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
+
+
+      //to count the total number of donation requests
+    const totalDonations = await Donation.countDocuments();
+
+    //to count donation requests on last month
+      //from today to last months
+    const oneMonthAgo = new Date();
+
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+        //last month's
+        const lastMonthDonations = await Donation.countDocuments({
+            createdAt: { $gte: oneMonthAgo },
+          });
+      
+          //responce
+          res.status(200).json({
+            donations,
+            totalDonations,
+            lastMonthDonations,
+          });
+
+        } catch (error) {
+            next(error);
+    }
+};
+
