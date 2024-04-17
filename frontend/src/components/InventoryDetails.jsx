@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInventorysContext } from '../hooks/useInventorysContext';
 import endpoints from '../api/endpoints';
 
@@ -96,7 +96,7 @@ const InventoryDetails = ({ inventory }) => {
                     <h4>{inventory.title}</h4>
                     <p><strong>Quantity :</strong> {inventory.desc1}</p>
                     <p><strong>Location :</strong> {inventory.desc2}</p>
-                    <p><strong>Exp.Date :</strong> {editedDate}</p>
+                    <p><strong>Exp.Date :</strong> {inventory.expdate.split("T")[0]}</p>
                     <button onClick={handleDeleteClick}>Delete</button>
                     <button onClick={handleEditClick}>Edit</button>
                 </>
