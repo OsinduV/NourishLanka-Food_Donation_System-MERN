@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { MdNotes } from "react-icons/md";
 
 export default function DashSidebar() {
   const location = useLocation();
@@ -56,6 +57,18 @@ export default function DashSidebar() {
                 as='div'
               >
                 Events
+              </Sidebar.Item>
+              </Link>
+          )}
+
+          {currentUser.isEventOrganiser && (
+              <Link to='/dashboard?tab=donations'>
+              <Sidebar.Item
+                active={tab === 'donations'}
+                icon={MdNotes}
+                as='div'
+              >
+                Donation Requests
               </Sidebar.Item>
               </Link>
           )}

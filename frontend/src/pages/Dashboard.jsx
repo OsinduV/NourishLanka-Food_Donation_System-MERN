@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
 import DashEvents from '../Event/components/DashEvents';
+import DashDonations from '../Event/components/DashDonations';
 
 
 export default function Dashboard() {
@@ -28,6 +29,9 @@ export default function Dashboard() {
 
       {/* events... */}
       {tab === 'events' && <DashEvents />}
+
+      {/* donation requests... */}
+      {tab === 'donations' && <DashDonations />}
     </div>
   );
 }

@@ -26,7 +26,6 @@ export default function App() {
       <Routes>
 
         <Route path="/" element={<EventHome/>} />
-        <Route path="/donation-request" element={<DonationRequest />} />
         <Route path="/event-description" element={<EventDescription/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
@@ -34,6 +33,7 @@ export default function App() {
         <Route path="/search" element={<Search/>} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path="/donation-request" element={<DonationRequest />} />
         </Route>
 
            {/*only for event organiser */}
