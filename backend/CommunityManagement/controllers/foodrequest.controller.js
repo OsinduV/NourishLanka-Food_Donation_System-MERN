@@ -96,3 +96,45 @@ export const deletefoodrequest = async (req, res, next) => {
   }
 };
 
+
+export const getallfoodrequests = async (req, res, next) => {
+  try {
+    
+
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const limit = parseInt(req.query.limit) || 9;
+    const sortDirection = req.query.order === 'asc' ? 1 : -1;
+
+    const allfoodrequests = await FoodRequest.find({
+      ...(req.query.userId && { userId: req.query.userId }),
+      ...(req.query.category && { category: req.query.category }),
+      ...(req.query.slug && { slug: req.query.slug }),
+      ...(req.query.allfoodrequestId && { _id: req.query.allfoodrequestId }),
+       
+    })
+    .sort({ updatedAt: sortDirection })
+    .skip(startIndex)
+    .limit(limit);
+
+    const totalRecipientFoodRequests = await FoodRequest.countDocuments();
+
+    const now = new Date();
+
+    const oneMonthAgo = new Date(
+    now.getFullYear(), 
+    now.getMonth() - 1,
+    now.getDate());
+    const lastMonthRecipientFoodRequests = await FoodRequest.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+
+    res.status(200).json({
+      allfoodrequests,
+      totalRecipientFoodRequests,
+      lastMonthRecipientFoodRequests,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
