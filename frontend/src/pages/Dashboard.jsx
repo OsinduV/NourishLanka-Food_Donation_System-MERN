@@ -4,6 +4,7 @@ import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
 import DashRecipientPost from '../CommunityManagement/components/DashRecipientPost';
 import DashFoodRequests from '../CommunityManagement/components/DashFoodRequests';
+import DashAdminFooddRequests from '../CommunityManagement/components/DashAdminFooddRequests';
 
 export default function Dashboard() {
 
@@ -29,6 +30,8 @@ export default function Dashboard() {
         {tab === 'posts' && <DashRecipientPost/>}
         {/*myfoodrequests*/}
         {tab ==='myfoodrequests' && <DashFoodRequests/>}
+        {/*recipientsfoodrequests*/}
+        {tab ==='recipientsfoodrequests' && <DashAdminFooddRequests/>}
     </div>
 
   );

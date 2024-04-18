@@ -71,10 +71,24 @@ export default function DashSidebar() {
                 icon={HiDocumentText}
                 as='div'
               >
-                Posts
+                 Community Posts
               </Sidebar.Item>
             </Link>
           )}
+
+        {currentUser.isCommunityAdmin && (
+          <Link to='/dashboard?tab=recipientsfoodrequests'>
+            <Sidebar.Item 
+              active={tab === 'recipientsfoodrequests'}
+              icon={BiSolidFoodMenu}
+              labelColor='dark'
+              as='div'
+            >
+             Food Requests
+            </Sidebar.Item>
+          </Link>
+          )} 
+
 
           <Sidebar.Item
             icon={HiArrowSmRight}
