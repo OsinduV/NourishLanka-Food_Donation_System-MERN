@@ -1,6 +1,6 @@
 import React from 'react'
-import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
-import CommunityFeatures from '../components/CommunityFeatures';
+import { Alert, Button, FileInput, Select, TextInput,Card } from 'flowbite-react';
+
 
 export default function CommunityHome() {
   return (
@@ -25,12 +25,35 @@ export default function CommunityHome() {
                 
                 {/* Banner image */}
                 <div>
-                    <img src="https://www.thefoodcloset.org/uploads/2/2/4/3/22433308/4_orig.png" className='lg:h-[300px]'/>
+                    <img src="https://img.freepik.com/free-photo/food-donation-box-being-prepared-by-smiley-volunteers_23-2148732706.jpg?w=360" className='lg:h-[300px]'/>
                 </div>
             </div>
         </div>
     </div>
-    <CommunityFeatures/>
+
+    <div className="flex gap-6 mt-8">
+        <Card className="w-full md:w-1/3">
+          <div className="card-content">
+            <img src="https://img.freepik.com/free-photo/smiley-female-volunteer-holding-box-with-food-donations_23-2148732644.jpg" alt="Card 1" className="card-image" />
+            <h3 className="text-lg font-bold mb-2 mt-3 text-center"> What is Community?</h3>
+            <p className='text-center'>Community refers to individuals in Sri Lanka facing food insecurity, including low-income families, the elderly, disabled, and orphanages. They come together on a centralized platform to request tailored food assistance, fostering solidarity and support among those experiencing similar challenges.</p>
+          </div>
+        </Card>
+        <Card className="w-full md:w-1/3">
+          <div className="card-content">
+            <img src="https://img.freepik.com/free-photo/volunteers-using-laptop-prepare-food-donation-boxes_23-2148732719.jpg" alt="Card 2" className="card-image" />
+            <h3 className="text-lg font-bold mb-2 mt-3 text-center">How it helps people in need of food?</h3>
+            <p className='text-center'>The platform empowers individuals to customize food requests, ensuring their unique needs are met with dignity. Recipients maintain control, modifying requests as circumstances change. They receive timely updates on request status, enhancing transparency and trust while addressing food insecurity effectively.</p>
+          </div>
+        </Card>
+        <Card className="w-full md:w-1/3">
+          <div className="card-content">
+            <img src="https://img.freepik.com/free-photo/side-view-volunteers-handling-boxes-with-food-donations_23-2148638012.jpg" alt="Card 3" className="card-image" />
+            <h3 className="text-lg font-bold mb-2 mt-3 text-center">Are you a donor who is willing to support?</h3>
+            <p className='text-center'>Join us in making a difference! Your contributions directly impact individuals in need of food assistance. Explore recipient profiles, filter by district or urgency, and align your donations with causes that resonate with you. Together, we can alleviate food insecurity and promote community resilience in Sri Lanka.</p>
+          </div>
+        </Card>
+      </div>
 </div>
 
   )
