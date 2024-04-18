@@ -7,6 +7,7 @@ export default function DashDonations() {
     const { currentUser } = useSelector((state) => state.user);
     const [userDonations, setUserDonations] = useState([]);
     console.log(userDonations);
+    const [showMore, setShowMore] = useState(true);
     useEffect(() => {
       const fetchDonations = async () => {
         try {
@@ -17,6 +18,7 @@ export default function DashDonations() {
           if (res.ok) {
             setUserDonations(data.donations);
             if (data.donations.length < 9) {
+              setShowMore(false);
             }
           }
         } catch (error) {
@@ -27,6 +29,24 @@ export default function DashDonations() {
         fetchDonations();
       }
     },[currentUser._id])
+
+    const handleShowMore = async () => {
+      const startIndex = userDonations.length;
+      try {
+        const res = await fetch(
+          `/api/donation/getdonations?startIndex=${startIndex}`
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setUserDonations((prev) => [...prev, ...data.donations]);
+          if (data.donations.length < 9) {
+            setShowMore(false);
+          }
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
@@ -79,7 +99,14 @@ export default function DashDonations() {
               </Table.Body>
             ))}
             </Table>
-
+            {showMore && (
+            <button
+              onClick={handleShowMore}
+              className='w-full text-teal-500 self-center text-sm py-7'
+            >
+              Show more
+            </button>
+          )}
           </>
         ) : (
           <p>You have no donation requests yet!</p>
