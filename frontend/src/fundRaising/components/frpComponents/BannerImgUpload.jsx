@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import {
-  Alert,
-  Button
-} from "flowbite-react";
+import { Alert, Button } from "flowbite-react";
 import { app } from "../../../firebase";
 import {
   getDownloadURL,
@@ -12,15 +9,14 @@ import {
 } from "firebase/storage";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { FormDataContext } from "../../pages/FRPCreate";
+import { FormDataContext } from "../../pages/FRPage";
 
-export default function ImgUpload() {
-
+export default function BannerImgUpload() {
   const [imageFile, setImageFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
 
-  const {formData, setFormData} = useContext(FormDataContext);
+  const { formData, setFormData } = useContext(FormDataContext);
 
   const filePickerRef = useRef();
 
@@ -55,7 +51,7 @@ export default function ImgUpload() {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setImageUploadProgress(null);
             setImageUploadError(null);
-            setFormData({ ...formData, image: downloadURL });
+            setFormData({ ...formData, bannerImage: downloadURL });
           });
         }
       );
@@ -68,15 +64,14 @@ export default function ImgUpload() {
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="mx-auto">
-        Adding a Photo of Yourself helps doners to recognize your page
-      </p>
+      <h1 className=" text-2xl font-medium">Add a Banner Image : </h1>
+
       {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
-      {formData.image && !imageUploadProgress && (
+      {formData.bannerImage && !imageUploadProgress && (
         <img
-          src={formData.image}
-          alt="updatedImg"
-          className="w-64 h-64 object-cover my-6 mx-auto"
+          src={formData.bannerImage}
+          alt="updatedbannerImage"
+          className="mx-4 w-full h-64 object-cover my-6 mx-auto"
         />
       )}
       {imageUploadProgress && (

@@ -11,7 +11,7 @@ export default function FRHero() {
         {/* Overlay */}
         <div className="absolute w-full h-full text-gray-200 max-h-[500px] bg-black/70 flex flex-col justify-center ">
           <h1 className="px-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mx-auto bg-gradient-to-r from-pink-500 to-white text-transparent bg-clip-text">
-            <span className="">Virtual </span>Food Drives
+            Virtual Food Drives
           </h1>
           <div className="flex justify-center my-10 gap-4">
             <Link to="/sign-in">

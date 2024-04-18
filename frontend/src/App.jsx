@@ -32,7 +32,8 @@ export default function App() {
           </Route>
           <Route path="/projects" element={<Project />} />
           <Route path="/fr-home" element={<FRHome />} />
-          <Route path="/fr-page" element={<FRPage />} />
+          <Route path="/fr-page/:frpId" element={<FRPage />} />
+          <Route path="/fr-page/:frpId/:updatestat" element={<FRPage />} />
           <Route path="/donate-page" element={<DonatePage />} />
           <Route path="/osindutst" element={<OsinduTst />} />
           <Route path="/frp-create" element={<FRPCreate />} />

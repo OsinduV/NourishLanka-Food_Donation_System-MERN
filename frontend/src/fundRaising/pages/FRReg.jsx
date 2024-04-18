@@ -6,20 +6,24 @@ import {
   updateSuccess,
   updateFailure,
 } from "../../redux/user/userSlice.js";
+import { useNavigate } from "react-router-dom";
 
 export default function FRReg() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({ isFundraiser: true });
+  const [frpFormData, setFrpFormData] = useState({displayName: currentUser.username});
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [frpCreateError, setFrpCreateError] = useState(null);
 
-  const initialFrpData = { goal: "0", content: "sample content from frontend" };
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+  const handlefrpDataChange = (e) => {
+    setFrpFormData({ ...frpFormData, [e.target.id]: e.target.value });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,14 +49,15 @@ export default function FRReg() {
             headers: {
               "content-Type": "application/json",
             },
-            body: JSON.stringify(initialFrpData),
+            body: JSON.stringify(frpFormData),
           });
-          const result = await resfrp.json();
-          if(!resfrp.ok){
-            setFrpCreateError(result.message);
+          const dataFrp = await resfrp.json();
+          if (!resfrp.ok) {
+            setFrpCreateError(dataFrp.message);
             return;
-          }else{
+          } else {
             setFrpCreateError(null);
+            navigate(`/fr-page/${dataFrp._id}/1`);
           }
         } catch (error) {
           setFrpCreateError(error.message);
@@ -65,70 +70,104 @@ export default function FRReg() {
     }
   };
   console.log(formData);
+  console.log(frpFormData);
 
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-3xl my-14 font-semibold">Register as a Fundraiser</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-7">
-        <div>
-          <Label value="Your Name" />
-          <TextInput
-            type="text"
-            id="usernamer"
-            placeholder="User Name"
-            defaultValue={currentUser.username}
-            className="flex-1"
-            readOnly
-          />
-        </div>
-        <div>
-          <Label value="Email Address" />
-          <TextInput
-            type="email"
-            id="email"
-            placeholder="Email"
-            defaultValue={currentUser.email}
-            readOnly
-          />
-        </div>
-        <div>
-          <Label value="Address Information" />
-          <div className="grid grid-cols-2 gap-4 my-4">
-            <div className="flex items-center gap-2">
-              <Label value="District" />
-              <TextInput
-                type="text"
-                id="district"
-                placeholder="e.g. Colombo"
-                className="flex-1"
-                required
-                defaultValue={currentUser.district}
-                onChange={handleChange}
-              />
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <h2 className="text-xl mb-2">Fundraiser Details</h2>
+        <hr className="mb-4" />
+        <div className="ml-5 max-w-2xl flex flex-col gap-7">
+          <div className="flex flex-col">
+            <Label value="Your Name" />
+            <TextInput
+              type="text"
+              id="usernamer"
+              placeholder="User Name"
+              defaultValue={currentUser.username}
+              className="flex-1"
+              readOnly
+              color="success"
+            />
+          </div>
+          <div>
+            <Label value="Email Address" />
+            <TextInput
+              type="email"
+              id="email"
+              placeholder="Email"
+              defaultValue={currentUser.email}
+              className="flex-1"
+              readOnly
+              color="success"
+            />
+          </div>
+          <div>
+            <Label value="Address Information" />
+            <div className="grid grid-cols-2 gap-4 my-4">
+              <div className="flex items-center gap-2">
+                <Label value="District" />
+                <TextInput
+                  type="text"
+                  id="district"
+                  placeholder="e.g. Colombo"
+                  className="flex-1"
+                  required
+                  defaultValue={currentUser.district}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Label value="City" />
+                <TextInput
+                  type="text"
+                  id="city"
+                  placeholder="e.g. Nawala"
+                  className="flex-1"
+                  required
+                  defaultValue={currentUser.city}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
             <div className="flex items-center gap-2">
-              <Label value="City" />
+              <Label value="Address" />
               <TextInput
                 type="text"
-                id="city"
-                placeholder="e.g. Nawala"
+                id="address"
+                placeholder="e.g. 105/2, koswatta rd, ..."
                 className="flex-1"
                 required
-                defaultValue={currentUser.city}
+                defaultValue={currentUser.address}
                 onChange={handleChange}
               />
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Label value="Address" />
+        </div>
+        <h2 className="text-xl mt-16 mb-2">Fundraising Page Details</h2>
+        <hr className="mb-4" />
+        <div className="ml-5 max-w-2xl flex flex-col gap-7">
+        <div className="flex flex-col gap-1">
+            <Label value="Display Name" />
             <TextInput
               type="text"
-              id="address"
-              placeholder="e.g. 105/2, koswatta rd, ..."
+              id="displayName"
+              placeholder="Display Name"
+              defaultValue={currentUser.username}
               className="flex-1"
               required
-              defaultValue={currentUser.address}
-              onChange={handleChange}
+              onChange={handlefrpDataChange}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <Label value="Fundraising Goal (Rs.)" />
+            <TextInput
+              type="number"
+              id="goal"
+              placeholder="goal"
+              required
+              onChange={handlefrpDataChange}
             />
           </div>
         </div>
@@ -137,7 +176,7 @@ export default function FRReg() {
           gradientDuoTone="purpleToPink"
           size="lg"
           outline
-          className="my-4"
+          className="my-10"
         >
           Register
         </Button>

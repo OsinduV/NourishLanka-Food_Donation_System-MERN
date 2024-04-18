@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
 import { Alert, Button, Modal } from "flowbite-react";
-import ContentUpdate from "../components/frpCreateComponents/ContentUpdate";
-import ImgUpload from "../components/frpCreateComponents/ImgUpload";
-import GoalUpdate from "../components/frpCreateComponents/GoalUpdate";
+import ContentUpdate from "../components/frpComponents/ContentUpdate";
+import ImgUpload from "../components/frpComponents/ImgUpload";
+import GoalUpdate from "../components/frpComponents/GoalUpdate";
 
 
 export const FormDataContext = createContext(null);

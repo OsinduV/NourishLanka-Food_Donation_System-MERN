@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { FormDataContext } from "../../pages/FRPCreate";
+import { FormDataContext } from "../../pages/FRPage";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 export default function ContentUpdate() {
-  const { formData, setFormData } = useContext(FormDataContext);
+  const { formData, setFormData, frp } = useContext(FormDataContext);
 
   return (
     <div>
@@ -14,8 +14,9 @@ export default function ContentUpdate() {
         <ReactQuill
           theme="snow"
           placeholder="write your story"
-          className="h-72"
+          className="h-52"
           required
+          defaultValue={formData.content || frp.content}
           onChange={(value) => {
             setFormData({...formData, content: value});
           }}
