@@ -80,6 +80,11 @@ const donationSchema = new mongoose.Schema(
             default: 'donationevent',
         },
 
+        status: {
+            type: String,
+            default: 'processing',
+        },
+
         slug: {
             type: String,
             required: true,
