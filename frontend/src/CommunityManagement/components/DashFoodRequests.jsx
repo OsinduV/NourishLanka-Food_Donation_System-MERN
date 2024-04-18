@@ -109,7 +109,7 @@ export default function DashFoodRequests() {
                     <Table.Cell>
                       <Link
                         className='font-medium text-gray-900 dark:text-white'
-                        to={`/myfoodrequest/${myfoodrequest.slug}`}
+                        to={`/foodrequest/${myfoodrequest.slug}`}
                       >
                         {myfoodrequest.recipientname}
                       </Link>
