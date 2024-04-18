@@ -118,3 +118,15 @@ export const deletedonation = async (req, res, next) => {
       next(error);
     }
   };
+
+  export const deletemydonation = async (req, res, next) => {
+    if (req.user.id !== req.params.userId) {
+      return next(errorHandler(403, 'You are not allowed to delete this event'));
+    }
+    try {
+      await Donation.findByIdAndDelete(req.params.donationId);
+      res.status(200).json('The post has been deleted');
+    } catch (error) {
+      next(error);
+    }
+  };
