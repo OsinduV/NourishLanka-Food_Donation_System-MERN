@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { set } from 'mongoose';
-
+import { BiFolderPlus } from "react-icons/bi";
 export default function DashFoodRequests() {
     const { currentUser } = useSelector((state) => state.user);
     const [userFoodRequests, setUserFoodRequests] = useState([]);
@@ -82,9 +82,12 @@ export default function DashFoodRequests() {
           <>
             <div className="flex items-center mb-4"> {/* Flex container to align heading and button */}
               <h2 className="text-2xl font-bold mr-4">My Food Requests</h2>
-              <a href="create-foodrequest" className="ml-auto"> {/* Adjust button positioning */}
-                <Button type='button' gradientDuoTone='greenToBlue'>Add a New Food Request</Button>
-              </a>
+              <a href="create-foodrequest" className="ml-auto">
+               <Button type='button' gradientDuoTone='greenToBlue'>
+               <BiFolderPlus className="mr-2" style={{ fontSize: '1.8em' }} /> {/* Adjust icon size */}
+                Add a New Food Request
+              </Button>
+             </a>
             </div>
             <Table hoverable className='shadow-md'>
               <Table.Head>
