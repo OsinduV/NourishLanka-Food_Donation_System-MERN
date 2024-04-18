@@ -4,6 +4,7 @@ import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
 import DashEvents from '../Event/components/DashEvents';
 import DashDonations from '../Event/components/DashDonations';
+import DashDRequests from '../Event/components/DashDRequests';
 
 
 export default function Dashboard() {
@@ -32,6 +33,9 @@ export default function Dashboard() {
 
       {/* donation requests... */}
       {tab === 'donations' && <DashDonations />}
+
+      {/* my donation requests... */}
+      {tab === 'drequests' && <DashDRequests />}
     </div>
   );
 }

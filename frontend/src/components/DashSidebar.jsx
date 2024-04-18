@@ -49,6 +49,19 @@ export default function DashSidebar() {
             </Sidebar.Item>
           </Link>
 
+          <Link to='/dashboard?tab=drequests'>
+          {currentUser && !currentUser.isEventOrganiser && (
+            <Sidebar.Item
+              active={tab === 'drequests'}
+              icon={MdNotes}
+              labelColor='dark'
+              as='div'
+            >
+             My Donation Events
+            </Sidebar.Item>
+          )}
+          </Link>
+
           {currentUser.isEventOrganiser && (
               <Link to='/dashboard?tab=events'>
               <Sidebar.Item
