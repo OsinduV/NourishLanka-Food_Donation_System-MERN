@@ -16,6 +16,7 @@ import Search from "./Event/pages/Search"
 import DonationRequest from "./Event/pages/DonationRequest"
 import EventDescription from "./Event/pages/EventDescription"
 import UpdateDStatus from "./Event/pages/UpdateDStatus"
+import FoodDriveRequest from "./Event/pages/FoodDriveRequest"
 
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path="/donation-request" element={<DonationRequest />} />
+          <Route path="/fooddrive-request" element={<FoodDriveRequest />} />
         </Route>
 
            {/*only for event organiser */}

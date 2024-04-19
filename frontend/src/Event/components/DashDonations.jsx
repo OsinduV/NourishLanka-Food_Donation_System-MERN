@@ -1,3 +1,4 @@
+//component in event organiser dashboard where event organiser see all the requests made by donors
 import { Button, Modal, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';

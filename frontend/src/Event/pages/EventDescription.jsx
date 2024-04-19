@@ -118,7 +118,7 @@ export default function EventDescription() {
             </Link>
 
 
-            <Link to={'/donation-request'}>
+            <Link to={'/fooddrive-request'}>
             <Button
               type='button'
               className='bg-gradient-to-r from-green-500 via-green-300 to-green-400 text-white'
