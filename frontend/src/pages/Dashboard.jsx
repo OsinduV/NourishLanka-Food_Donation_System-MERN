@@ -5,6 +5,7 @@ import DashProfile from '../components/DashProfile';
 import DashEvents from '../Event/components/DashEvents';
 import DashDonations from '../Event/components/DashDonations';
 import DashDRequests from '../Event/components/DashDRequests';
+import DashFooddrives from '../Event/components/DashFooddrives';
 
 
 export default function Dashboard() {
@@ -31,11 +32,14 @@ export default function Dashboard() {
       {/* events... */}
       {tab === 'events' && <DashEvents />}
 
-      {/* donation requests... */}
+      {/* all donation requests... */}
       {tab === 'donations' && <DashDonations />}
 
       {/* my donation requests... */}
       {tab === 'drequests' && <DashDRequests />}
+
+      {/* all fooddrive requests... */}
+      {tab === 'fooddrives' && <DashFooddrives />}
     </div>
   );
 }
