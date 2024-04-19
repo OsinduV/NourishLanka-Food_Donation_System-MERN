@@ -98,6 +98,20 @@ export default function DashSidebar() {
               </Link>
           )}
 
+          <Link to='/dashboard?tab=frequests'>
+          {currentUser && !currentUser.isEventOrganiser && (
+            <Sidebar.Item
+              active={tab === 'frequests'}
+              icon={MdNotes}
+              labelColor='dark'
+              as='div'
+            >
+             My FoodDrives
+            </Sidebar.Item>
+          )}
+          </Link>
+
+
           <Sidebar.Item
             icon={HiArrowSmRight}
             className='cursor-pointer'
