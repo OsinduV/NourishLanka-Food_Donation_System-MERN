@@ -67,7 +67,7 @@ export default function DonationRequest() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/donation/createdonation', {
+      const res = await fetch('/api/fooddrive/createfooddrive', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export default function DonationRequest() {
       }
       if (res.ok) {
         setPublishError(null);
-       // navigate(`/donation/${data.slug}`);
+        navigate(`/fooddrive/${data.slug}`);
       }
     } catch (error) {
       setPublishError('Something went wrong');
@@ -503,7 +503,7 @@ export default function DonationRequest() {
         <Modal.Body>
           <div className='text-center'>
           <h1 className=' text-black dark:text-gray-200 mb-4 mx-auto font-semibold'>
-          Grateful for Your Giving: Thank You for Hosting a Donation Event!.</h1>
+          Grateful for Your Giving: Thank You for Hosting a FoodDrive Event!.</h1>
             <h2 className=' text-black dark:text-gray-200 mb-4'>
             Your Request is sent. The status of the event will be updated in your event Page.</h2>
             <div className='flex justify-center gap-4'>
