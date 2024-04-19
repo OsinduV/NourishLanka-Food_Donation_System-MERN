@@ -111,6 +111,11 @@ const fooddriveSchema = new mongoose.Schema(
             type: String,
         },
 
+        status: {
+            type: String,
+            default: 'processing',
+        },
+
         slug: {
             type: String,
             required: true,
