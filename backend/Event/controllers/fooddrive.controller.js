@@ -31,20 +31,78 @@ export const createfooddrive = async (req, res, next) => {
             .toLowerCase()
             .replace(/[^a-zA-Z0-9-]/g, '');
 
-        // Create new donation
+        // Create new fooddrive
         const newFooddrive = new Fooddrive({
             ...req.body,
             slug,
             userId: req.user.id,
         });
 
-        // Save donation to database
+        // Save fooddrive to database
         const savedFooddrive = await newFooddrive.save();
 
-        // Respond with saved donation
+        // Respond with saved fooddrive
         res.status(201).json(savedFooddrive);
     } catch (error) {
         // Pass error to error handling middleware
         next(error);
+    }
+};
+
+export const getfooddrives = async (req, res, next) => {
+    try {
+    //localhost:3500/api/fooddrive/getfooddrives?startIndex=1
+    const startIndex = parseInt(req.query.startIndex) || 0;
+
+    //localhost:3500/api/fooddrive/getfooddrives?limit=1
+    const limit = parseInt(req.query.limit) || 9; //9 is the requesting number of requests to the page
+
+    //localhost:3500/api/fooddrive/getfooddrives?oder=asc
+    const sortDirection = req.query.order === 'asc' ? 1 : -1;
+
+    //some more queries
+    const fooddrives = await Fooddrive.find({
+        ...(req.query.userId && { userId: req.query.userId }),
+        ...(req.query.category && { category: req.query.category }),
+        ...(req.query.status && { status: req.query.status }),
+        ...(req.query.slug && { slug: req.query.slug }),
+        ...(req.query.fooddriveId && { _id: req.query.fooddriveId }),
+        ...(req.query.searchTerm && {
+            //using or it alows us to search between two places
+          $or: [ 
+            { eventtitle: { $regex: req.query.searchTerm, $options: 'i' } }, //by regex tool it allows to search inside the title and from i, it tells that lowecase or uppercase is not important
+            { eventdescription: { $regex: req.query.searchTerm, $options: 'i' } },
+          ],
+        }),
+      })
+
+      .sort({ updatedAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
+
+
+      //to count the total number of fooddrive requests
+    const totalFooddrives = await Fooddrive.countDocuments();
+
+    //to count donation requests on last month
+      //from today to last months
+    const oneMonthAgo = new Date();
+
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+        //last month's
+        const lastMonthFooddrives = await Fooddrive.countDocuments({
+            createdAt: { $gte: oneMonthAgo },
+          });
+
+          //responce
+          res.status(200).json({
+            fooddrives,
+            totalFooddrives,
+            lastMonthFooddrives,
+          });
+
+        } catch (error) {
+            next(error);
     }
 };
