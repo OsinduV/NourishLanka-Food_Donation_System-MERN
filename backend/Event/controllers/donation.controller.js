@@ -130,3 +130,23 @@ export const deletedonation = async (req, res, next) => {
       next(error);
     }
   };
+
+  export const updatedstatus = async (req, res, next) => {
+    if (!req.user.isEventOrganiser) {
+      return next(errorHandler(403, 'You are not allowed to update the event status'));
+    }
+    try {
+      const updatedDonation = await Donation.findByIdAndUpdate(
+        req.params.donationId,
+        {
+          $set: {
+            status: req.body.status,
+          },
+        },
+        { new: true }
+      );
+      res.status(200).json(updatedDonation);
+    } catch (error) {
+      next(error);
+    }
+  };

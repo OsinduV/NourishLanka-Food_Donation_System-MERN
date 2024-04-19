@@ -84,10 +84,11 @@ export default function DashDonations() {
               <Table.HeadCell>Donor Email</Table.HeadCell>
               <Table.HeadCell>Event date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
-              <Table.HeadCell>Delete</Table.HeadCell>
+              <Table.HeadCell>Current Status</Table.HeadCell>
               <Table.HeadCell>
-                <span>Edit</span>
+                <span>Edit Status</span>
               </Table.HeadCell>
+              <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
 
             {userDonations.map((donation) => (
@@ -107,7 +108,14 @@ export default function DashDonations() {
                     <span>View more Details</span>
                   </Link>
                 </Table.Cell>
+                <Table.Cell>{donation.status}</Table.Cell>
 
+
+                <Table.Cell>
+                  <Link className='text-teal-500 hover:underline' to={`/update-dstatus/${donation._id}`}>
+                    <span>Edit status</span>
+                  </Link>
+                </Table.Cell>
                 <Table.Cell>
                   <span onClick={()=>{
                       setShowModal(true);
@@ -115,13 +123,6 @@ export default function DashDonations() {
                   }}
                   className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
                 </Table.Cell>
-
-                <Table.Cell>
-                  <Link className='text-teal-500 hover:underline' to={`/update-donation/${donation._id}`}>
-                    <span>Edit status</span>
-                  </Link>
-                </Table.Cell>
-
                 </Table.Row>
               </Table.Body>
             ))}

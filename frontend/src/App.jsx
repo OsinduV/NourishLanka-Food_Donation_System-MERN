@@ -15,6 +15,7 @@ import EventHome from "./Event/pages/EventHome"
 import Search from "./Event/pages/Search"
 import DonationRequest from "./Event/pages/DonationRequest"
 import EventDescription from "./Event/pages/EventDescription"
+import UpdateDStatus from "./Event/pages/UpdateDStatus"
 
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
       <Route element={<OnlyEventOgPrivateRoute />}>
         <Route path='/create-event' element={<CreateEvent />} />
         <Route path='/update-event/:eventId' element={<UpdateEvent />} />
+        <Route path='/update-dstatus/:donationId' element={<UpdateDStatus />} />
       </Route>
         <Route path="/projects" element={<Project/>} />
         <Route path="/event/:eventSlug" element={<EventPage/>} />
