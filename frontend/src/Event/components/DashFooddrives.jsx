@@ -113,7 +113,7 @@ export default function DashFooddrives() {
 
                 <Table.Cell>{fooddrive.status}</Table.Cell>
                 <Table.Cell>
-                  <Link className='text-teal-500 hover:underline' to={`/update-fooddrive/${fooddrive._id}`}>
+                  <Link className='text-teal-500 hover:underline' to={`/update-fstatus/${fooddrive._id}`}>
                     <span>Edit status</span>
                   </Link>
                 </Table.Cell>

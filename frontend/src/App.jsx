@@ -17,6 +17,7 @@ import DonationRequest from "./Event/pages/DonationRequest"
 import EventDescription from "./Event/pages/EventDescription"
 import UpdateDStatus from "./Event/pages/UpdateDStatus"
 import FoodDriveRequest from "./Event/pages/FoodDriveRequest"
+import UpdateFStatus from "./Event/pages/UpdateFStatus"
 
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
         <Route path='/create-event' element={<CreateEvent />} />
         <Route path='/update-event/:eventId' element={<UpdateEvent />} />
         <Route path='/update-dstatus/:donationId' element={<UpdateDStatus />} />
+        <Route path='/update-fstatus/:fooddriveId' element={<UpdateFStatus />} />
       </Route>
         <Route path="/projects" element={<Project/>} />
         <Route path="/event/:eventSlug" element={<EventPage/>} />

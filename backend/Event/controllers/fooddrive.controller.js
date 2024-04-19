@@ -130,3 +130,23 @@ export const deletefooddrive = async (req, res, next) => {
       next(error);
     }
   }; 
+
+  export const updatefstatus = async (req, res, next) => {
+    if (!req.user.isEventOrganiser) {
+      return next(errorHandler(403, 'You are not allowed to update the event status'));
+    }
+    try {
+      const updatedFooddrive = await Fooddrive.findByIdAndUpdate(
+        req.params.fooddriveId,
+        {
+          $set: {
+            status: req.body.status,
+          },
+        },
+        { new: true }
+      );
+      res.status(200).json(updatedFooddrive);
+    } catch (error) {
+      next(error);
+    }
+  }; 
