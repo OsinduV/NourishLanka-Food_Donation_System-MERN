@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 export default function DashFooddrives() {
     const { currentUser } = useSelector((state) => state.user);
     const [userFooddrives, setUserFooddrives] = useState([]);
+    const [showMore, setShowMore] = useState(true);
     console.log(userFooddrives);
     useEffect(() => {
       const fetchFooddrives = async () => {
@@ -17,6 +18,7 @@ export default function DashFooddrives() {
           if (res.ok) {
             setUserFooddrives(data.fooddrives);
             if (data.fooddrives.length < 9) {
+              setShowMore(false);
             }
           }
         } catch (error) {
@@ -27,6 +29,24 @@ export default function DashFooddrives() {
         fetchFooddrives();
       }
     },[currentUser._id])
+
+    const handleShowMore = async () => {
+      const startIndex = userFooddrives.length;
+      try {
+        const res = await fetch(
+          `/api/fooddrive/getfooddrives?&startIndex=${startIndex}`
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setUserFooddrives((prev) => [...prev, ...data.fooddrives]);
+          if (data.fooddrives.length < 9) {
+            setShowMore(false);
+          }
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
@@ -41,10 +61,12 @@ export default function DashFooddrives() {
               <Table.HeadCell>Donor Email</Table.HeadCell>
               <Table.HeadCell>Event date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
-              <Table.HeadCell>Delete</Table.HeadCell>
+              <Table.HeadCell>Current Status</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit</span>
               </Table.HeadCell>
+              <Table.HeadCell>Delete</Table.HeadCell>
+
             </Table.Head>
 
             {userFooddrives.map((fooddrive) => (
@@ -65,20 +87,28 @@ export default function DashFooddrives() {
                   </Link>
                 </Table.Cell>
 
-                <Table.Cell>
-                  <span className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
-                </Table.Cell>
-
+                <Table.Cell>{fooddrive.status}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/update-fooddrive/${fooddrive._id}`}>
                     <span>Edit status</span>
                   </Link>
                 </Table.Cell>
-
+                <Table.Cell>
+                  <span className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
+                </Table.Cell>
                 </Table.Row>
               </Table.Body>
             ))}
             </Table>
+
+            {showMore && (
+            <button
+              onClick={handleShowMore}
+              className='w-full text-teal-500 self-center text-sm py-7'
+            >
+              Show more
+            </button>
+          )}
 
           </>
         ) : (
