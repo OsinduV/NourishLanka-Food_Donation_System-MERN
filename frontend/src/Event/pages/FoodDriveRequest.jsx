@@ -297,10 +297,10 @@ export default function DonationRequest() {
                 placeholder='Expected starting time'
                 required={formData.type === 'longdrive'}
                 icon={IoIosTime}
-                id='eventtime'
+                id='eventtimelong'
                 className='flex-1 ml-12'
                 onChange={(e) =>
-            setFormData({ ...formData, eventtime: e.target.value })
+            setFormData({ ...formData, eventtimelong: e.target.value })
             }
         disabled={formData.type === 'onedaydrive'}
         />
@@ -312,10 +312,10 @@ export default function DonationRequest() {
                 placeholder='Location(s) of collection point(s)'
                 required={formData.type === 'longdrive'}
                 icon={FaLocationDot}
-                id='eventlocation'
+                id='eventlocationlong'
                 className='flex-1'
                 onChange={(e) =>
-            setFormData({ ...formData, eventlocation: e.target.value })
+            setFormData({ ...formData, eventlocationlong: e.target.value })
             }
         disabled={formData.type === 'onedaydrive'}
         />

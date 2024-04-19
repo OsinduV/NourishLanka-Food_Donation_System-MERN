@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
 import eventRoutes from './Event/routes/event.route.js';
 import donationRoutes from './Event/routes/donation.route.js';
+import fooddriveRoutes from './Event/routes/fooddrive.route.js';
 
 dotenv.config()
 mongoose
@@ -29,6 +30,7 @@ app.use('/api/user', userRoutes)
 app.use('/api/auth',authRoutes)
 app.use('/api/event', eventRoutes); 
 app.use('/api/donation', donationRoutes); 
+app.use('/api/fooddrive', fooddriveRoutes); 
 
 app.use((err,req,res,next) =>{
     const statusCode = err.statusCode || 500;
