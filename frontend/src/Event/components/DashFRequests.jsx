@@ -74,6 +74,16 @@ export default function DashFRequests() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+                  <div className="flex justify-between items-center mb-5">
+            <h2 className="text-xl font-semibold"></h2>
+                {/* Add navigation links here */}
+                <div className="flex space-x-12 font-semibold mr-10">
+                <Link to="/dashboard?tab=frequests">All requests</Link>
+                <Link to='/dashboard?tab=fapproved'>Approved events</Link>
+                <Link to="/dashboard?tab=fdeclined">Declined events</Link>
+                    {/* Add more navigation links as needed */}
+                </div>
+            </div>
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
            {userFooddrives.length > 0 ? (
         <>

@@ -18,6 +18,8 @@ import EventDescription from "./Event/pages/EventDescription"
 import UpdateDStatus from "./Event/pages/UpdateDStatus"
 import FoodDriveRequest from "./Event/pages/FoodDriveRequest"
 import UpdateFStatus from "./Event/pages/UpdateFStatus"
+import ApprovedDonations from "./Event/pages/ApprovedDonations"
+import DeclinedDonations from "./Event/pages/DeclinedDonations"
 
 
 export default function App() {

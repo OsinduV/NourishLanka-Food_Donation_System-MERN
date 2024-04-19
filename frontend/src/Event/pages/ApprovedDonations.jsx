@@ -1,4 +1,4 @@
-//component in user dashboard where user see all the requests made by only themselves
+
 import { Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Button, Modal,} from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-export default function DashDRequests() {
+export default function ApprovedDonations() {
     const { currentUser } = useSelector((state) => state.user);
     const [userDonations, setUserDonations] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -17,7 +17,7 @@ export default function DashDRequests() {
       const fetchDonations = async () => {
         try {
           //retrieving requests from id
-         const res = await fetch(`/api/donation/getdonations?userId=${currentUser._id}`);
+         const res = await fetch(`/api/donation/getdonations?status=approved&userId=${currentUser._id}`);
           const data = await res.json();
           if (res.ok) {
             setUserDonations(data.donations);
@@ -76,8 +76,8 @@ export default function DashDRequests() {
   return (
     
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-            {/* Header-like section */}
-            <div className="flex justify-between items-center mb-5">
+             {/* Header-like section */}
+             <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
                 {/* Add navigation links here */}
                 <div className="flex space-x-12 font-semibold mr-10">

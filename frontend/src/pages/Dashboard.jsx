@@ -7,6 +7,10 @@ import DashDonations from '../Event/components/DashDonations';
 import DashDRequests from '../Event/components/DashDRequests';
 import DashFooddrives from '../Event/components/DashFooddrives';
 import DashFRequests from '../Event/components/DashFRequests';
+import ApprovedDonations from '../Event/pages/ApprovedDonations';
+import ApprovedFooddrives from '../Event/pages/ApprovedFooddrives';
+import DeclinedFooddrives from '../Event/pages/DeclinedFooddrives';
+import DeclinedDonations from '../Event/pages/DeclinedDonations';
 
 
 export default function Dashboard() {
@@ -42,9 +46,20 @@ export default function Dashboard() {
       {/* all fooddrive requests... */}
       {tab === 'fooddrives' && <DashFooddrives />}
 
-
       {/* my fooddrive requests... */}
       {tab === 'frequests' && <DashFRequests />}
+
+      {/* my approved donation requests... */}
+      {tab === 'dapproved' && <ApprovedDonations />}
+
+      {/* my declined donation requests... */}
+      {tab === 'ddeclined' && <DeclinedDonations />}
+
+      {/* my approved donation requests... */}
+      {tab === 'fapproved' && <ApprovedFooddrives />}
+
+      {/* my declined donation requests... */}
+      {tab === 'fdeclined' && <DeclinedFooddrives />}
     </div>
   );
 }

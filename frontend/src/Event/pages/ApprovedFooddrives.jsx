@@ -1,4 +1,4 @@
-//component in user dashboard where user see all the requests made by only themselves
+
 import { Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -6,23 +6,23 @@ import { Link } from 'react-router-dom';
 import { Button, Modal,} from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-export default function DashDRequests() {
+export default function ApprovedFooddrives() {
     const { currentUser } = useSelector((state) => state.user);
-    const [userDonations, setUserDonations] = useState([]);
+    const [userFooddrives, setUserFooddrives] = useState([]);
     const [showMore, setShowMore] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const [mydonationIdToDelete, setmyDonationIdToDelete] = useState('');
-    console.log(userDonations);
+    const [myfooddriveIdToDelete, setmyFooddriveIdToDelete] = useState('');
+    console.log(userFooddrives);
     useEffect(() => {
-      const fetchDonations = async () => {
+      const fetchFooddrives = async () => {
         try {
           //retrieving requests from id
-         const res = await fetch(`/api/donation/getdonations?userId=${currentUser._id}`);
+         const res = await fetch(`/api/fooddrive/getfooddrives?status=approved&userId=${currentUser._id}`);
           const data = await res.json();
           if (res.ok) {
-            setUserDonations(data.donations);
-            if (data.donations.length < 9) {
-              setShowMore(false);
+            setUserFooddrives(data.fooddrives);
+            if (data.fooddrives.length < 9) {
+                setShowMore(false);
             }
           }
         } catch (error) {
@@ -30,65 +30,63 @@ export default function DashDRequests() {
         }
       };
       if (!currentUser.isEventOrganiser) {
-        fetchDonations();
+        fetchFooddrives();
       }
     },[currentUser._id])
 
     const handleShowMore = async () => {
-      const startIndex = userDonations.length;
-      try {
-        const res = await fetch(
-          `/api/donation/getdonations?userId=${currentUser._id}&startIndex=${startIndex}`
-        );
-        const data = await res.json();
-        if (res.ok) {
-          setUserDonations((prev) => [...prev, ...data.donations]);
-          if (data.donations.length < 9) {
-            setShowMore(false);
-          }
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-
-    const handleDeleteDonation = async () => {
-      setShowModal(false);
-      try {
-        const res = await fetch(`/api/donation/deletemydonation/${mydonationIdToDelete}/${currentUser._id}`, {
-          method: 'DELETE',
-        });
-
-        const data = await res.json();
-        if (!res.ok) {
-          console.log(data.message);
-        } else {
-          setUserDonations((prev) =>
-            prev.filter((donation) => donation._id !== mydonationIdToDelete)
+        const startIndex = userFooddrives.length;
+        try {
+          const res = await fetch(
+            `/api/fooddrive/getfooddrives?userId=${currentUser._id}&startIndex=${startIndex}`
           );
+          const data = await res.json();
+          if (res.ok) {
+            setUserFooddrives((prev) => [...prev, ...data.fooddrives]);
+            if (data.fooddrives.length < 9) {
+              setShowMore(false);
+            }
+          }
+        } catch (error) {
+          console.log(error.message);
         }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
+      };
+  
+      const handleDeleteFooddrive = async () => {
+        setShowModal(false);
+        try {
+          const res = await fetch(`/api/fooddrive/deletemyfooddrive/${myfooddriveIdToDelete}/${currentUser._id}`, {
+            method: 'DELETE',
+          });
+  
+          const data = await res.json();
+          if (!res.ok) {
+            console.log(data.message);
+          } else {
+            setUserFooddrives((prev) =>
+              prev.filter((fooddrive) => fooddrive._id !== myfooddriveIdToDelete)
+            );
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
 
   return (
-    
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-            {/* Header-like section */}
             <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
                 {/* Add navigation links here */}
                 <div className="flex space-x-12 font-semibold mr-10">
-                <Link to="/dashboard?tab=drequests">All requests</Link>
-                <Link to='/dashboard?tab=dapproved'>Approved events</Link>
-                <Link to="/dashboard?tab=ddeclined">Declined events</Link>
+                <Link to="/dashboard?tab=frequests">All requests</Link>
+                <Link to='/dashboard?tab=fapproved'>Approved events</Link>
+                <Link to="/dashboard?tab=fdeclined">Declined events</Link>
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
+        
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
-           {userDonations.length > 0 ? (
+           {userFooddrives.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
@@ -101,33 +99,30 @@ export default function DashDRequests() {
               <Table.HeadCell>Delete your event</Table.HeadCell>
             </Table.Head>
 
-            {userDonations.map((donation) => (
+            {userFooddrives.map((fooddrive) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>{new Date(donation.createdAt).toLocaleDateString()}</Table.Cell>
-                <Table.Cell>{new Date(donation.updatedAt).toLocaleDateString()}</Table.Cell>
+                <Table.Cell>{new Date(fooddrive.createdAt).toLocaleDateString()}</Table.Cell>
+                <Table.Cell>{new Date(fooddrive.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
-                  <Link className='font-medium text-gray-900 dark:text-white' to={`/donation/${donation.slug}`}>
-                    {donation.eventtitle}
+                  <Link className='font-medium text-gray-900 dark:text-white' to={`/fooddrive/${fooddrive.slug}`}>
+                    {fooddrive.eventtitle}
                   </Link>
                 </Table.Cell>
-                <Table.Cell>{donation.eventdate}</Table.Cell>
+                <Table.Cell>{fooddrive.eventdate}</Table.Cell>
                 <Table.Cell>
-                  <Link className='text-teal-500 hover:underline' to={`/donation/${donation.slug}`}>
-                    <span>View my request</span>
+                  <Link className='text-teal-500 hover:underline' to={`/fooddrive/${fooddrive.slug}`}>
+                    <span>View my Request</span>
                   </Link>
                 </Table.Cell>
-                <Table.Cell>{donation.status}</Table.Cell>
-
+                <Table.Cell>{fooddrive.status}</Table.Cell>
                 <Table.Cell>
-                  <span onClick={()=>{
+                         <span onClick={()=>{
                       setShowModal(true);
-                      setmyDonationIdToDelete(donation._id);
+                      setmyFooddriveIdToDelete(fooddrive._id);
                   }}
                   className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
                 </Table.Cell>
-                
-
 
                 </Table.Row>
               </Table.Body>
@@ -143,10 +138,11 @@ export default function DashDRequests() {
           )}
           </>
         ) : (
-          <p>You have no donation requests yet!</p>
+          <p>You have no food drive requests yet!</p>
         )}
 
-<Modal
+
+    <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
         popup
@@ -160,7 +156,7 @@ export default function DashDRequests() {
               Are you sure you want to delete this request?
             </h3>
             <div className='flex justify-center gap-4'>
-              <Button color='failure' onClick={handleDeleteDonation}>
+              <Button color='failure' onClick={handleDeleteFooddrive}>
                 Yes, I'm sure
               </Button>
               <Button color='gray' onClick={() => setShowModal(false)}>
