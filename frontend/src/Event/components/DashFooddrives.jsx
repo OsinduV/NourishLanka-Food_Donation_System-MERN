@@ -141,7 +141,7 @@ export default function DashFooddrives() {
 
           </>
         ) : (
-          <p>You have no donation requests yet!</p>
+          <p>You have no food drive requests yet!</p>
         )}
 
 <Modal
