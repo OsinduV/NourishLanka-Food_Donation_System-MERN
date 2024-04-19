@@ -106,3 +106,15 @@ export const getfooddrives = async (req, res, next) => {
             next(error);
     }
 };
+
+export const deletefooddrive = async (req, res, next) => {
+    if (!req.user.isEventOrganiser) {
+      return next(errorHandler(403, 'You are not allowed to delete this event'));
+    }
+    try {
+      await Fooddrive.findByIdAndDelete(req.params.fooddriveId);
+      res.status(200).json('The post has been deleted');
+    } catch (error) {
+      next(error);
+    }
+  }; 
