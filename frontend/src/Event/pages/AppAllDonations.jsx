@@ -1,23 +1,23 @@
-//user dashboard approved donation events
-import { Table } from 'flowbite-react';
+//event organiser dashboard of approved donation events
+import { Button, Modal, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { Button, Modal,} from 'flowbite-react';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-export default function ApprovedDonations() {
+export default function AppAllDonations() {
     const { currentUser } = useSelector((state) => state.user);
     const [userDonations, setUserDonations] = useState([]);
+    console.log(userDonations);
     const [showMore, setShowMore] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const [mydonationIdToDelete, setmyDonationIdToDelete] = useState('');
-    console.log(userDonations);
+    const [donationIdToDelete, setDonationIdToDelete] = useState('');
     useEffect(() => {
       const fetchDonations = async () => {
         try {
           //retrieving requests from id
-         const res = await fetch(`/api/donation/getdonations?status=approved&userId=${currentUser._id}`);
+         {/**  const res = await fetch(`/api/donation/getdonations?userId=${currentUser._id}`);*/}
+         const res = await fetch(`/api/donation/getdonations?status=approved`);
           const data = await res.json();
           if (res.ok) {
             setUserDonations(data.donations);
@@ -29,7 +29,7 @@ export default function ApprovedDonations() {
           console.log(error.message);
         }
       };
-      if (!currentUser.isEventOrganiser) {
+      if (currentUser.isEventOrganiser) {
         fetchDonations();
       }
     },[currentUser._id])
@@ -38,7 +38,7 @@ export default function ApprovedDonations() {
       const startIndex = userDonations.length;
       try {
         const res = await fetch(
-          `/api/donation/getdonations?userId=${currentUser._id}&startIndex=${startIndex}`
+          `/api/donation/getdonations?startIndex=${startIndex}`
         );
         const data = await res.json();
         if (res.ok) {
@@ -52,20 +52,19 @@ export default function ApprovedDonations() {
       }
     };
 
-
     const handleDeleteDonation = async () => {
       setShowModal(false);
       try {
-        const res = await fetch(`/api/donation/deletemydonation/${mydonationIdToDelete}/${currentUser._id}`, {
+        const res = await fetch(`/api/donation/deletedonation/${donationIdToDelete}/${currentUser._id}`, {
           method: 'DELETE',
         });
-
+        
         const data = await res.json();
         if (!res.ok) {
           console.log(data.message);
         } else {
           setUserDonations((prev) =>
-            prev.filter((donation) => donation._id !== mydonationIdToDelete)
+            prev.filter((donation) => donation._id !== donationIdToDelete)
           );
         }
       } catch (error) {
@@ -74,61 +73,74 @@ export default function ApprovedDonations() {
     };
 
   return (
-    
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-             {/* Header-like section */}
-             <div className="flex justify-between items-center mb-5">
+           {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
+
+        <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+            <h2 className="text-3xl font-semibold flex">Donation Campaign Request List</h2>
+        </div>
+
+                              {/* Header-like section2 */}
+                              <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
                 {/* Add navigation links here */}
-                <div className="flex space-x-12 font-semibold mr-10">
-                <Link to="/dashboard?tab=drequests">All requests</Link>
-                <Link to='/dashboard?tab=dapproved'>Approved events</Link>
-                <Link to="/dashboard?tab=ddeclined">Declined events</Link>
+                <div className="flex space-x-12 mr-10">
+                <Link to='/dashboard?tab=donations'>All</Link>
+                <Link to='/dashboard?tab=approveddonations'>Approved</Link>
+                <Link to='/dashboard?tab=declineddonations'>Declined</Link>
+                <Link to="/dashboard?tab=completeddonations">Completed</Link>
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
-           {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
-           {userDonations.length > 0 ? (
+           {currentUser.isEventOrganiser && userDonations.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-              <Table.HeadCell>Date Created</Table.HeadCell>
-              <Table.HeadCell>Status updated date</Table.HeadCell>
+              <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>Event title</Table.HeadCell>
+              <Table.HeadCell>Donor ID</Table.HeadCell>
+              <Table.HeadCell>Donor Email</Table.HeadCell>
               <Table.HeadCell>Event date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
-              <Table.HeadCell>Your event status</Table.HeadCell>
-              <Table.HeadCell>Delete your event</Table.HeadCell>
+              <Table.HeadCell>Current Status</Table.HeadCell>
+              <Table.HeadCell>
+                <span>Edit Status</span>
+              </Table.HeadCell>
+              <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
 
             {userDonations.map((donation) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>{new Date(donation.createdAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>{new Date(donation.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
                   <Link className='font-medium text-gray-900 dark:text-white' to={`/donation/${donation.slug}`}>
                     {donation.eventtitle}
                   </Link>
                 </Table.Cell>
+                <Table.Cell>{donation.dnid}</Table.Cell>
+                <Table.Cell>{donation.donoremail}</Table.Cell>
                 <Table.Cell>{donation.eventdate}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/donation/${donation.slug}`}>
-                    <span>View my request</span>
+                    <span>View more Details</span>
                   </Link>
                 </Table.Cell>
                 <Table.Cell>{donation.status}</Table.Cell>
 
+
+                <Table.Cell>
+                  <Link className='text-teal-500 hover:underline' to={`/update-dstatus/${donation._id}`}>
+                    <span>Edit status</span>
+                  </Link>
+                </Table.Cell>
                 <Table.Cell>
                   <span onClick={()=>{
                       setShowModal(true);
-                      setmyDonationIdToDelete(donation._id);
+                      setDonationIdToDelete(donation._id);
                   }}
                   className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
                 </Table.Cell>
-                
-
-
                 </Table.Row>
               </Table.Body>
             ))}
@@ -146,7 +158,7 @@ export default function ApprovedDonations() {
           <p>You have no donation requests yet!</p>
         )}
 
-<Modal
+    <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
         popup

@@ -1,48 +1,26 @@
-//user dashboard approved fooddrive events
-import { Table } from 'flowbite-react';
+//event organiser dashboard londay completed fooddrives
+import { Button, Modal, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
-import { Button, Modal,} from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
-export default function ApprovedFooddrives() {
+export default function ComAllFdLong() {
     const { currentUser } = useSelector((state) => state.user);
     const [userFooddrives, setUserFooddrives] = useState([]);
     const [showMore, setShowMore] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const [myfooddriveIdToDelete, setmyFooddriveIdToDelete] = useState('');
+    const [fooddriveIdToDelete, setFooddriveIdToDelete] = useState('');
     console.log(userFooddrives);
     useEffect(() => {
       const fetchFooddrives = async () => {
         try {
           //retrieving requests from id
-         const res = await fetch(`/api/fooddrive/getfooddrives?status=approved&userId=${currentUser._id}`);
+         {/**  const res = await fetch(`/api/donation/getdonations?userId=${currentUser._id}`);*/}
+         const res = await fetch(`/api/fooddrive/getfooddrives?type=longdrive&status=completed`);
           const data = await res.json();
           if (res.ok) {
             setUserFooddrives(data.fooddrives);
-            if (data.fooddrives.length < 9) {
-                setShowMore(false);
-            }
-          }
-        } catch (error) {
-          console.log(error.message);
-        }
-      };
-      if (!currentUser.isEventOrganiser) {
-        fetchFooddrives();
-      }
-    },[currentUser._id])
-
-    const handleShowMore = async () => {
-        const startIndex = userFooddrives.length;
-        try {
-          const res = await fetch(
-            `/api/fooddrive/getfooddrives?userId=${currentUser._id}&startIndex=${startIndex}`
-          );
-          const data = await res.json();
-          if (res.ok) {
-            setUserFooddrives((prev) => [...prev, ...data.fooddrives]);
             if (data.fooddrives.length < 9) {
               setShowMore(false);
             }
@@ -51,83 +29,137 @@ export default function ApprovedFooddrives() {
           console.log(error.message);
         }
       };
-  
-      const handleDeleteFooddrive = async () => {
-        setShowModal(false);
-        try {
-          const res = await fetch(`/api/fooddrive/deletemyfooddrive/${myfooddriveIdToDelete}/${currentUser._id}`, {
-            method: 'DELETE',
-          });
-  
-          const data = await res.json();
-          if (!res.ok) {
-            console.log(data.message);
-          } else {
-            setUserFooddrives((prev) =>
-              prev.filter((fooddrive) => fooddrive._id !== myfooddriveIdToDelete)
-            );
+      if (currentUser.isEventOrganiser) {
+        fetchFooddrives();
+      }
+    },[currentUser._id])
+
+    const handleShowMore = async () => {
+      const startIndex = userFooddrives.length;
+      try {
+        const res = await fetch(
+          `/api/fooddrive/getfooddrives?&startIndex=${startIndex}`
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setUserFooddrives((prev) => [...prev, ...data.fooddrives]);
+          if (data.fooddrives.length < 9) {
+            setShowMore(false);
           }
-        } catch (error) {
-          console.log(error.message);
         }
-      };
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    const handleDeleteFooddrive = async () => {
+      setShowModal(false);
+      try {
+        const res = await fetch(`/api/fooddrive/deletefooddrive/${fooddriveIdToDelete}/${currentUser._id}`, {
+          method: 'DELETE',
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          console.log(data.message);
+        } else {
+          setUserFooddrives((prev) =>
+            prev.filter((fooddrive) => fooddrive._id !== fooddriveIdToDelete)
+          );
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-            <div className="flex justify-between items-center mb-5">
+                  {/* Header-like section1 */}
+                  <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
                 {/* Add navigation links here */}
                 <div className="flex space-x-12 font-semibold mr-10">
-                <Link to="/dashboard?tab=frequests">All requests</Link>
-                <Link to='/dashboard?tab=fapproved'>Approved events</Link>
-                <Link to="/dashboard?tab=fdeclined">Declined events</Link>
+                <Link to='/dashboard?tab=fooddrives'>All FoodDrive requests</Link>
+                <Link to='/dashboard?tab=foneday'>One day FoodDrive requests</Link>
+                <Link to="/dashboard?tab=flongday">Long Day FoodDrive requests</Link>
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
-        
+
+    <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+        <h2 className="text-3xl font-semibold flex">Long Day FoodDrive Request List</h2>
+    </div>
+
+                      {/* Header-like section2 */}
+                      <div className="flex justify-between items-center mb-5">
+            <h2 className="text-xl font-semibold"></h2>
+                {/* Add navigation links here */}
+                <div className="flex space-x-12 mr-10">
+                <Link to='/dashboard?tab=fooddrives'>Approved</Link>
+                <Link to='/dashboard?tab=fdeclinedlong'>Declined</Link>
+                <Link to="/dashboard?tab=fcompletedlong">Completed</Link>
+                    {/* Add more navigation links as needed */}
+                </div>
+            </div>
+
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
-           {userFooddrives.length > 0 ? (
+           {currentUser.isEventOrganiser && userFooddrives.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-              <Table.HeadCell>Date Created</Table.HeadCell>
-              <Table.HeadCell>Status updated date</Table.HeadCell>
+              <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>Event title</Table.HeadCell>
-              <Table.HeadCell>Event date</Table.HeadCell>
+              <Table.HeadCell>Donor ID</Table.HeadCell>
+              <Table.HeadCell>Donor Email</Table.HeadCell>
+              <Table.HeadCell>Event stating date</Table.HeadCell>
+              <Table.HeadCell>Event ending date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
-              <Table.HeadCell>Your event status</Table.HeadCell>
-              <Table.HeadCell>Delete your event</Table.HeadCell>
+              <Table.HeadCell>Current Status</Table.HeadCell>
+              <Table.HeadCell>
+                <span>Edit</span>
+              </Table.HeadCell>
+              <Table.HeadCell>Delete</Table.HeadCell>
+
             </Table.Head>
 
             {userFooddrives.map((fooddrive) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>{new Date(fooddrive.createdAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>{new Date(fooddrive.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
                   <Link className='font-medium text-gray-900 dark:text-white' to={`/fooddrive/${fooddrive.slug}`}>
                     {fooddrive.eventtitle}
                   </Link>
                 </Table.Cell>
-                <Table.Cell>{fooddrive.eventdate}</Table.Cell>
+                <Table.Cell>{fooddrive.dnid}</Table.Cell>
+                <Table.Cell>{fooddrive.donoremail}</Table.Cell>
+                <Table.Cell>{fooddrive.DateFrom}</Table.Cell>
+                <Table.Cell>{fooddrive.DateTo}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/fooddrive/${fooddrive.slug}`}>
-                    <span>View my Request</span>
+                    <span>View more Details</span>
                   </Link>
                 </Table.Cell>
+
                 <Table.Cell>{fooddrive.status}</Table.Cell>
                 <Table.Cell>
-                         <span onClick={()=>{
+                  <Link className='text-teal-500 hover:underline' to={`/update-fstatus/${fooddrive._id}`}>
+                    <span>Edit status</span>
+                  </Link>
+                </Table.Cell>
+                <Table.Cell>
+                  
+                <span onClick={()=>{
                       setShowModal(true);
-                      setmyFooddriveIdToDelete(fooddrive._id);
+                      setFooddriveIdToDelete(fooddrive._id);
                   }}
                   className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
                 </Table.Cell>
-
                 </Table.Row>
               </Table.Body>
             ))}
             </Table>
+
             {showMore && (
             <button
               onClick={handleShowMore}
@@ -136,13 +168,13 @@ export default function ApprovedFooddrives() {
               Show more
             </button>
           )}
+
           </>
         ) : (
           <p>You have no food drive requests yet!</p>
         )}
 
-
-    <Modal
+<Modal
         show={showModal}
         onClose={() => setShowModal(false)}
         popup

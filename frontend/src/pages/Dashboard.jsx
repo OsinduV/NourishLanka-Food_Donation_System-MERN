@@ -13,6 +13,16 @@ import DeclinedFooddrives from '../Event/pages/DeclinedFooddrives';
 import DeclinedDonations from '../Event/pages/DeclinedDonations';
 import OnedayFooddrives from '../Event/pages/OnedayFooddrives';
 import LongdayFooddrives from '../Event/pages/LongdayFooddrives';
+import AppAllFdLong from '../Event/pages/AppAllFdLong';
+import DecAllFdLong from '../Event/pages/DecAllFLong';
+import ComllFdLong from '../Event/pages/ComAllFdLong';
+import AppAllFone from '../Event/pages/AppAllFone';
+import DecAllFone from '../Event/pages/DecAllFone';
+import ComAllFone from '../Event/pages/ComAllFone';
+import ComAllFdLong from '../Event/pages/ComAllFdLong';
+import AppAllDonations from '../Event/pages/AppAllDonations';
+import DecAllDonations from '../Event/pages/DecAllDonations';
+import ComAllDonations from '../Event/pages/ComAllDonations';
 
 
 
@@ -40,17 +50,58 @@ export default function Dashboard() {
       {/* events... */}
       {tab === 'events' && <DashEvents />}
 
+      
+
+{/*EVENT ORGANISER DASHBOARD */}
       {/* all donation requests... */}
       {tab === 'donations' && <DashDonations />}
 
-      {/* my donation requests... */}
-      {tab === 'drequests' && <DashDRequests />}
+      {/* all donation requests... */}
+      {tab === 'declineddonations' && <DecAllDonations />}
+
+      {/* all approved donation requests... */}
+      {tab === 'approveddonations' && <AppAllDonations />}
+
+      {/* all completed donation requests... */}
+      {tab === 'completeddonations' && <ComAllDonations />}
+
+
 
       {/* all fooddrive requests... */}
       {tab === 'fooddrives' && <DashFooddrives />}
 
-      {/* my fooddrive requests... */}
-      {tab === 'frequests' && <DashFRequests />}
+      {/* all longday fooddrive requests... */}
+      {tab === 'flongday' && <LongdayFooddrives />}
+
+      {/* all longday approved fooddrive requests... */}
+      {tab === 'fapprovedlong' && <AppAllFdLong />}
+
+      {/* all longday declined fooddrive requests... */}
+      {tab === 'fdeclinedlong' && <DecAllFdLong />}
+
+      {/* all longday completed fooddrive requests... */}
+      {tab === 'fcompletedlong' && <ComAllFdLong />}
+
+
+
+      {/* all oneday fooddrive requests... */}
+      {tab === 'foneday' && <OnedayFooddrives />}
+
+      {/* all oneday approved fooddrive requests... */}
+      {tab === 'fapprovedone' && <AppAllFone />}
+
+      {/* all oneday declined fooddrive requests... */}
+      {tab === 'fdeclinedone' && <DecAllFone />}
+
+      {/* all oneday completed fooddrive requests... */}
+      {tab === 'fcompletedone' && <ComAllFone />}
+
+
+
+
+{/*USER DASHBOARD */}
+      {/* my donation requests... */}
+      {tab === 'drequests' && <DashDRequests />}
 
       {/* my approved donation requests... */}
       {tab === 'dapproved' && <ApprovedDonations />}
@@ -58,17 +109,18 @@ export default function Dashboard() {
       {/* my declined donation requests... */}
       {tab === 'ddeclined' && <DeclinedDonations />}
 
+
+
+      {/* my fooddrive requests... */}
+      {tab === 'frequests' && <DashFRequests />}
+
       {/* my approved fooddrive requests... */}
       {tab === 'fapproved' && <ApprovedFooddrives />}
 
       {/* my declined fooddrive requests... */}
       {tab === 'fdeclined' && <DeclinedFooddrives />}
 
-      {/* all oneday fooddrive requests... */}
-      {tab === 'foneday' && <OnedayFooddrives />}
 
-      {/* all longday fooddrive requests... */}
-      {tab === 'flongday' && <LongdayFooddrives />}
 
 
     </div>

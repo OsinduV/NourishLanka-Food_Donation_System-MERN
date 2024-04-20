@@ -89,6 +89,18 @@ export default function OnedayFooddrives() {
         <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
             <h2 className="text-3xl font-semibold flex">One Day FoodDrive Request List</h2>
         </div>
+
+                              {/* Header-like section2 */}
+                              <div className="flex justify-between items-center mb-5">
+            <h2 className="text-xl font-semibold"></h2>
+                {/* Add navigation links here */}
+                <div className="flex space-x-12 mr-10">
+                <Link to='/dashboard?tab=fapprovedone'>Approved</Link>
+                <Link to='/dashboard?tab=fdeclinedone'>Declined</Link>
+                <Link to="/dashboard?tab=fcompletedone">Completed</Link>
+                    {/* Add more navigation links as needed */}
+                </div>
+            </div>
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
            {currentUser.isEventOrganiser && userFooddrives.length > 0 ? (
         <>
