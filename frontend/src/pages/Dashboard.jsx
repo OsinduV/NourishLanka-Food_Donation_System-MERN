@@ -23,6 +23,8 @@ import ComAllFdLong from '../Event/pages/ComAllFdLong';
 import AppAllDonations from '../Event/pages/AppAllDonations';
 import DecAllDonations from '../Event/pages/DecAllDonations';
 import ComAllDonations from '../Event/pages/ComAllDonations';
+import CompletedDonations from '../Event/pages/CompletedDonations';
+import CompletedFooddrives from '../Event/pages/CompletedFooddrives';
 
 
 
@@ -50,7 +52,7 @@ export default function Dashboard() {
       {/* events... */}
       {tab === 'events' && <DashEvents />}
 
-      
+
 
 {/*EVENT ORGANISER DASHBOARD */}
       {/* all donation requests... */}
@@ -109,6 +111,9 @@ export default function Dashboard() {
       {/* my declined donation requests... */}
       {tab === 'ddeclined' && <DeclinedDonations />}
 
+      {/* my completed donation requests... */}
+      {tab === 'dcompleted' && <CompletedDonations />}
+
 
 
       {/* my fooddrive requests... */}
@@ -120,7 +125,8 @@ export default function Dashboard() {
       {/* my declined fooddrive requests... */}
       {tab === 'fdeclined' && <DeclinedFooddrives />}
 
-
+      {/* my completed fooddrive requests... */}
+      {tab === 'fcompleted' && <CompletedFooddrives />}
 
 
     </div>

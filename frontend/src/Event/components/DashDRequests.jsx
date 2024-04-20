@@ -76,6 +76,9 @@ export default function DashDRequests() {
   return (
     
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+      <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+            <h2 className="text-3xl font-semibold flex">My Donation Caampaign Requests</h2>
+        </div>
             {/* Header-like section */}
             <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
@@ -84,6 +87,7 @@ export default function DashDRequests() {
                 <Link to="/dashboard?tab=drequests">All requests</Link>
                 <Link to='/dashboard?tab=dapproved'>Approved events</Link>
                 <Link to="/dashboard?tab=ddeclined">Declined events</Link>
+                <Link to="/dashboard?tab=dcompleted">Completed events</Link>
                     {/* Add more navigation links as needed */}
                 </div>
             </div>

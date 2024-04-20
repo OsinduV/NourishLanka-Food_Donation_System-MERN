@@ -1,4 +1,4 @@
-//user dashboard declined donation events
+//user dashboard completed donation events
 import { Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Button, Modal,} from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-export default function DeclinedDonations() {
+export default function CompletedDonations() {
     const { currentUser } = useSelector((state) => state.user);
     const [userDonations, setUserDonations] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -17,7 +17,7 @@ export default function DeclinedDonations() {
       const fetchDonations = async () => {
         try {
           //retrieving requests from id
-         const res = await fetch(`/api/donation/getdonations?status=declined&userId=${currentUser._id}`);
+         const res = await fetch(`/api/donation/getdonations?status=completed&userId=${currentUser._id}`);
           const data = await res.json();
           if (res.ok) {
             setUserDonations(data.donations);
@@ -77,7 +77,7 @@ export default function DeclinedDonations() {
     
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
             <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-            <h2 className="text-3xl font-semibold flex">Declined My Donation Campaign Requests</h2>
+            <h2 className="text-3xl font-semibold flex">Completed My Donation Campaigns</h2>
         </div>
              {/* Header-like section */}
              <div className="flex justify-between items-center mb-5">

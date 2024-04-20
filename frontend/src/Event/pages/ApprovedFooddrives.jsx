@@ -74,6 +74,9 @@ export default function ApprovedFooddrives() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+      <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+            <h2 className="text-3xl font-semibold flex">Approved FoodDrive Requests</h2>
+        </div>
             <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
                 {/* Add navigation links here */}
@@ -81,6 +84,7 @@ export default function ApprovedFooddrives() {
                 <Link to="/dashboard?tab=frequests">All requests</Link>
                 <Link to='/dashboard?tab=fapproved'>Approved events</Link>
                 <Link to="/dashboard?tab=fdeclined">Declined events</Link>
+                <Link to="/dashboard?tab=fcompleted">Completed events</Link>
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
@@ -93,7 +97,7 @@ export default function ApprovedFooddrives() {
               <Table.HeadCell>Date Created</Table.HeadCell>
               <Table.HeadCell>Status updated date</Table.HeadCell>
               <Table.HeadCell>Event title</Table.HeadCell>
-              <Table.HeadCell>Event date</Table.HeadCell>
+              <Table.HeadCell>Event type</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Your event status</Table.HeadCell>
               <Table.HeadCell>Delete your event</Table.HeadCell>
@@ -115,7 +119,7 @@ export default function ApprovedFooddrives() {
                     <span>View my Request</span>
                   </Link>
                 </Table.Cell>
-                <Table.Cell>{fooddrive.status}</Table.Cell>
+                <Table.Cell>{fooddrive.type}</Table.Cell>
                 <Table.Cell>
                          <span onClick={()=>{
                       setShowModal(true);
