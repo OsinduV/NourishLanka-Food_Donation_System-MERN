@@ -492,7 +492,7 @@ export default function DonationRequest() {
           </Alert>
         )}
 
-
+{/** 
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
@@ -514,6 +514,7 @@ export default function DonationRequest() {
           </div>
         </Modal.Body>
       </Modal>
+    */}
       </form>
     </div>
   )

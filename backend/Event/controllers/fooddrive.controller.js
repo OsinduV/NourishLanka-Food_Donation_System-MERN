@@ -1,10 +1,18 @@
 import { errorHandler } from "../../utills/error.js";
 import Fooddrive from "../models/fooddrive.model.js";
 
+//validate time
 const validateTime = (time) => {
     const timeRegex = /^\d{1,2}(\:\d{1,2})?\s?(?:AM|PM|am|pm)$/;
     return timeRegex.test(time);
 };
+
+// Validate email format
+const validateEmail = (email) => {
+  const emailRegex = /\S+@\S+\.\S+/;
+  return emailRegex.test(email);
+};
+
 //add validations to disabled buttons///////////////////////////
 export const createfooddrive = async (req, res, next) => {
     try {
@@ -13,16 +21,52 @@ export const createfooddrive = async (req, res, next) => {
             return next(errorHandler(401, 'User authentication failed'));
         }
 
-        // Validate request body
-        const requiredFields = ['eventtitle'];
-        if (requiredFields.some(field => !req.body[field])) {
-            return next(errorHandler(400, 'Please provide all required fields'));
+         // Validate request body
+         const requiredFields = ['eventtitle', 'dnid', 'donoremail', 'type', 'volunteers', 'eventdescription', 'foodbank'];
+         if (requiredFields.some(field => !req.body[field])) {
+             return next(errorHandler(400, 'Please provide all required fields'));
+         }
+
+
+        // If hosting as a group, validate organization name and website
+        if (req.body.group === 'yes') {
+          if (!req.body.ogname || !req.body.website) {
+              return next(errorHandler(400, 'Organization name and website are required when hosting as a group'));
+          }
+      }
+
+       // Validate based on food drive type
+       if (req.body.type === 'onedaydrive') {
+        const requiredFieldsOneday = ['eventdate', 'eventtime', 'eventlocation'];
+        if (requiredFieldsOneday.some(field => !req.body[field])) {
+            return next(errorHandler(400, 'Please provide all required fields for a one day food drive'));
+        }
+        // Validate event time format
+        if (!validateTime(req.body.eventtime)) {
+            return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for one day food drive'));
+        }
+    } else if (req.body.type === 'longdrive') {
+        const requiredFieldsLong = ['DateFrom', 'DateTo', 'eventtimelong', 'eventlocationlong'];
+        if (requiredFieldsLong.some(field => !req.body[field])) {
+            return next(errorHandler(400, 'Please provide all required fields for a long drive food drive'));
+        }
+        // Validate event time format
+        if (!validateTime(req.body.eventtimelong)) {
+            return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for long drive food drive'));
+        }
+    }
+
+     // Validate donor email format
+          if (!validateEmail(req.body.donoremail)) {
+            return next(errorHandler(400, 'Please provide a valid donor email address'));
         }
 
-        // Validate event times
-        if (!validateTime(req.body.eventtime)) {
-            return next(errorHandler(400, 'Please provide valid times (e.g., "12:00 PM") '));
-        }
+        // Validate volunteers to be a positive number
+        const volunteers = parseInt(req.body.volunteers);
+            if (isNaN(volunteers) || volunteers <= 0) {
+                return next(errorHandler(400, 'Please provide a valid number of volunteers'));
+            }
+       
 
         // Generate slug
         const slug = req.body.eventtitle
