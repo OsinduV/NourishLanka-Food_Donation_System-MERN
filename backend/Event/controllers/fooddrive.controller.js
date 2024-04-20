@@ -108,6 +108,7 @@ export const getfooddrives = async (req, res, next) => {
     const fooddrives = await Fooddrive.find({
         ...(req.query.userId && { userId: req.query.userId }),
         ...(req.query.category && { category: req.query.category }),
+        ...(req.query.type && { type: req.query.type }),
         ...(req.query.status && { status: req.query.status }),
         ...(req.query.slug && { slug: req.query.slug }),
         ...(req.query.fooddriveId && { _id: req.query.fooddriveId }),

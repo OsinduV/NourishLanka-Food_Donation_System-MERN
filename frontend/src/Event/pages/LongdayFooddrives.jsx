@@ -1,11 +1,11 @@
-//component in event organiser dashboard where event organiser see all the requests made by donors
+
 import { Button, Modal, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
-export default function DashFooddrives() {
+export default function LongdayFooddrives() {
     const { currentUser } = useSelector((state) => state.user);
     const [userFooddrives, setUserFooddrives] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -17,7 +17,7 @@ export default function DashFooddrives() {
         try {
           //retrieving requests from id
          {/**  const res = await fetch(`/api/donation/getdonations?userId=${currentUser._id}`);*/}
-         const res = await fetch(`/api/fooddrive/getfooddrives`);
+         const res = await fetch(`/api/fooddrive/getfooddrives?type=longdrive`);
           const data = await res.json();
           if (res.ok) {
             setUserFooddrives(data.fooddrives);
@@ -86,22 +86,23 @@ export default function DashFooddrives() {
                 </div>
             </div>
 
+    <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+        <h2 className="text-3xl font-semibold flex">Long Day FoodDrive Request List</h2>
+    </div>
 
-        <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-            <h2 className="text-3xl font-semibold flex"> FoodDrive Request List</h2>
-        </div>
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
            {currentUser.isEventOrganiser && userFooddrives.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-              <Table.HeadCell>Request created date</Table.HeadCell>
+              <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>Event title</Table.HeadCell>
               <Table.HeadCell>Donor ID</Table.HeadCell>
               <Table.HeadCell>Donor Email</Table.HeadCell>
+              <Table.HeadCell>Event stating date</Table.HeadCell>
+              <Table.HeadCell>Event ending date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Current Status</Table.HeadCell>
-              <Table.HeadCell>Status update date</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit</span>
               </Table.HeadCell>
@@ -112,7 +113,7 @@ export default function DashFooddrives() {
             {userFooddrives.map((fooddrive) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>{new Date(fooddrive.createdAt).toLocaleDateString()}</Table.Cell>
+                <Table.Cell>{new Date(fooddrive.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
                   <Link className='font-medium text-gray-900 dark:text-white' to={`/fooddrive/${fooddrive.slug}`}>
                     {fooddrive.eventtitle}
@@ -120,6 +121,8 @@ export default function DashFooddrives() {
                 </Table.Cell>
                 <Table.Cell>{fooddrive.dnid}</Table.Cell>
                 <Table.Cell>{fooddrive.donoremail}</Table.Cell>
+                <Table.Cell>{fooddrive.DateFrom}</Table.Cell>
+                <Table.Cell>{fooddrive.DateTo}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/fooddrive/${fooddrive.slug}`}>
                     <span>View more Details</span>
@@ -127,7 +130,6 @@ export default function DashFooddrives() {
                 </Table.Cell>
 
                 <Table.Cell>{fooddrive.status}</Table.Cell>
-                <Table.Cell>{new Date(fooddrive.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/update-fstatus/${fooddrive._id}`}>
                     <span>Edit status</span>

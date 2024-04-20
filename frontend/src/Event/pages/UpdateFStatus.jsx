@@ -565,6 +565,7 @@ export default function UpdateFStatus() {
                     <option value='onprogress'>On progress</option>
                     <option value='approved'>Approved</option>
                    <option value='declined'>Declined</option>
+                   <option value='completed'>Completed</option>
                 </Select>
               </div>
           </div>

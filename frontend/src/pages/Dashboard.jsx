@@ -11,6 +11,9 @@ import ApprovedDonations from '../Event/pages/ApprovedDonations';
 import ApprovedFooddrives from '../Event/pages/ApprovedFooddrives';
 import DeclinedFooddrives from '../Event/pages/DeclinedFooddrives';
 import DeclinedDonations from '../Event/pages/DeclinedDonations';
+import OnedayFooddrives from '../Event/pages/OnedayFooddrives';
+import LongdayFooddrives from '../Event/pages/LongdayFooddrives';
+
 
 
 export default function Dashboard() {
@@ -55,11 +58,19 @@ export default function Dashboard() {
       {/* my declined donation requests... */}
       {tab === 'ddeclined' && <DeclinedDonations />}
 
-      {/* my approved donation requests... */}
+      {/* my approved fooddrive requests... */}
       {tab === 'fapproved' && <ApprovedFooddrives />}
 
-      {/* my declined donation requests... */}
+      {/* my declined fooddrive requests... */}
       {tab === 'fdeclined' && <DeclinedFooddrives />}
+
+      {/* all oneday fooddrive requests... */}
+      {tab === 'foneday' && <OnedayFooddrives />}
+
+      {/* all longday fooddrive requests... */}
+      {tab === 'flongday' && <LongdayFooddrives />}
+
+
     </div>
   );
 }
