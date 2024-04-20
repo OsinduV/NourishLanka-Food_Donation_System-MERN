@@ -1,6 +1,13 @@
 import React from 'react';
+import { Button } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function VolunteerOne() {
+  const navigate = useNavigate();
+
+  const handleVolunteerNow = () => {
+    navigate('/volunteer-two');
+  };
   return (
     <>
  <style>
@@ -18,16 +25,20 @@ export default function VolunteerOne() {
 
       <div className="gradient-background text-white min-h-screen flex items-center justify-center">
         <div className="flex w-full justify-center">
-          <div className="w-3/4 bg-black text-white p-8 rounded-lg shadow-lg">
+          <div className="w-3/4 bg-white text-black p-8 rounded-lg shadow-lg">
             <div className="mb-8">
               <h1 className="text-3xl font-bold mb-2">Join a Food Donating Event</h1>
               <p className="text-lg mb-4">Be a part of the solution! Find upcoming food Donating events in your area and participate in donating food to  families in need. Every contribution helps fight hunger in our community.</p>
-              <button className="bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Join Now</button>
+              <Button type='button' gradientDuoTone='greenToBlue'  >  Join Now
+              </Button>
+              
             </div>
             <div className="mb-8">
               <h1 className="text-3xl font-bold mb-2">Volunteer at a Food Bank</h1>
               <p className="text-lg mb-4">Give back directly! Food banks rely on volunteers to help sort, pack, and distribute food. Join a team of dedicated individuals making a real impact on people's lives.</p>
-              <button className="bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Volunteer Now</button>
+              <Button type='button' gradientDuoTone='greenToBlue'  onClick={handleVolunteerNow}>  Volunteer Now
+              </Button>
+              
             </div>
           </div>
         </div>

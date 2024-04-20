@@ -8,10 +8,15 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
-import VolunteerOne from "./Volunteer/VolunteerOne"
-import VolunteerTwo from "./Volunteer/VolunteerTwo"
-import VolunteerThree from "./Volunteer/VolunteerThree"
-import VolunteerFour from "./Volunteer/VolunteerFour"
+import VolunteerOne from "./Volunteer/pages/VolunteerOne"
+import VolunteerTwo from "./Volunteer/pages/VolunteerTwo"
+import VolunteerThree from "./Volunteer/pages/VolunteerThree"
+import VolunteerFour from "./Volunteer/pages/VolunteerFour"
+import VolunteerFive from "./Volunteer/pages/VolunteerFive"
+import OnlyVolunteerAdminPrivateRoute from "./Volunteer/components/OnlyVolunteerAdminPrivateRoute"
+import CreateSchedules from "./Volunteer/pages/CreateSchedules"
+
+
 
 export default function App() {
   return (
@@ -29,8 +34,12 @@ export default function App() {
         <Route path="/volunteer-two" element={<VolunteerTwo/>} />
         <Route path="/volunteer-three" element={<VolunteerThree/>} />
         <Route path="/volunteer-four" element={<VolunteerFour/>} />
+        <Route path="/volunteer-five" element={<VolunteerFive/>} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
+        </Route>
+        <Route element={<OnlyVolunteerAdminPrivateRoute />}>
+          <Route path='/create-schedules' element={<CreateSchedules />} />
         </Route>
         <Route path="/projects" element={<Project/>} />
         
