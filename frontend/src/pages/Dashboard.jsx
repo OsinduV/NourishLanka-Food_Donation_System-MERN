@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
+import DashSchedules from '../Volunteer/components/DashSchedules';
 
 
 export default function Dashboard() {
@@ -24,6 +25,9 @@ export default function Dashboard() {
       </div>
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
+       {/* schedules... */}
+       {tab === 'schedules' && <DashSchedules/>}
+       
     </div>
   );
 }
