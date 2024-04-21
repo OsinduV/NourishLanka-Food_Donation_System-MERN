@@ -85,4 +85,19 @@ export const getschedules = async (req,res,next)=> {
     }catch(error){
         next(error);
     }
+};
+
+export const deleteschedule = async (req,res,next) => {
+     //check if the person is volunteer manager
+     if (!req.user.isVolunteerManager || req.user.id !== req.params.userId) {
+        return next(errorHandler(403, 'You are not allowed to delete this schedule'));
+    }
+    try {
+        await Schedule.findByIdAndDelete(req.params.scheduleId);
+        res.status(200).json('The schedule has been deleted');
+      } catch (error) {
+        next(error);
+      }
+   
+
 }
