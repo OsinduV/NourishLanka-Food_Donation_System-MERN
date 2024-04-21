@@ -45,15 +45,16 @@ const donationSchema = new mongoose.Schema(
 
         budget: {
             type: String,
-            default: 'nobudget',
         },
 
         image1: {
             type: String,
+            required: true,
         },
 
         image2: {
             type: String,
+            required: true,
         },
 
         image3: {
@@ -72,7 +73,6 @@ const donationSchema = new mongoose.Schema(
 
         conserns: {
             type: String,
-            required: true,
         },
 
         category: {

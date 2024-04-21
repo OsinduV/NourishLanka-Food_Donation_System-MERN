@@ -44,7 +44,7 @@ export default function DonationPage() {
         return (
           <tr>
             <td className="border border-gray-300 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2">{label}</td>
-            <td className="border border-gray-300 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2">{value}</td>
+            <td className="border border-gray-300 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2 break-words">{value}</td>
           </tr>
         );
       }
@@ -126,7 +126,10 @@ export default function DonationPage() {
                 )
                 }
                 />
-                <TableRow label="Concerns and Requests" value={donation && donation.conserns} />
+                <TableRow
+                        label="Concerns and Requests"
+                        value={donation && donation.conserns ? donation.conserns : "No concerns and requests"}
+                />
               </tbody>
             </table>
         </main>

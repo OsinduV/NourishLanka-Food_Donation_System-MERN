@@ -81,7 +81,7 @@ export default function DonationRequest() {
       }
       if (res.ok) {
         setPublishError(null);
-       // navigate(`/donation/${data.slug}`);
+       navigate(`/donation/${data.slug}`);
       }
     } catch (error) {
       setPublishError('Something went wrong');
@@ -207,11 +207,12 @@ export default function DonationRequest() {
                             onChange={(e) =>
                               setFormData({ ...formData, budget: e.target.value })
                             }
+                    placeholder='Select Your Event'
            >
-                 <option value='nobudget'>Select Your Event Budget</option>
-                 <option value='nobudget'>less than Rs.30000.00</option>
-                 <option value='nobudget'>less than Rs.60000.00</option>
-                 <option value='nobudget'>greater than Rs.60000.00</option>
+                 <option >Select Your Event Budget</option>
+                 <option value='less than Rs.30000.00'>less than Rs.30000.00</option>
+                 <option value='less than Rs.60000.00'>less than Rs.60000.00</option>
+                 <option value='ngreater than Rs.60000.00'>greater than Rs.60000.00</option>
             </Select>
           </div>
         
@@ -367,6 +368,7 @@ export default function DonationRequest() {
           </Alert>
         )}
 
+{/** 
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
@@ -388,6 +390,7 @@ export default function DonationRequest() {
           </div>
         </Modal.Body>
       </Modal>
+      */}
       </form>
     </div>
   )
