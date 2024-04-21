@@ -65,6 +65,7 @@ export const getdonations = async (req, res, next) => {
         ...(req.query.userId && { userId: req.query.userId }),
         ...(req.query.category && { category: req.query.category }),
         ...(req.query.status && { status: req.query.status }),
+        ...(req.query.note && { status: req.query.note }),
         ...(req.query.slug && { slug: req.query.slug }),
         ...(req.query.donationId && { _id: req.query.donationId }),
         ...(req.query.searchTerm && {
@@ -141,6 +142,7 @@ export const deletedonation = async (req, res, next) => {
         {
           $set: {
             status: req.body.status,
+            note: req.body.note,
           },
         },
         { new: true }

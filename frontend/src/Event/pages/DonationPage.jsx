@@ -60,6 +60,14 @@ export default function DonationPage() {
               </Button>
             </Link>
             <h2 className='mx-auto mt-5 font-semibold text-red-600'>Current Event Status - {donation && donation.status}</h2>
+
+             {/* Check if the note exists, if it is it will render the div tag and note */}
+            {donation && donation.note && (
+                <div className="border border-gray-200 rounded p-10 mt-5 bg-white shadow-md">
+                  <h2 className='font-semibold text-red-600'>{donation.note}</h2>
+                </div>
+              )}
+
             <table className="table-fixed w-full mt-10" >
               <tbody>
                 <TableRow label="Title" value={donation && donation.eventtitle} />

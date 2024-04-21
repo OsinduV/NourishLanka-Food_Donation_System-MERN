@@ -85,6 +85,10 @@ const donationSchema = new mongoose.Schema(
             default: 'processing',
         },
 
+        note: {
+            type: String,
+        },
+
         slug: {
             type: String,
             required: true,

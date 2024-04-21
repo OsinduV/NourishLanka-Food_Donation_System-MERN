@@ -124,6 +124,10 @@ const fooddriveSchema = new mongoose.Schema(
             unique: true,
         },
 
+        note: {
+            type: String,
+        },
+
     },{ timestamps: true }
 );
 

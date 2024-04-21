@@ -568,6 +568,18 @@ export default function UpdateFStatus() {
                    <option value='completed'>Completed</option>
                 </Select>
               </div>
+
+                {/* Textarea for entering notes */}
+                <div className="flex flex-col gap-4 sm:flex-row justify-between font-semibold">
+                <label htmlFor="note" className="ml-12 mt-2">Enter Note:</label>
+                   <Textarea
+                      id="note"
+                      className="border border-gray-300 rounded p-2 flex-1 ml-12"
+                      rows="4"
+                      placeholder="Enter your note..."
+                      onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                      value={formData.note} ></Textarea>
+                </div>
           </div>
 
           <Button type='submit' gradientDuoTone='greenToBlue' 

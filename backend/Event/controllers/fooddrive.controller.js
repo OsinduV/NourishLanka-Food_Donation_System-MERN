@@ -110,6 +110,7 @@ export const getfooddrives = async (req, res, next) => {
         ...(req.query.category && { category: req.query.category }),
         ...(req.query.type && { type: req.query.type }),
         ...(req.query.status && { status: req.query.status }),
+        ...(req.query.note && { status: req.query.note }),
         ...(req.query.slug && { slug: req.query.slug }),
         ...(req.query.fooddriveId && { _id: req.query.fooddriveId }),
         ...(req.query.searchTerm && {
@@ -186,6 +187,7 @@ export const deletefooddrive = async (req, res, next) => {
         {
           $set: {
             status: req.body.status,
+            note: req.body.note,
           },
         },
         { new: true }
