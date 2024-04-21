@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 export default function DashSchedules() {
   const { currentUser } = useSelector((state) => state.user); 
   const [userSchedules, setUserSchedules] = useState([]);
+  const [showMore, setShowMore] = useState(true);
   console.log(userSchedules);
      useEffect(()=>{
        const fetchSchedules = async () => {
@@ -15,6 +16,9 @@ export default function DashSchedules() {
           const data = await res.json()
           if(res.ok){
                 setUserSchedules(data.schedules)
+                if(data.posts.length < 9){
+                  setShowMore(false);
+                }
           }
         } catch (error) {
           console.log(error.message)
@@ -23,7 +27,25 @@ export default function DashSchedules() {
        if(currentUser.isVolunteerManager) {
            fetchSchedules();
        }
-     },[currentUser._id])
+     },[currentUser._id]);
+
+     const handleShowMore = async () => {
+        const startIndex = userSchedules.length;
+        try{
+
+          const res = await fetch (`api/schedules/getschedules?userId=${currentUser._id}&startIndex=${startIndex}`);
+          const data = await res.json();
+          if(res.ok){
+            setUserSchedules((prev) => [...prev, ...data.schedules]);
+            if(data.schedules.length < 9){
+              setShowMore(false);
+            }
+          }
+
+        } catch (error){
+          console.log(error.message);
+        }
+     }
   return (
   
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
@@ -79,9 +101,17 @@ export default function DashSchedules() {
           
 
         </Table>
+        {
+          showMore && (
+            <button onClick={handleShowMore}
+            className = 'w-full text-teal-500 self-center text-sm py-7'>
+            Show more
+            </button>
+          )
+        }
       </>
        ):(
-        <p>You have no events yet!</p>
+        <p>You have no schedules yet!</p>
 
        )}
     </div>
