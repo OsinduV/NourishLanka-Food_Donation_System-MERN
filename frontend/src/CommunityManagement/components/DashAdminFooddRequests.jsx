@@ -34,7 +34,7 @@ export default function DashAdminFoodRequests() {
         const startIndex = userFoodRequests.length;
         try {
           const res = await fetch(
-            `/api/foodrequest/getallfoodrequests?&startIndex=${startIndex}`
+            `/api/foodrequest/getfoodrequests?&startIndex=${startIndex}`
           );
           const data = await res.json();
           if (res.ok) {
