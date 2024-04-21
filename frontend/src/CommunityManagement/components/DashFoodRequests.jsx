@@ -36,11 +36,11 @@ export default function DashFoodRequests() {
       const startIndex = userFoodRequests.length;
       try {
         const res = await fetch(
-          `/api/foodrequest/getmyfoodrequests?userId=${currentUser._id}&startIndex=${startIndex}`
+          `/api/foodrequest/getfoodrequests?userId=${currentUser._id}&startIndex=${startIndex}`
         );
         const data = await res.json();
         if (res.ok) {
-          setUserFoodRequests((prev) => [...prev, ...data.myfoodrequests]);
+          setUserFoodRequests((prev) => [...prev, ...data.foodrequests]);
           if (data.foodrequests.length < 9) {
             setShowMore(false);
           }
