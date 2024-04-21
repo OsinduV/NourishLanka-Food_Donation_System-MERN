@@ -3,7 +3,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 
 export default function OnlyVolunteerAdminPrivateRoute() {
   const { currentUser } = useSelector((state) => state.user);
-  return currentUser && currentUser.isAdmin ? (
+  return currentUser && currentUser.isVolunteerManager ? (
   <Outlet />
    ) : ( <Navigate to='/sign-in' />
    );
