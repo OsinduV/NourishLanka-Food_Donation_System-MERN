@@ -15,11 +15,11 @@ export default function DashFoodRequests() {
     useEffect(() => {
       const fetchmyFoodRequests = async () => {
         try {
-          const res = await fetch(`/api/foodrequest/getmyfoodrequests?userId=${currentUser._id}`);
+          const res = await fetch(`/api/foodrequest/getfoodrequests?userId=${currentUser._id}`);
           const data = await res.json();
           if (res.ok) {
-            setUserFoodRequests(data.myfoodrequests);
-            if (data.myfoodrequests.length < 9) {
+            setUserFoodRequests(data.foodrequests);
+            if (data.foodrequests.length < 9) {
               setShowMore(false);
             }
           }
@@ -41,7 +41,7 @@ export default function DashFoodRequests() {
         const data = await res.json();
         if (res.ok) {
           setUserFoodRequests((prev) => [...prev, ...data.myfoodrequests]);
-          if (data.myfoodrequests.length < 9) {
+          if (data.foodrequests.length < 9) {
             setShowMore(false);
           }
         }
@@ -91,7 +91,8 @@ export default function DashFoodRequests() {
             </div>
             <Table hoverable className='shadow-md'>
               <Table.Head>
-                <Table.HeadCell>Date updated</Table.HeadCell>
+                <Table.HeadCell>Date Updated</Table.HeadCell>
+                <Table.HeadCell>Date Created</Table.HeadCell>
                 <Table.HeadCell>Recipient Name</Table.HeadCell>
                 <Table.HeadCell>District</Table.HeadCell>
                 <Table.HeadCell>Category</Table.HeadCell>
@@ -100,36 +101,40 @@ export default function DashFoodRequests() {
                 <Table.HeadCell>Delete</Table.HeadCell>
                 <Table.HeadCell>Status</Table.HeadCell>  
               </Table.Head>
-              {userFoodRequests.map((myfoodrequest) => (
+              {userFoodRequests.map((foodrequest) => (
                 <Table.Body className='divide-y'>
                   <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                     <Table.Cell>
-                      {new Date(myfoodrequest.updatedAt).toLocaleDateString()}
+                      {new Date(foodrequest.updatedAt).toLocaleDateString()}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {new Date(foodrequest.createdAt).toLocaleDateString()}
                     </Table.Cell>
                     <Table.Cell>
                       <Link
                         className='font-medium text-gray-900 dark:text-white'
-                        to={`/foodrequest/${myfoodrequest.slug}`}
+                        to={`/foodrequest/${foodrequest.slug}`}
                       >
-                        {myfoodrequest.recipientname}
+                        {foodrequest.recipientname}
                       </Link>
                     </Table.Cell>
-                    <Table.Cell>{myfoodrequest.district}</Table.Cell>
-                    <Table.Cell>{myfoodrequest.category}</Table.Cell>
-                    <Table.Cell>{myfoodrequest.email}</Table.Cell>
-                    <Table.Cell>{myfoodrequest.contactnumber}</Table.Cell>
+                    <Table.Cell>{foodrequest.district}</Table.Cell>
+                    <Table.Cell>{foodrequest.category}</Table.Cell>
+                    <Table.Cell>{foodrequest.email}</Table.Cell>
+                    <Table.Cell>{foodrequest.contactnumber}</Table.Cell>
                   
                     <Table.Cell>
                     <span
                       onClick={() => {
                         setShowModal(true);
-                        setFoodrequestIdToDelete(myfoodrequest._id);
+                        setFoodrequestIdToDelete(foodrequest._id);
                       }}
                       className='font-medium text-red-500 hover:underline cursor-pointer'
                     >
-                        Delete
+                        Delete Food Request
                       </span>
                     </Table.Cell>
+                    <Table.Cell>{foodrequest.status}</Table.Cell>
                     
                   </Table.Row>
                 </Table.Body>
@@ -145,7 +150,7 @@ export default function DashFoodRequests() {
           )}
           </>
         ) : (
-          <p>Currently you haven't any food requests!</p>
+          <p>Currently you haven't created any food requests!</p>
         )}
         <Modal
         show={showModal}
