@@ -100,4 +100,29 @@ export const deleteschedule = async (req,res,next) => {
       }
    
 
+};
+
+export const updateschedule = async(req,res,next) => {
+    if (!req.user.isVolunteerManager || req.user.id !== req.params.userId) {
+        return next(errorHandler(403, 'You are not allowed to update this post'));
+      }
+      try {
+        const updatedSchedule = await Schedule.findByIdAndUpdate(
+          req.params.scheduleId,
+          {
+            $set: {
+              scheduleId: req.body.scheduleId,
+              date: req.body.date,
+              day: req.body.day,
+              catagory: req.body.catagory,
+              time: req.body.time,
+            
+            },
+          },
+          { new: true }
+        );
+        res.status(200).json(updatedSchedule);
+      } catch (error) {
+        next(error);
+      }
 }

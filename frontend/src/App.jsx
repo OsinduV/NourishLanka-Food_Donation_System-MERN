@@ -15,6 +15,7 @@ import VolunteerFour from "./Volunteer/pages/VolunteerFour"
 import VolunteerFive from "./Volunteer/pages/VolunteerFive"
 import OnlyVolunteerAdminPrivateRoute from "./Volunteer/components/OnlyVolunteerAdminPrivateRoute"
 import CreateSchedules from "./Volunteer/pages/CreateSchedules"
+import UpdateSchedules from "./Volunteer/pages/UpdateSchedules"
 
 
 
@@ -40,6 +41,7 @@ export default function App() {
         </Route>
         <Route element={<OnlyVolunteerAdminPrivateRoute />}>
           <Route path='/create-schedules' element={<CreateSchedules />} />
+          <Route path='/update-schedules/:scheduleId' element={<UpdateSchedules />} />
         </Route>
         <Route path="/projects" element={<Project/>} />
         
