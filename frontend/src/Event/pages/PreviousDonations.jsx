@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import EventCard from '../components/EventCard';
 
 
-export default function EventHome() {
+export default function PreviousDonations() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
@@ -17,7 +17,7 @@ export default function EventHome() {
 
   return (
     <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
-        <h1 className='text-3xl font-bold lg:text-6xl'>Our hosted successful events</h1>
+        <h1 className='text-3xl font-bold lg:text-6xl'>Our Hosted Successful Donation Campaigns</h1>
         <p className='text-gray-500 text-lg'>Join our community of compassionate donors 
         who have successfully hosted numerous donation and food drive events with our support. Together, 
         we've made a meaningful impact, providing crucial support to those in need. Working alongside us, 
@@ -33,7 +33,7 @@ export default function EventHome() {
     <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {events && events.length > 0 && (
           <div className='flex flex-col gap-6'>
-            <h2 className='text-2xl font-semibold text-center'>Previous Events</h2>
+            <h2 className='text-2xl font-semibold text-center'>Hosted Events</h2>
             <div className='flex-col gap-4'>
               {events.map((event) => (
                 <EventCard key={event._id} event={event} />

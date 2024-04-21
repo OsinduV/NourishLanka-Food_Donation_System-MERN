@@ -41,13 +41,13 @@ export default function FooddrivePage() {
     );
 
     function TableRow({ label, value }) {
-        return (
-          <tr>
-            <td className="border border-gray-300 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2">{label}</td>
-            <td className="border border-gray-300 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2 break-words">{value}</td>
-          </tr>
-        );
-      }
+      return (
+        <tr className="hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-800">
+          <td className="border border-gray-200 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2">{label}</td>
+          <td className="border border-gray-200 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2 break-words">{value}</td>
+        </tr>
+      );
+    }
     return(
         <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
             <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>{fooddrive && fooddrive.eventtitle}</h1>
@@ -68,7 +68,7 @@ export default function FooddrivePage() {
                 </div>
               )}
               
-            <table className="table-fixed w-full mt-10" >
+              <table className="table-fixed w-full mt-10 bg-white shadow-lg dark:bg-gray-900 mb-10">
               <tbody>
                 <TableRow label="Title" value={fooddrive && fooddrive.eventtitle} />
                 <TableRow label="Category" value={fooddrive && fooddrive.category} />

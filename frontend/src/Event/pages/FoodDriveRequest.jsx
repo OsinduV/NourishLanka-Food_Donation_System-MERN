@@ -91,9 +91,16 @@ export default function DonationRequest() {
   };
 
   return (
-      <div className='p-3 max-w-4xl mx-auto min-h-screen'>
-      <div className='bg-white shadow-md p-3 mb-5'><h1 className='text-3xl font-semibold text-center my-7'>Hosting Food Drive Request Form</h1></div>
-      <form className='flex flex-col gap-4 mb-20' onSubmit={handleSubmit}>
+    <>
+    <h1 className='text-5xl font-semibold my-7 dark:text-gray-300 text-center'>Cultivate Hope:<br></br>Submit Your Nourishing Food Drive!</h1>
+    <p className='ml-12 mr-12'>
+      Welcome to our food drive request page! Before you proceed, please fill out the form below with all the necessary details about your fooddrive event. Once you've completed the form,
+       click the 'Send Request' button. After submitting your request, our team will review it promptly. You'll receive a notification informing you of the status of your request, whether
+        it's approved or rejected. Thank you for your generosity and support in making a difference in our community!
+    </p>
+    <div className='p-3 max-w-4xl mx-auto min-h-screen'>
+       <div className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300 dark:bg-gray-800 mt-10">
+      <form className='flex flex-col gap-4 mb-20 mr-10 ml-10 mt-10' onSubmit={handleSubmit}>
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
         Event title 
                <TextInput
@@ -551,5 +558,7 @@ export default function DonationRequest() {
     */}
       </form>
     </div>
+    </div>
+    </>
   )
 }

@@ -22,6 +22,8 @@ import ApprovedDonations from "./Event/pages/ApprovedDonations"
 import DeclinedDonations from "./Event/pages/DeclinedDonations"
 import DonationPage from "./Event/pages/DonationPage"
 import FooddrivePage from "./Event/pages/FooddrivePage"
+import PreviousDonations from "./Event/pages/PreviousDonations"
+import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 
 
 export default function App() {
@@ -38,6 +40,8 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
         <Route path="/search" element={<Search/>} />
+        <Route path="/previousdonations" element={<PreviousDonations/>} />
+        <Route path="/previousfooddrives" element={<PreviousFooddrives/>} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path="/donation-request" element={<DonationRequest />} />

@@ -5,16 +5,21 @@ import { Link } from 'react-router-dom';
 export default function EventDescription() {
   return (
     <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
-      <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>
-        Wanna Host an Event?
+      <h1 className='text-3xl mt-10 p-3 font-bold w-full lg:text-6xl text-center'>Host Your Event Today!</h1>
+      <h1 className='text-3xl mt-10 p-3 font-bold w-full lg:text-3xl'>
+        
+      "Small acts of kindness can change the world. Your donation, no matter the size, brings hope to those in need."
       </h1>
 
       <div className='flex flex-row'>
-        <div className='w-1/2 mr-3 mt-10'>
-          <h1 className='text-xl font-serif max-w-3xl lg:text-2xl'>
+      <div className='w-1/2 mr-3 mt-5'>
+      <div className=' bg-white shadow-lg rounded-xl p-6 dark:bg-gray-800'>
+        <div className='flex flex-row'>
+          <h1 className='text-xl font-semibold max-w-3xl lg:text-2xl  dark:text-gray-300'>
             Start a Donation Campaign
           </h1>
-          <div className='w-full mt-5 text-lg'>
+          </div>
+          <div className='w-full mt-5 text-lg  dark:text-gray-400'>
             <p>
               Join us for a heartfelt donation event hosted by generous donors
               like you, where the essence of giving meets the profound need of
@@ -29,30 +34,27 @@ export default function EventDescription() {
               underprivileged, offering them sustenance and hope for a better
               tomorrow.</p>
 
-            <div className='mt-12 flex flex-wrap w-full'>
-            <Link to={'/'}>
-            <Button
-                type='button'
-                className='mr-4 bg-gradient-to-r from-green-500 via-green-300 to-green-400 text-white'
-            >
-             Upcoming events
-            </Button>
+            <div className='mt-12'>
+              <Link
+              to='/previousdonations'
+              className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>
+              View previous Donation Campaigns
             </Link>
-
+            </div>
 
             <Link to={'/donation-request'}>
-            <Button
+            <Button gradientDuoTone='greenToBlue'
               type='button'
-              className='bg-gradient-to-r from-green-500 via-green-300 to-green-400 text-white'
+              className='text-white'
             >
               Host an Event
             </Button>
             </Link>
-            </div>
           </div>
         </div>
+        </div>
 
-        <div className='w-1/2 flex flex-col justify-between ml-12'>
+        <div className='w-1/2 flex flex-col justify-between ml-12 mt-3'>
           <img
             src='https://i.pinimg.com/564x/49/4f/a9/494fa9d21008d681068b9649c8a1328c.jpg'
             alt='Image 1'
@@ -74,11 +76,56 @@ export default function EventDescription() {
       </div>
 
       <div className='flex flex-row'>
-        <div className='w-3/4 mr-3'>
-          <h1 className='text-xl font-serif max-w-3xl lg:text-2xl'>
-            Start a Food Drive
+        <div className='w-2/4 mr-3'>
+        <div className='bg-white shadow-lg rounded-xl p-6 dark:bg-gray-800'>
+        <img
+            src='https://i.pinimg.com/564x/9a/5a/1b/9a5a1b197b12e5cf0e3777956876732e.jpg'
+            alt='Image 1'
+            className='w-3/4 h-1/4 object-cover mx-auto mb-5'
+          />
+          <h1 className='text-xl font-semibold max-w-3xl lg:text-2xl  dark:text-gray-300'>
+            Start a Physical Food Drive
           </h1>
-          <div className='w-full mt-5 text-lg'>
+          <div className='w-full mt-5 text-lg dark:text-gray-400'>
+            <h1 className='max-w-3xl mt-3 font-bold'>
+            What is a Physical Food Drive?
+          </h1>
+            <p>A virtual food drive allows you to collect online donations rather than food.
+                 The money you collect from your virtual food drive become meals and other 
+                 services for people facing hunger. These fundraisers allow you to have a greater
+                  impact in the fight against hunger.</p>
+     
+            <div className='mt-12'>
+              <Link
+              to='/previousfooddrives'
+              className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>
+              View previous FoodDrives
+            </Link>
+            </div>
+            <Link to={'/fooddrive-request'}>
+            <Button gradientDuoTone='greenToBlue'
+                type='button'
+                className='mr-4 text-white'
+            >
+             Start a Physical Food Drive
+            </Button>
+            </Link>
+
+          </div>
+        </div>
+        </div>
+
+        <div className='w-2/4 ml-5 mb-10'>
+        <div className=' bg-white shadow-lg rounded-xl p-6 dark:bg-gray-800'>
+        <img
+            src='https://i.pinimg.com/564x/c6/03/f2/c603f284eb93a9a96149abb304b4621a.jpg'
+            alt='Image 1'
+            className='w-3/4 h-1/4 object-cover mx-auto mb-5'
+          />
+          <h1 className='text-xl font-semibold max-w-3xl lg:text-2xl dark:text-gray-300'>
+            Start a Virtual Food Drive
+          </h1>
+          <div className='w-full mt-5 text-lg  dark:text-gray-400'>
             <h1 className='max-w-3xl mt-3 font-bold'>
             What is a Virtual Food Drive?
           </h1>
@@ -88,137 +135,16 @@ export default function EventDescription() {
                   impact in the fight against hunger.</p>
             <div className='mt-2 flex flex-wrap w-full'>
             <Link to={'/'}>
-            <Button
+            <Button gradientDuoTone='greenToBlue' 
                 type='button'
-                className='mr-4 bg-gradient-to-r from-green-500 via-green-300 to-green-400 text-white'
+                className='mr-4 text-white mt-10'
             >
              Start a Virtual Food Drive
             </Button>
             </Link>
             </div>
           </div>
-
-          <div className='w-full mt-10 text-lg'>
-            <h1 className='max-w-3xl mt-5 font-bold'>
-            What is a Physical Food Drive?
-          </h1>
-            <p>A virtual food drive allows you to collect online donations rather than food.
-                 The money you collect from your virtual food drive become meals and other 
-                 services for people facing hunger. These fundraisers allow you to have a greater
-                  impact in the fight against hunger.</p>
-
-            <div className='mt-2 flex flex-wrap w-full'>
-            <Link to={'/'}>
-            <Button
-                type='button'
-                className='mr-4 bg-gradient-to-r from-green-500 via-green-300 to-green-400 text-white'
-            >
-             View Upcoming events
-            </Button>
-            </Link>
-
-
-            <Link to={'/fooddrive-request'}>
-            <Button
-              type='button'
-              className='bg-gradient-to-r from-green-500 via-green-300 to-green-400 text-white'
-            >
-            Start a Physical Food Drive
-            </Button>
-            </Link>
-            </div>
-          </div>
         </div>
-
-        
-
-        <div className='w-2/4 flex flex-col justify-between ml-12 mt-5'>
-          <img
-            src='https://i.pinimg.com/564x/ba/1c/89/ba1c89ad621c5cad9cd4ace0abdeea37.jpg'
-            alt='Image 1'
-            className='w-full h-3/4 object-cover'
-          />
-        </div>
-      </div>
-
-      {/*new */}
-      <div className='flex flex-row'>
-        <div className='w-1/2 mr-3'>
-          <div className='w-full mt-5 text-lg'>
-            <h1 className='max-w-3xl mt-3 font-bold text-center'>
-            Feed people for your Birthday
-            </h1>
-
-            <img
-            src='https://i.pinimg.com/564x/9a/5a/1b/9a5a1b197b12e5cf0e3777956876732e.jpg'
-            alt='Image 1'
-            className='w-3/4 h-1/4 object-cover mx-auto'
-          />
-          </div>
-
-          <div className='w-full mt-10 text-lg text-center'>
-            <p>A birthday food drive allows you to collect online donations rather than food.
-                 The money you collect from your virtual food drive.</p>
-
-          </div>
-        </div>
-        <div className='w-1/2 mr-3'>
-          <div className='w-full mt-5 text-lg'>
-            <h1 className='max-w-3xl mt-3 font-bold text-center'>
-            Feed people for your Birthday
-            </h1>
-
-            <img
-            src='https://i.pinimg.com/564x/3a/01/ce/3a01ce30936cef93737bd94035c44242.jpg'
-            alt='Image 1'
-            className='w-3/4 h-1/4 object-cover mx-auto'
-          />
-          </div>
-
-          <div className='w-full mt-10 text-lg text-center ml-10'>
-            <p>A birthday food drive allows you to collect online donations rather than food.
-                 The money you collect from your virtual food drive.</p>
-          </div>
-        </div>
-      </div>
-
-
-      <div className='flex flex-row mt-10 mb-10'>
-        <div className='w-1/2 mr-3'>
-          <div className='w-full mt-5 text-lg'>
-            <h1 className='max-w-3xl mt-3 font-bold text-center'>
-            Feed people for your Birthday
-            </h1>
-
-            <img
-            src='https://i.pinimg.com/564x/a8/50/89/a85089be8f59ae1c01a02a737b9e2897.jpg'
-            alt='Image 1'
-            className='w-3/4 h-1/4 object-cover mx-auto mt-8'
-          />
-          </div>
-
-          <div className='w-full mt-12 text-lg text-center'>
-            <p>A birthday food drive allows you to collect online donations rather than food.
-                 The money you collect from your virtual food drive.</p>
-          </div>
-        </div>
-        <div className='w-1/2 mr-3'>
-          <div className='w-full mt-5 text-lg'>
-            <h1 className='max-w-3xl mt-3 font-bold text-center'>
-            Feed people for your Birthday
-            </h1>
-
-            <img
-            src='https://i.pinimg.com/564x/c6/03/f2/c603f284eb93a9a96149abb304b4621a.jpg'
-            alt='Image 1'
-            className='w-3/4 h-1/4 object-cover mx-auto'
-          />
-          </div>
-
-          <div className='w-full mt-10 text-lg text-center ml-10'>
-            <p>A birthday food drive allows you to collect online donations rather than food.
-                 The money you collect from your virtual food drive.</p>
-          </div>
         </div>
       </div>
 
