@@ -20,6 +20,8 @@ import FoodDriveRequest from "./Event/pages/FoodDriveRequest"
 import UpdateFStatus from "./Event/pages/UpdateFStatus"
 import ApprovedDonations from "./Event/pages/ApprovedDonations"
 import DeclinedDonations from "./Event/pages/DeclinedDonations"
+import DonationPage from "./Event/pages/DonationPage"
+import FooddrivePage from "./Event/pages/FooddrivePage"
 
 
 export default function App() {
@@ -40,6 +42,8 @@ export default function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path="/donation-request" element={<DonationRequest />} />
           <Route path="/fooddrive-request" element={<FoodDriveRequest />} />
+          <Route path="/donation/:donationSlug" element={<DonationPage/>} />
+          <Route path="/fooddrive/:fooddriveSlug" element={<FooddrivePage/>} />
         </Route>
 
            {/*only for event organiser */}
@@ -51,7 +55,6 @@ export default function App() {
       </Route>
         <Route path="/projects" element={<Project/>} />
         <Route path="/event/:eventSlug" element={<EventPage/>} />
-        
       </Routes>
       <Footer/>
     </BrowserRouter>
