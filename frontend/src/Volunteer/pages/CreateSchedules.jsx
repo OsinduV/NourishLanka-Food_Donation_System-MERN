@@ -1,24 +1,70 @@
 import React from 'react'
-import {Select,TextInput,Button} from 'flowbite-react';
+import {Select,TextInput,Button,Alert} from 'flowbite-react';
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { IoIosTime } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+
 
 export default function CreateSchedules() {
-
+  const [formData,setFormData] = useState({});
+ 
+  const [publishError, setPublishError] = useState(null);
   const navigate = useNavigate();
-  const handleVolunteerNow = () => {
-   navigate('/schedules');
-  }
+ 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+      const res = await fetch('/api/schedules/create',{
+        method :'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
+      }
+    
+      if (res.ok) {
+        setPublishError(null);
+        navigate(`/schedules/${data.slug}`);
+      }
+    } catch (error) {
+      
+      setPublishError('Something went wrong');
+    }
+  };
+   
   return (
-    <div className='container mx-auto'>
+    <div className='p-3 max-w-3xl mx-auto min-h-screen'>
         <h1 className='text-3xl font-semibold text-center my-7'>Create a Schedule</h1>
-        <form classname='flex flex-col  sm:flex=row w-2/4 p-8 rounded-lg shadow-lg outline'>
+        <form className='flex flex-col  gap-4' onSubmit={handleSubmit}>
+
+        <div className='flex flex-col mb-7 gap-4 sm:flex-row justify-between'>
             
-        <div className='flex flex-col ml-80 mr-80
-         mb-7 gap-4 sm:flex-row justify-between'>
+            Schedule ID : <TextInput
+                     type='text'
+                     placeholder='schedule ID'
+                     required
+                     
+                     id='scheduleId'
+                     className='flex-1'
+                     onChange={(e) =>
+                      setFormData({ ...formData, scheduleId: e.target.value })
+                    }
+                   />
+    
             
-        <TextInput
+                </div>
+            
+        <div className='flex flex-col mb-7 gap-4 sm:flex-row justify-between'>
+            
+        Date :<TextInput
                  type='text'
                  placeholder='dd/mm/yyyy'
                  required
@@ -34,13 +80,13 @@ export default function CreateSchedules() {
             </div>
             
             
-            <div className='flex flex-col ml-80 mr-80 mb-7 gap-4 sm:flex-row justify-between'>
-            <Select
+            <div className='flex flex-col  mb-7 gap-4 sm:flex-row justify-between'>
+            Day : <Select
         required
         id='day'
         className='flex-1 '
         onChange={(e) =>
-          setFormData({ ...formData,  day: e.target.value })
+          setFormData({ ...formData, day: e.target.value })
         }
          >
         <option value='uncategorized'>Choose Day</option>
@@ -59,14 +105,14 @@ export default function CreateSchedules() {
            
             
            
-            <div className='flex flex-col  ml-80 mr-80 mb-7 gap-4 sm:flex-row justify-between'>
+            <div className='flex flex-col   mb-7 gap-4 sm:flex-row justify-between'>
             
-            <Select
+           Volunteering activity : <Select
         required
         id='catagory'
         className='flex-1 '
         onChange={(e) =>
-          setFormData({ ...formData,  category: e.target.value })
+          setFormData({ ...formData, catagory: e.target.value })
         }
          >
         <option value='uncategorized'>Choose a Voluneering catagory</option>
@@ -77,16 +123,16 @@ export default function CreateSchedules() {
 
           </div>
 
-            <div className='flex flex-col ml-80 mr-80 mb-10 gap-4 sm:flex-row justify-between'>
+            <div className='flex flex-col  mb-10 gap-4 sm:flex-row justify-between'>
             
-            <Select
+            Time : <Select
         required
         id='time'
         icon={IoIosTime}
         placeholder=' time duration'
         className='flex-1 '
         onChange={(e) =>
-          setFormData({ ...formData,  time: e.target.value })
+          setFormData({ ...formData, time: e.target.value })
         }
          >
         <option value='uncategorized'>Choose a time duration</option>
@@ -95,11 +141,16 @@ export default function CreateSchedules() {
        
         </Select>
        </div>
-            <div className='flex flex-col  ml-80 mr-80 mb-20 gap-4 sm:flex-row justify-between'>
+            <div className='flex flex-col  mr-80  mb-20 gap-4 sm:flex-row justify-between'>
             
-            <Button type='button' gradientDuoTone='greenToBlue' onClick={handleVolunteerNow} > Create Schedules
+            <Button type='submit' gradientDuoTone='greenToBlue' > Create Schedules
            </Button>   
-
+            
+        {publishError && (
+          <Alert className='mt-5' color='failure'>
+            {publishError}
+          </Alert>
+        )}
              
 
         
