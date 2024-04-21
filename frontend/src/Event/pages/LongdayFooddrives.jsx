@@ -1,11 +1,12 @@
 
-import { Button, Modal, Table } from 'flowbite-react';
+import { Button, Modal, Spinner, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 export default function LongdayFooddrives() {
+  const [loading, setLoading] = useState(true);
     const { currentUser } = useSelector((state) => state.user);
     const [userFooddrives, setUserFooddrives] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -14,6 +15,7 @@ export default function LongdayFooddrives() {
     console.log(userFooddrives);
     useEffect(() => {
       const fetchFooddrives = async () => {
+        setLoading(true);
         try {
           //retrieving requests from id
          {/**  const res = await fetch(`/api/donation/getdonations?userId=${currentUser._id}`);*/}
@@ -21,12 +23,14 @@ export default function LongdayFooddrives() {
           const data = await res.json();
           if (res.ok) {
             setUserFooddrives(data.fooddrives);
+            setLoading(false);
             if (data.fooddrives.length < 9) {
               setShowMore(false);
             }
           }
         } catch (error) {
           console.log(error.message);
+          setLoading(false);
         }
       };
       if (currentUser.isEventOrganiser) {
@@ -72,8 +76,18 @@ export default function LongdayFooddrives() {
       }
     };
 
+    if (loading)
+    return (
+      <div className='flex justify-center items-center min-h-screen ml-40'>
+        <Spinner size='xl' />
+      </div>
+    );
+
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+          <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+             <h2 className="text-3xl font-semibold flex">Long Day FoodDrive Request List</h2>
+          </div>
                   {/* Header-like section1 */}
                   <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
@@ -85,10 +99,6 @@ export default function LongdayFooddrives() {
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
-
-    <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-        <h2 className="text-3xl font-semibold flex">Long Day FoodDrive Request List</h2>
-    </div>
 
                       {/* Header-like section2 */}
                       <div className="flex justify-between items-center mb-5">

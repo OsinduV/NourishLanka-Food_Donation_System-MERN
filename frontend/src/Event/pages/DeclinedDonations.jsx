@@ -1,5 +1,5 @@
 //user dashboard declined donation events
-import { Table } from 'flowbite-react';
+import { Spinner, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { Button, Modal,} from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function DeclinedDonations() {
+  const [loading, setLoading] = useState(true);
     const { currentUser } = useSelector((state) => state.user);
     const [userDonations, setUserDonations] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -16,17 +17,20 @@ export default function DeclinedDonations() {
     useEffect(() => {
       const fetchDonations = async () => {
         try {
+          setLoading(true);
           //retrieving requests from id
          const res = await fetch(`/api/donation/getdonations?status=declined&userId=${currentUser._id}`);
           const data = await res.json();
           if (res.ok) {
             setUserDonations(data.donations);
+            setLoading(false);
             if (data.donations.length < 9) {
               setShowMore(false);
             }
           }
         } catch (error) {
           console.log(error.message);
+          setLoading(false);
         }
       };
       if (!currentUser.isEventOrganiser) {
@@ -72,6 +76,13 @@ export default function DeclinedDonations() {
         console.log(error.message);
       }
     };
+
+    if (loading)
+    return (
+      <div className='flex justify-center items-center min-h-screen ml-40'>
+        <Spinner size='xl' />
+      </div>
+    );
 
   return (
     

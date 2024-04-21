@@ -1,11 +1,12 @@
 //component in event organiser dashboard where event organiser see all the requests made by donors
-import { Button, Modal, Table } from 'flowbite-react';
+import { Button, Modal, Spinner, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 export default function DashFooddrives() {
+    const [loading, setLoading] = useState(true);
     const { currentUser } = useSelector((state) => state.user);
     const [userFooddrives, setUserFooddrives] = useState([]);
     const [showMore, setShowMore] = useState(true);
@@ -15,18 +16,19 @@ export default function DashFooddrives() {
     useEffect(() => {
       const fetchFooddrives = async () => {
         try {
-          //retrieving requests from id
-         {/**  const res = await fetch(`/api/donation/getdonations?userId=${currentUser._id}`);*/}
+          setLoading(true);
          const res = await fetch(`/api/fooddrive/getfooddrives`);
           const data = await res.json();
           if (res.ok) {
             setUserFooddrives(data.fooddrives);
+            setLoading(false);
             if (data.fooddrives.length < 9) {
               setShowMore(false);
             }
           }
         } catch (error) {
           console.log(error.message);
+          setLoading(false);
         }
       };
       if (currentUser.isEventOrganiser) {
@@ -71,9 +73,19 @@ export default function DashFooddrives() {
         console.log(error.message);
       }
     };
+  
+    if (loading)
+    return (
+      <div className='flex justify-center items-center min-h-screen ml-40'>
+        <Spinner size='xl' />
+      </div>
+    );
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+              <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+            <h2 className="text-3xl font-semibold flex"> FoodDrive Request List</h2>
+        </div>
                   {/* Header-like section */}
                   <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
@@ -86,10 +98,6 @@ export default function DashFooddrives() {
                 </div>
             </div>
 
-
-        <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-            <h2 className="text-3xl font-semibold flex"> FoodDrive Request List</h2>
-        </div>
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
            {currentUser.isEventOrganiser && userFooddrives.length > 0 ? (
         <>

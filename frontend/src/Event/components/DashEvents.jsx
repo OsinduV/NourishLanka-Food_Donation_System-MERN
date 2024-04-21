@@ -1,10 +1,11 @@
-import { Button, Modal, Table } from 'flowbite-react';
+import { Button, Modal, Spinner, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function DashEvents() {
+  const [loading, setLoading] = useState(true);
   const { currentUser } = useSelector((state) => state.user);
   console.log(currentUser);
   const [userEvents, setUserEvents] = useState([]);
@@ -16,12 +17,14 @@ export default function DashEvents() {
     console.log("useEffect triggered");
     const fetchEvents = async () => {
       try {
+        setLoading(true);
         console.log("fetchEvents function called");
         const res = await fetch(`/api/event/getevents?userId=${currentUser._id}`);
         const data = await res.json();
         if (res.ok) {
           console.log("Data received:", data.events);
           setUserEvents(data.events);
+          setLoading(false);
 
           console.log("userEvents after setting:", userEvents);
           if (data.events.length < 9) {
@@ -30,6 +33,7 @@ export default function DashEvents() {
         }
       } catch (error) {
         console.log(error.message);
+        setLoading(false);
       }
     };
     if (currentUser.isEventOrganiser) {
@@ -77,7 +81,12 @@ export default function DashEvents() {
     }
   };
 
-
+  if (loading)
+  return (
+    <div className='flex justify-center items-center min-h-screen ml-40'>
+      <Spinner size='xl' />
+    </div>
+  );
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
 

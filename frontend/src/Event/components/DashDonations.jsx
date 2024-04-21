@@ -1,11 +1,12 @@
 //component in event organiser dashboard where event organiser see all the requests made by donors
-import { Button, Modal, Table } from 'flowbite-react';
+import { Button, Modal, Spinner, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 
 export default function DashDonations() {
+    const [loading, setLoading] = useState(true);
     const { currentUser } = useSelector((state) => state.user);
     const [userDonations, setUserDonations] = useState([]);
     console.log(userDonations);
@@ -15,18 +16,19 @@ export default function DashDonations() {
     useEffect(() => {
       const fetchDonations = async () => {
         try {
-          //retrieving requests from id
-         {/**  const res = await fetch(`/api/donation/getdonations?userId=${currentUser._id}`);*/}
+          setLoading(true);
          const res = await fetch(`/api/donation/getdonations`);
           const data = await res.json();
           if (res.ok) {
             setUserDonations(data.donations);
+            setLoading(false);
             if (data.donations.length < 9) {
               setShowMore(false);
             }
           }
         } catch (error) {
           console.log(error.message);
+          setLoading(false);
         }
       };
       if (currentUser.isEventOrganiser) {
@@ -71,6 +73,12 @@ export default function DashDonations() {
         console.log(error.message);
       }
     };
+    if (loading)
+    return (
+      <div className='flex justify-center items-center min-h-screen ml-40'>
+        <Spinner size='xl' />
+      </div>
+    );
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
