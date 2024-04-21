@@ -32,7 +32,7 @@ export default function CreateSchedules() {
     
       if (res.ok) {
         setPublishError(null);
-        navigate(`/schedules/${data.slug}`);
+        navigate('/dashboard?tab=schedules');
       }
     } catch (error) {
       
@@ -96,7 +96,7 @@ export default function CreateSchedules() {
         <option value='thursday'>Thursday</option>
         <option value='friday'>Friday</option>
         <option value='saturday'>Saturday</option>
-        <option value='sunday'>Friday</option>
+        <option value='sunday'>Sunday</option>
         </Select>
        
         
