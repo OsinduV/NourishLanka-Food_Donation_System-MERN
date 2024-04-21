@@ -13,6 +13,47 @@ const validateEmail = (email) => {
   return emailRegex.test(email);
 };
 
+const isValidDate = (dateString) => {
+  // Regular expression for dd/mm/yyyy format
+  const dateFormat = /^\d{2}\/\d{2}\/2024$/;
+
+  // Check if the date string matches the format
+  if (!dateFormat.test(dateString)) {
+      return false;
+  }
+
+  // Parse the date parts to integers
+  const parts = dateString.split('/');
+  const day = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10);
+  const year = parseInt(parts[2], 10);
+
+  // Check if the date is valid
+  if (year !== 2024 || month === 0 || month > 12 || day === 0 || day > 31) {
+      return false;
+  }
+
+  // Check for months with 30 days
+  if ([4, 6, 9, 11].includes(month) && day > 30) {
+      return false;
+  }
+
+  // Check for February and leap years
+  if (month === 2) {
+      if (day > 29) {
+          return false;
+      }
+      // February has 29 days in leap years, otherwise 28
+      const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+      if (!isLeapYear && day > 28) {
+          return false;
+      }
+  }
+
+  return true;
+};
+
+
 //add validations to disabled buttons///////////////////////////
 export const createfooddrive = async (req, res, next) => {
     try {
@@ -35,26 +76,37 @@ export const createfooddrive = async (req, res, next) => {
           }
       }
 
-       // Validate based on food drive type
-       if (req.body.type === 'onedaydrive') {
-        const requiredFieldsOneday = ['eventdate', 'eventtime', 'eventlocation'];
-        if (requiredFieldsOneday.some(field => !req.body[field])) {
-            return next(errorHandler(400, 'Please provide all required fields for a one day food drive'));
-        }
-        // Validate event time format
-        if (!validateTime(req.body.eventtime)) {
+      // Validate based on food drive type
+      if (req.body.type === 'onedaydrive') {
+          const requiredFieldsOneday = ['eventdate', 'eventtimefrom', 'eventtimeto', 'eventlocation'];
+          if (requiredFieldsOneday.some(field => !req.body[field])) {
+              return next(errorHandler(400, 'Please provide all required fields for a one day food drive'));
+          }
+          // Validate event time format
+          if (!validateTime(req.body.eventtimefrom) || !validateTime(req.body.eventtimeto)) {
             return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for one day food drive'));
-        }
-    } else if (req.body.type === 'longdrive') {
-        const requiredFieldsLong = ['DateFrom', 'DateTo', 'eventtimelong', 'eventlocationlong'];
+          }
+
+          // Validate event date
+          if (!isValidDate(req.body.eventdate)) {
+            return next(errorHandler(400, 'Please provide a valid date (dd/mm/yyyy) for the event from current Year for one day food drive'));
+          }
+
+      } else if (req.body.type === 'longdrive') {
+        const requiredFieldsLong = ['DateFrom', 'DateTo', 'eventtimelongfrom', 'eventtimelongto', 'eventlocationlong'];
         if (requiredFieldsLong.some(field => !req.body[field])) {
             return next(errorHandler(400, 'Please provide all required fields for a long drive food drive'));
         }
+
         // Validate event time format
-        if (!validateTime(req.body.eventtimelong)) {
+        if (!validateTime(req.body.eventtimelongfrom) || !validateTime(req.body.eventtimelongto)) {
             return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for long drive food drive'));
         }
-    }
+         // Validate event date
+        if (!isValidDate(req.body.DateFrom) || !isValidDate(req.body.DateTo)) {
+             return next(errorHandler(400, 'Please provide a valid date (dd/mm/yyyy) for the event from current Year for long day food drive'));
+        }
+      }
 
      // Validate donor email format
           if (!validateEmail(req.body.donoremail)) {
@@ -65,7 +117,12 @@ export const createfooddrive = async (req, res, next) => {
         const volunteers = parseInt(req.body.volunteers);
             if (isNaN(volunteers) || volunteers <= 0) {
                 return next(errorHandler(400, 'Please provide a valid number of volunteers'));
-            }
+        }
+
+        // Validate minimum length of event description
+        if (req.body['eventdescription'].length < 50) {
+              return next(errorHandler(400, 'Event description must be at least 50 characters long'));
+        }
        
 
         // Generate slug

@@ -44,7 +44,7 @@ export default function FooddrivePage() {
         return (
           <tr>
             <td className="border border-gray-300 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2">{label}</td>
-            <td className="border border-gray-300 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2">{value}</td>
+            <td className="border border-gray-300 dark:border-gray-600 dark:text-gray-400 font-semibold px-4 py-2 break-words">{value}</td>
           </tr>
         );
       }
@@ -79,7 +79,10 @@ export default function FooddrivePage() {
                 {fooddrive && fooddrive.group === 'yes' ? (
                     <>
                     <TableRow label="Organization Name" value={fooddrive && fooddrive.ogname} />
-                    <TableRow label="Organization Website" value={fooddrive && fooddrive.website} />
+                    <TableRow
+                        label="Organization Website"
+                        value={fooddrive && fooddrive.website ? fooddrive.website : "No website submitted"}
+                    />
                     </>
                     ) : (
                         // If group is not 'yes', display a single row
@@ -91,7 +94,8 @@ export default function FooddrivePage() {
                 {fooddrive && fooddrive.type === 'onedaydrive' ? (
                     <>
                     <TableRow label="Event Date" value={fooddrive && fooddrive.eventdate} />
-                    <TableRow label="Event Time" value={fooddrive && fooddrive.eventtime} />
+                    <TableRow label="Collecting Time(From)" value={fooddrive && fooddrive.eventtimefrom} />
+                    <TableRow label="Collecting Time(To)" value={fooddrive && fooddrive.eventtimeto} />
                     <TableRow label="Collection Point(s)" value={fooddrive && fooddrive.eventlocation} />
 
                     </>
@@ -99,7 +103,8 @@ export default function FooddrivePage() {
                       <>
                       <TableRow label="Proposed Start Date" value={fooddrive && fooddrive.DateFrom} />
                       <TableRow label="Proposed End Date" value={fooddrive && fooddrive.DateTo} />
-                      <TableRow label="Collection Time" value={fooddrive && fooddrive.eventtimelong} />
+                      <TableRow label="Collection Time(From)" value={fooddrive && fooddrive.eventtimelongfrom} />
+                      <TableRow label="Collection Time(To)" value={fooddrive && fooddrive.eventtimelongto} />
                       <TableRow label="Collection Point(s)" value={fooddrive && fooddrive.eventlocationlong} />
                   </>
                 ) : (
@@ -110,7 +115,10 @@ export default function FooddrivePage() {
                 <TableRow label="No. of volunteers needed" value={fooddrive && fooddrive.volunteers} />
                 <TableRow label="Purpose and goals" value={fooddrive && fooddrive.eventdescription} />
                 <TableRow label="Nearest FoodBank to handover" value={fooddrive && fooddrive.foodbank} />
-                <TableRow label="Special Requirements" value={fooddrive && fooddrive.requirements} />
+                <TableRow
+                        label="Special Requirements"
+                        value={fooddrive && fooddrive.requirements ? fooddrive.requirements : "No requirements submitted"}
+                />
                 <TableRow label="Request created Date" value={fooddrive && fooddrive.createdAt} />
                 <TableRow label="Status Updated Date" value={fooddrive && fooddrive.updatedAt} />
                 <TableRow

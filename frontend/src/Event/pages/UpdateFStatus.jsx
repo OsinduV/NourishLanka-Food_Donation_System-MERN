@@ -260,18 +260,35 @@ export default function UpdateFStatus() {
             />
             </div>
         <div className='flex flex-col gap-7 sm:flex-row justify-between'>
-            <div>Event Time</div>
+        <div>Collecting<br></br>Time(From)</div>
         <TextInput
             type='text'
             placeholder='Expected starting time'
             required={formData.type === 'onedaydrive'}
             icon={IoIosTime}
-            id='eventtime'
-            className='flex-1 ml-10'
+            id='eventtimefrom'
+            className='flex-1 ml-9'
             onChange={(e) =>
-            setFormData({ ...formData, eventtime: e.target.value })
+            setFormData({ ...formData, eventtimefrom: e.target.value })
             }
-            value={formData.eventtime}
+            value={formData.eventtimefrom}
+        disabled={formData.type === 'longdrive'}
+         />
+        </div>
+
+        <div className='flex flex-col gap-7 sm:flex-row justify-between'>
+        <div>Collecting<br></br>Time(To)</div>
+        <TextInput
+            type='text'
+            placeholder='Expected starting time'
+            required={formData.type === 'onedaydrive'}
+            icon={IoIosTime}
+            id='eventtimeto'
+            className='flex-1 ml-12'
+            onChange={(e) =>
+            setFormData({ ...formData, eventtimeto: e.target.value })
+            }
+            value={formData.eventtimeto}
         disabled={formData.type === 'longdrive'}
          />
         </div>
@@ -329,21 +346,39 @@ export default function UpdateFStatus() {
         />
         </div>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-            <div>Event Time</div>
+        <div>Collecting<br></br>Time(From)</div>
             <TextInput
                 type='text'
-                placeholder='Expected starting time'
+                placeholder='starting time'
                 required={formData.type === 'longdrive'}
                 icon={IoIosTime}
-                id='eventtimelong'
-                className='flex-1 ml-12'
+                id='eventtimelongfrom'
+                className='flex-1 ml-11'
                 onChange={(e) =>
-            setFormData({ ...formData, eventtimelong: e.target.value })
+            setFormData({ ...formData, eventtimelongfrom: e.target.value })
             }
-            value={formData.eventtimelong}
+            value={formData.eventtimelongfrom}
         disabled={formData.type === 'onedaydrive'}
         />
         </div>
+
+        <div className='flex flex-col gap-6 sm:flex-row justify-between'>
+        <div>Collecting<br></br>Time(To)</div>
+            <TextInput
+                type='text'
+                placeholder='ending time'
+                required={formData.type === 'longdrive'}
+                icon={IoIosTime}
+                id='eventtimelongto'
+                className='flex-1 ml-12'
+                onChange={(e) =>
+            setFormData({ ...formData, eventtimelongto: e.target.value })
+            }
+            value={formData.eventtimelongto}
+        disabled={formData.type === 'onedaydrive'}
+        />
+        </div>
+
         <div className='flex flex-col gap-3 sm:flex-row justify-between'>
             <div>Collection Point(s)</div>
             <TextInput

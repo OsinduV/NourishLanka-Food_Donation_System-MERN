@@ -10,6 +10,8 @@ import { app } from '../../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
+import { CgWebsite } from "react-icons/cg";
+import { MdDriveFileRenameOutline } from "react-icons/md";
 
 export default function DonationRequest() {
   const [file1, setFile1] = useState(null);
@@ -89,8 +91,8 @@ export default function DonationRequest() {
   };
 
   return (
-    <div className='p-3 max-w-3xl mx-auto min-h-screen'>
-      <h1 className='text-3xl font-semibold text-center my-7'>Hosting Food Drive Request Form</h1>
+      <div className='p-3 max-w-4xl mx-auto min-h-screen'>
+      <div className='bg-white shadow-md p-3 mb-5'><h1 className='text-3xl font-semibold text-center my-7'>Hosting Food Drive Request Form</h1></div>
       <form className='flex flex-col gap-4 mb-20' onSubmit={handleSubmit}>
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
         Event title 
@@ -165,7 +167,7 @@ export default function DonationRequest() {
             type='text'
             placeholder='Name of the organization'
             required={formData.group === 'yes'} // Required only if hosting as a group
-            icon={BsCalendar2DateFill}
+            icon={MdDriveFileRenameOutline}
             id='ogname'
             className='flex-1 ml-12'
             onChange={(e) =>
@@ -181,7 +183,7 @@ export default function DonationRequest() {
             type='text'
             placeholder='Website of the organization'
             required={formData.group === 'yes'} // Required only if hosting as a group
-            icon={BsCalendar2DateFill}
+            icon={CgWebsite}
             id='website'
             className='flex-1 ml-8'
             onChange={(e) =>
@@ -226,19 +228,35 @@ export default function DonationRequest() {
             />
             </div>
         <div className='flex flex-col gap-7 sm:flex-row justify-between'>
-            <div>Event Time</div>
+            <div>Collecting<br></br>Time(From)</div>
         <TextInput
             type='text'
-            placeholder='Expected starting time'
+            placeholder='starting time'
             required={formData.type === 'onedaydrive'}
             icon={IoIosTime}
-            id='eventtime'
-            className='flex-1 ml-10'
+            id='eventtimefrom'
+            className='flex-1 ml-9'
             onChange={(e) =>
-            setFormData({ ...formData, eventtime: e.target.value })
+            setFormData({ ...formData, eventtimefrom: e.target.value })
             }
         disabled={formData.type === 'longdrive'}
          />
+        </div>
+
+        <div className='flex flex-col gap-7 sm:flex-row justify-between'>
+        <div>Collecting<br></br>Time(To)</div>
+        <TextInput
+            type='text'
+            placeholder='ending time'
+            required={formData.type === 'onedaydrive'}
+            icon={IoIosTime}
+            id='eventtimeto'
+            className='flex-1 ml-12'
+            onChange={(e) =>
+            setFormData({ ...formData, eventtimeto: e.target.value })
+            }
+        disabled={formData.type === 'longdrive'}
+        />
         </div>
 
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -290,21 +308,38 @@ export default function DonationRequest() {
         disabled={formData.type === 'onedaydrive'}
         />
         </div>
-        <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-            <div>Event Time</div>
+        <div className='flex flex-col gap-3 sm:flex-row justify-between'>
+        <div>Collecting<br></br>Time(From)</div>
             <TextInput
                 type='text'
-                placeholder='Expected starting time'
+                placeholder='starting time'
                 required={formData.type === 'longdrive'}
                 icon={IoIosTime}
-                id='eventtimelong'
+                id='eventtimelongfrom'
                 className='flex-1 ml-12'
                 onChange={(e) =>
-            setFormData({ ...formData, eventtimelong: e.target.value })
+            setFormData({ ...formData, eventtimelongfrom: e.target.value })
             }
         disabled={formData.type === 'onedaydrive'}
         />
         </div>
+
+        <div className='flex flex-col gap-6 sm:flex-row justify-between'>
+        <div>Collecting<br></br>Time(To)</div>
+            <TextInput
+                type='text'
+                placeholder='ending time'
+                required={formData.type === 'longdrive'}
+                icon={IoIosTime}
+                id='eventtimelongto'
+                className='flex-1 ml-12'
+                onChange={(e) =>
+            setFormData({ ...formData, eventtimelongto: e.target.value })
+            }
+        disabled={formData.type === 'onedaydrive'}
+        />
+        </div>
+
         <div className='flex flex-col gap-3 sm:flex-row justify-between'>
             <div>Collection Point(s)</div>
             <TextInput
@@ -340,12 +375,11 @@ export default function DonationRequest() {
                /> 
       </div>
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-              Purpose and Goals
+      Event Description
               <Textarea
                   type='text'
                   placeholder=' (e.g., supporting a specific cause or charity)
-                  Goals for the food drive (e.g., amount of food to be collected, number of families to be supported)
-                  '
+                  Goals for the food drive (e.g., amount of food to be collected, number of families to be supported)'
                   id='eventdescription'
                   rows='5'
                   onChange={(e) =>

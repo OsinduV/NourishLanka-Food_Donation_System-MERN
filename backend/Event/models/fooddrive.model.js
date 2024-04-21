@@ -51,9 +51,12 @@ const fooddriveSchema = new mongoose.Schema(
 
         },
 
-        eventtime: {
+        eventtimefrom: {
             type: String,
+        },
 
+        eventtimeto: {
+            type: String,
         },
 
         eventlocation: {
@@ -71,7 +74,11 @@ const fooddriveSchema = new mongoose.Schema(
 
         },
 
-        eventtimelong: {
+        eventtimelongfrom: {
+            type: String,
+        },
+
+        eventtimelongto: {
             type: String,
         },
 
