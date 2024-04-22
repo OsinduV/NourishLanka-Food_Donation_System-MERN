@@ -63,7 +63,7 @@ export default function DashAdminFoodRequests() {
                             <Table.HeadCell>Category</Table.HeadCell>
                             <Table.HeadCell>Email</Table.HeadCell>
                             <Table.HeadCell>Contact Number</Table.HeadCell>
-                            <Table.HeadCell>Reject</Table.HeadCell>
+                            <Table.HeadCell>Edit</Table.HeadCell>
                             <Table.HeadCell>Status</Table.HeadCell>
                         </Table.Head>
                         <Table.Body className='divide-y'>
@@ -79,9 +79,7 @@ export default function DashAdminFoodRequests() {
                                     <Table.Cell>{foodrequest.category}</Table.Cell>
                                     <Table.Cell>{foodrequest.email}</Table.Cell>
                                     <Table.Cell>{foodrequest.contactnumber}</Table.Cell>
-                                    <Table.Cell>
-                                        <span className='font-medium text-red-500 hover:underline cursor-pointer'>Reject</span>
-                                    </Table.Cell>
+        
                                     <Table.Cell>
                                     <Link
                                      className='text-teal-500 hover:underline'
@@ -90,6 +88,9 @@ export default function DashAdminFoodRequests() {
                                     <span>Edit Status</span>
                                    </Link>
                                     </Table.Cell> {/* You can replace "Status" with actual status */}
+                                    <Table.Cell>
+                                        {foodrequest.status}
+                                    </Table.Cell>
                                 </Table.Row>
                             ))}
                         </Table.Body>

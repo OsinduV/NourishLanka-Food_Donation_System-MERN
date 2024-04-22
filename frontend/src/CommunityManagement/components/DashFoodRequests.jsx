@@ -12,6 +12,7 @@ export default function DashFoodRequests() {
     const [showMore, setShowMore] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [foodrequestIdToDelete, setFoodrequestIdToDelete] = useState('');
+
     useEffect(() => {
       const fetchmyFoodRequests = async () => {
         try {
@@ -54,7 +55,7 @@ export default function DashFoodRequests() {
       setShowModal(false);
       try {
         const res = await fetch(
-          `/api/foodrequest/deletefoodrequest/${foodrequestIdToDelete}/${currentUser._id}`,
+          `/api/foodrequest/deletemyfoodrequest/${foodrequestIdToDelete}/${currentUser._id}`,
           {
             method: 'DELETE',
           }
@@ -64,7 +65,7 @@ export default function DashFoodRequests() {
           console.log(data.message);
         } else {
           setUserFoodRequests((prev) =>
-            prev.filter((myfoodrequest) => myfoodrequest._id !== foodrequestIdToDelete)
+            prev.filter((foodrequest) =>foodrequest._id !== foodrequestIdToDelete)
           );
         }
       } catch (error) {
@@ -98,7 +99,7 @@ export default function DashFoodRequests() {
                 <Table.HeadCell>Category</Table.HeadCell>
                 <Table.HeadCell>Email</Table.HeadCell>
                 <Table.HeadCell>Contact Number</Table.HeadCell>
-                <Table.HeadCell>Delete</Table.HeadCell>
+                <Table.HeadCell>Delete Food Request</Table.HeadCell>
                 <Table.HeadCell>Status</Table.HeadCell>  
               </Table.Head>
               {userFoodRequests.map((foodrequest) => (
@@ -131,7 +132,7 @@ export default function DashFoodRequests() {
                       }}
                       className='font-medium text-red-500 hover:underline cursor-pointer'
                     >
-                        Delete Food Request
+                        Delete 
                       </span>
                     </Table.Cell>
                     <Table.Cell>{foodrequest.status}</Table.Cell>

@@ -40,7 +40,7 @@ export const createfoodrequest = async(req,res,next) =>{
       }
 }
 
-export const deletefoodrequest = async (req, res, next) => {
+export const deletemyfoodrequest = async (req, res, next) => {
    
   if (!req.user|| req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'You are not allowed to delete this food request'));
@@ -104,3 +104,22 @@ export const getfoodrequests = async (req, res, next) => {
   }
 };
 
+export const updatefoodrequeststatus = async(req,res,next)=>{
+    if (!req.user.isCommunityAdmin) {
+      return next(errorHandler(403, 'You are not allowed to update the status of the foodrequest'));
+    }
+    try {
+      const updatedFoodRequest = await FoodRequest.findByIdAndUpdate(
+        req.params.foodrequestId,
+        {
+          $set: {
+            status: req.body.status,//change the value
+          },
+        },
+        { new: true }//get the new results
+      );
+      res.status(200).json(updatedFoodRequest);
+    } catch (error) {
+      next(error);
+    }
+}

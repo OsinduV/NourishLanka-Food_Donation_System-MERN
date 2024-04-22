@@ -16,6 +16,8 @@ import CommunityHome from "./CommunityManagement/pages/CommunityHome"
 import CommunitySearch from "./CommunityManagement/pages/CommunitySearch"
 import CreateFoodRequest from "./CommunityManagement/pages/CreateFoodRequest"
 import MyFoodRequest from "./CommunityManagement/pages/MyFoodRequest"
+import FoodRequestPage from "./CommunityManagement/pages/FoodRequestPage"
+import UpdateStatus from "./CommunityManagement/pages/UpdateStatus"
 
 
 export default function App() {
@@ -34,11 +36,13 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path="/create-foodrequest" element={<CreateFoodRequest/>} />
-          <Route path='/foodrequest/:myfoodrequestSlug' element={<MyFoodRequest/>}/>
+          <Route path='/foodrequest/:foodrequestSlug' element={<FoodRequestPage/>}/>
+
         </Route>
         <Route element={<OnlyCommunityAdminPrivateRoute/>}>
           <Route path='/create-recipientpost' element={<CreateRecipientPost/>} />
           <Route path='/update-recipientpost/:postId' element={<UpdateRecipientPost/>} />
+          <Route path='update-foodrequest/:foodrequestId'element={<UpdateStatus/>}/>
         </Route>
         <Route path="/projects" element={<Project/>} />
         <Route path="/community" element={<CommunityHome/>} />
