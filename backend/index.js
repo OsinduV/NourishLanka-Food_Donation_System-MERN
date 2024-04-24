@@ -6,6 +6,8 @@ import authRoutes from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
 import ReicipientpostRoutes from './CommunityManagement/routes/recipientpostroute.js'
 import FoodRequestRoutes from './CommunityManagement/routes/foodrequest.js'
+import inventoryRoutes from './InventoryManagement/routes/inventorys.js'
+
 dotenv.config()
 mongoose
 .connect(process.env.MONGO)
@@ -16,6 +18,8 @@ mongoose
 })
 
 const app = express();
+
+app.use(cors({methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH']}))
 
 app.use(express.json());
 app.use(cookieParser());
@@ -28,6 +32,10 @@ app.use('/api/user', userRoutes)
 app.use('/api/auth',authRoutes)
 app.use('/api/post',ReicipientpostRoutes)
 app.use('/api/foodrequest',FoodRequestRoutes)
+
+//inventory
+app.use('/api/inventorys', inventoryRoutes);
+
 
 app.use((err,req,res,next) =>{
     const statusCode = err.statusCode || 500;
