@@ -33,7 +33,7 @@ export default function ApprovedDonations() {
           setLoading(false);
         }
       };
-      if (!currentUser.isEventOrganiser) {
+      if (!currentUser.isAdmin) {
         fetchDonations();
       }
     },[currentUser._id])

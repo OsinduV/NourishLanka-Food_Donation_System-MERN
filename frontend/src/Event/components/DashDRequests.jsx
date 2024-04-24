@@ -33,7 +33,7 @@ export default function DashDRequests() {
           setLoading(false);
         }
       };
-      if (!currentUser.isEventOrganiser) {
+      if (!currentUser.isAdmin) {
         fetchDonations();
       }
     },[currentUser._id])

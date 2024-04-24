@@ -19,7 +19,6 @@ import OnedayFooddrives from '../Event/pages/OnedayFooddrives';
 import LongdayFooddrives from '../Event/pages/LongdayFooddrives';
 import AppAllFdLong from '../Event/pages/AppAllFdLong';
 import DecAllFdLong from '../Event/pages/DecAllFLong';
-import ComllFdLong from '../Event/pages/ComAllFdLong';
 import AppAllFone from '../Event/pages/AppAllFone';
 import DecAllFone from '../Event/pages/DecAllFone';
 import ComAllFone from '../Event/pages/ComAllFone';

@@ -33,7 +33,7 @@ export default function ApprovedFooddrives() {
           setLoading(false);
         }
       };
-      if (!currentUser.isEventOrganiser) {
+      if (!currentUser.isAdmin) {
         fetchFooddrives();
       }
     },[currentUser._id])

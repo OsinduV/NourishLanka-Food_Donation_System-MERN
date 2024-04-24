@@ -31,7 +31,7 @@ export default function DashDonations() {
           setLoading(false);
         }
       };
-      if (currentUser.isEventOrganiser) {
+      if (currentUser.isAdmin) {
         fetchDonations();
       }
     },[currentUser._id])
@@ -100,7 +100,7 @@ export default function DashDonations() {
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
-           {currentUser.isEventOrganiser && userDonations.length > 0 ? (
+           {currentUser.isAdmin && userDonations.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>

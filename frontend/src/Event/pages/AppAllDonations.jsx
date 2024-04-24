@@ -29,7 +29,7 @@ export default function AppAllDonations() {
           console.log(error.message);
         }
       };
-      if (currentUser.isEventOrganiser) {
+      if (currentUser.isAdmin) {
         fetchDonations();
       }
     },[currentUser._id])
@@ -92,7 +92,7 @@ export default function AppAllDonations() {
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
-           {currentUser.isEventOrganiser && userDonations.length > 0 ? (
+           {currentUser.isAdmin && userDonations.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>

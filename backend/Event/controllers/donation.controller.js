@@ -194,7 +194,7 @@ export const getdonations = async (req, res, next) => {
 };
 
 export const deletedonation = async (req, res, next) => {
-    if (!req.user.isEventOrganiser) {
+    if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not allowed to delete this event'));
     }
     try {
@@ -218,7 +218,7 @@ export const deletedonation = async (req, res, next) => {
   };
 
   export const updatedstatus = async (req, res, next) => {
-    if (!req.user.isEventOrganiser) {
+    if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not allowed to update the event status'));
     }
     try {

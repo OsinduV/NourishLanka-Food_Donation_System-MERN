@@ -248,7 +248,7 @@ export default function DashProfile() {
           {loading ? 'Loading...' : 'Update'}
           </Button>
 
-          {currentUser.isCommunityAdmin && (
+          {currentUser.isAdmin && (
           <Link to={'/create-recipientpost'}>
             <Button
               type='button'
@@ -258,8 +258,9 @@ export default function DashProfile() {
               Create a Recipient Post
             </Button>
           </Link>
+          )}
           
-           {currentUser.isEventOrganiser&& (
+           {currentUser.isAdmin&& (
           <Link to={'/create-event'}>
             <Button
               type='button'

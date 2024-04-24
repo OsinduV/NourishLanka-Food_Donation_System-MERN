@@ -67,7 +67,7 @@ export const signin = async (req, res, next) => {
     }
 
     const token = jwt.sign(
-      { id: validUser._id, isCommunityAdmin: validUser.isCommunityAdmin,isEventOrganiser:validUser.isEventOrganiser},
+      { id: validUser._id, isAdmin: validUser.isAdmin,isAdmin:validUser.isAdmin},
       process.env.JWT_SECRET
     );
 
@@ -98,7 +98,7 @@ export const google = async (req, res, next) => {
 
 
       const token = jwt.sign(
-        { id: user._id, isCommunityAdmin: user.isCommunityAdmin,isEventOrganiser:validUser.isEventOrganiser },
+        { id: user._id, isAdmin: user.isAdmin,isAdmin:validUser.isAdmin },
         process.env.JWT_SECRET
       );
 
@@ -125,7 +125,7 @@ export const google = async (req, res, next) => {
       });
       await newUser.save();
       const token = jwt.sign(
-        { id: newUser._id, isCommunityAdmin: newUser.isCommunityAdmin,isEventOrganiser:newUser.isEventOrganiser },
+        { id: newUser._id, isAdmin: newUser.isAdmin,isAdmin:newUser.isAdmin },
         process.env.JWT_SECRET
       );
       const { password, ...rest } = newUser._doc;

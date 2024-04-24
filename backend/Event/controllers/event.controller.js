@@ -11,7 +11,7 @@ const validateTime = (time) => {
 export const create = async (req, res, next) => {
 
         //check the person is event organiser or not
-        if (!req.user.isEventOrganiser) {
+        if (!req.user.isAdmin) {
             return next(errorHandler(403, 'You are not allowed to create a post'));
         }
         //if there is no title or ocontent for the publishing podt
@@ -103,7 +103,7 @@ export const getevents = async (req, res, next) => {
 };
 
 export const deleteevent = async (req, res, next) => {
-  if (!req.user.isEventOrganiser || req.user.id !== req.params.userId) {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'You are not allowed to delete this event'));
   }
   try {
@@ -116,7 +116,7 @@ export const deleteevent = async (req, res, next) => {
 
 
 export const updateevent = async (req, res, next) => {
-  if (!req.user.isEventOrganiser || req.user.id !== req.params.userId) {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'You are not allowed to update this post'));
   }
   try {

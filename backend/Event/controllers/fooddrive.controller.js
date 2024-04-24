@@ -211,7 +211,7 @@ export const getfooddrives = async (req, res, next) => {
 };
 
 export const deletefooddrive = async (req, res, next) => {
-    if (!req.user.isEventOrganiser) {
+    if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not allowed to delete this event'));
     }
     try {
@@ -235,7 +235,7 @@ export const deletefooddrive = async (req, res, next) => {
   }; 
 
   export const updatefstatus = async (req, res, next) => {
-    if (!req.user.isEventOrganiser) {
+    if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not allowed to update the event status'));
     }
     try {

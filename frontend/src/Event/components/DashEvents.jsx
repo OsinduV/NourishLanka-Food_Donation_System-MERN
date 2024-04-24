@@ -36,7 +36,7 @@ export default function DashEvents() {
         setLoading(false);
       }
     };
-    if (currentUser.isEventOrganiser) {
+    if (currentUser.isAdmin) {
       fetchEvents();
     }
   },[currentUser._id])
@@ -91,7 +91,7 @@ export default function DashEvents() {
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
 
       {/*if the user is event orgniser and if the events are more than 0 , then display the events and if not just display a message no events yet */}
-      {currentUser.isEventOrganiser && userEvents.length > 0 ? (
+      {currentUser.isAdmin && userEvents.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>

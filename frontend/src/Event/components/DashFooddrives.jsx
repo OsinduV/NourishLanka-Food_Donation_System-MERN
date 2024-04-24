@@ -31,7 +31,7 @@ export default function DashFooddrives() {
           setLoading(false);
         }
       };
-      if (currentUser.isEventOrganiser) {
+      if (currentUser.isAdmin) {
         fetchFooddrives();
       }
     },[currentUser._id])
@@ -99,7 +99,7 @@ export default function DashFooddrives() {
             </div>
 
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
-           {currentUser.isEventOrganiser && userFooddrives.length > 0 ? (
+           {currentUser.isAdmin && userFooddrives.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>

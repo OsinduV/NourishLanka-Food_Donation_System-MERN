@@ -24,15 +24,10 @@ const userSchema = new mongoose.Schema(
 
     //Priviledge of accessing event organise
     //01.create a user called event organiser and make it true from mongodb////////////////////
-    isEventOrganiser: {
+    isAdmin: {
       type: Boolean,
       default: false,
     },
-  
-      isCommunityAdmin: {
-        type: Boolean,
-        default: false,
-      },
 
   },
   { timestamps: true }

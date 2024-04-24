@@ -13,7 +13,6 @@ export default function DashSidebar() {
   const location = useLocation();
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
   const [tab, setTab] = useState('');
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -46,8 +45,7 @@ export default function DashSidebar() {
               active={tab === 'profile'}
               icon={HiUser}
 
-              label={currentUser.isCommunityAdmin ? 'Community Admin' : 'User'}
-              label={currentUser.isEventOrganiser ? 'Event Organiser' : 'User'}
+              label={currentUser.isAdmin ? 'Admin' : 'User'}
 
               labelColor='dark'
               as='div'
@@ -56,7 +54,7 @@ export default function DashSidebar() {
             </Sidebar.Item>
           </Link>
    
-          {!currentUser.isCommunityAdmin && (
+          {!currentUser.isAdmin && (
           <Link to='/dashboard?tab=myfoodrequests'>
             <Sidebar.Item 
               active={tab === 'myfoodrequests'}
@@ -70,7 +68,7 @@ export default function DashSidebar() {
           )}
                
  
-          {currentUser.isCommunityAdmin && (
+          {currentUser.isAdmin && (
             <Link to='/dashboard?tab=posts'>
               <Sidebar.Item
                 active={tab === 'posts'}
@@ -82,7 +80,7 @@ export default function DashSidebar() {
             </Link>
           )}
 
-        {currentUser.isCommunityAdmin && (
+        {currentUser.isAdmin && (
           <Link to='/dashboard?tab=recipientsfoodrequests'>
             <Sidebar.Item 
               active={tab === 'recipientsfoodrequests'}
@@ -96,7 +94,7 @@ export default function DashSidebar() {
           )} 
           
                     <Link to='/dashboard?tab=drequests'>
-          {currentUser && !currentUser.isEventOrganiser && (
+          {currentUser && !currentUser.isAdmin && (
             <Sidebar.Item
               active={tab === 'drequests'}
               icon={MdNotes}
@@ -108,7 +106,7 @@ export default function DashSidebar() {
           )}
           </Link>
 
-          {currentUser.isEventOrganiser && (
+          {currentUser.isAdmin && (
               <Link to='/dashboard?tab=events'>
               <Sidebar.Item
                 active={tab === 'events'}
@@ -120,7 +118,7 @@ export default function DashSidebar() {
               </Link>
           )}
 
-          {currentUser.isEventOrganiser && (
+          {currentUser.isAdmin && (
               <Link to='/dashboard?tab=donations'>
               <Sidebar.Item
                 active={tab === 'donations'}
@@ -132,7 +130,7 @@ export default function DashSidebar() {
               </Link>
           )}
 
-          {currentUser.isEventOrganiser && (
+          {currentUser.isAdmin && (
               <Link to='/dashboard?tab=fooddrives'>
               <Sidebar.Item
                 active={tab === 'fooddrives'}
@@ -145,7 +143,7 @@ export default function DashSidebar() {
           )}
 
           <Link to='/dashboard?tab=frequests'>
-          {currentUser && !currentUser.isEventOrganiser && (
+          {currentUser && !currentUser.isAdmin && (
             <Sidebar.Item
               active={tab === 'frequests'}
               icon={MdNotes}
