@@ -96,7 +96,7 @@ export default function DashDonations() {
                 <Link to='/dashboard?tab=donations'>All</Link>
                 <Link to='/dashboard?tab=approveddonations'>Approved</Link>
                 <Link to='/dashboard?tab=declineddonations'>Declined</Link>
-                <Link to="/dashboard?tab=fcompletedone">Completed</Link>
+                <Link to="/dashboard?tab=approveddonations">Completed</Link>
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
