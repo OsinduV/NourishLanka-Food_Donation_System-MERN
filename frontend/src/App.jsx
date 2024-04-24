@@ -15,7 +15,6 @@ import RecipientPostPage from "./CommunityManagement/pages/RecipientPostPage"
 import CommunityHome from "./CommunityManagement/pages/CommunityHome"
 import CommunitySearch from "./CommunityManagement/pages/CommunitySearch"
 import CreateFoodRequest from "./CommunityManagement/pages/CreateFoodRequest"
-import MyFoodRequest from "./CommunityManagement/pages/MyFoodRequest"
 import FoodRequestPage from "./CommunityManagement/pages/FoodRequestPage"
 import UpdateStatus from "./CommunityManagement/pages/UpdateStatus"
 
