@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
+
+import DashRecipientPost from '../CommunityManagement/components/DashRecipientPost';
+import DashFoodRequests from '../CommunityManagement/components/DashFoodRequests';
+import DashAdminFooddRequests from '../CommunityManagement/components/DashAdminFooddRequests';
 import DashEvents from '../Event/components/DashEvents';
 import DashDonations from '../Event/components/DashDonations';
 import DashDRequests from '../Event/components/DashDRequests';
@@ -27,7 +31,6 @@ import CompletedDonations from '../Event/pages/CompletedDonations';
 import CompletedFooddrives from '../Event/pages/CompletedFooddrives';
 
 
-
 export default function Dashboard() {
 
   const location = useLocation();
@@ -49,7 +52,14 @@ export default function Dashboard() {
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
 
-      {/* events... */}
+        {/* posts... */}
+        {tab === 'posts' && <DashRecipientPost/>}
+        {/*myfoodrequests*/}
+        {tab ==='myfoodrequests' && <DashFoodRequests/>}
+        {/*recipientsfoodrequests*/}
+        {tab ==='recipientsfoodrequests' && <DashAdminFooddRequests/>}
+        
+              {/* events... */}
       {tab === 'events' && <DashEvents />}
 
 
@@ -128,7 +138,7 @@ export default function Dashboard() {
       {/* my completed fooddrive requests... */}
       {tab === 'fcompleted' && <CompletedFooddrives />}
 
-
     </div>
+
   );
 }

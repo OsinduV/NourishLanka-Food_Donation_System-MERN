@@ -7,6 +7,16 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
+
+import OnlyCommunityAdminPrivateRoute from "./CommunityManagement/components/OnlyCommunityAdminPrivateRoute"
+import CreateRecipientPost from "./CommunityManagement/pages/CreateRecipientPost"
+import UpdateRecipientPost from "./CommunityManagement/pages/UpdateRecipientPost"
+import RecipientPostPage from "./CommunityManagement/pages/RecipientPostPage"
+import CommunityHome from "./CommunityManagement/pages/CommunityHome"
+import CommunitySearch from "./CommunityManagement/pages/CommunitySearch"
+import CreateFoodRequest from "./CommunityManagement/pages/CreateFoodRequest"
+import FoodRequestPage from "./CommunityManagement/pages/FoodRequestPage"
+import UpdateStatus from "./CommunityManagement/pages/UpdateStatus"
 import CreateEvent from "./Event/pages/CreateEvent"
 import OnlyEventOgPrivateRoute from "./Event/components/OnlyEventOgPrivateRoute"
 import UpdateEvent from "./Event/pages/UpdateEvent"
@@ -26,6 +36,7 @@ import PreviousDonations from "./Event/pages/PreviousDonations"
 import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 
 
+
 export default function App() {
   return (
     <div>
@@ -39,15 +50,26 @@ export default function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+
+        <Route path='/communitysearch' element={<CommunitySearch />} />
         <Route path="/search" element={<Search/>} />
         <Route path="/previousdonations" element={<PreviousDonations/>} />
         <Route path="/previousfooddrives" element={<PreviousFooddrives/>} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path="/create-foodrequest" element={<CreateFoodRequest/>} />
+          <Route path='/foodrequest/:foodrequestSlug' element={<FoodRequestPage/>}/>
+          <Route path='/dashboard' element={<Dashboard />} />
           <Route path="/donation-request" element={<DonationRequest />} />
           <Route path="/fooddrive-request" element={<FoodDriveRequest />} />
           <Route path="/donation/:donationSlug" element={<DonationPage/>} />
           <Route path="/fooddrive/:fooddriveSlug" element={<FooddrivePage/>} />
+
+        </Route>
+        <Route element={<OnlyCommunityAdminPrivateRoute/>}>
+          <Route path='/create-recipientpost' element={<CreateRecipientPost/>} />
+          <Route path='/update-recipientpost/:postId' element={<UpdateRecipientPost/>} />
+          <Route path='update-foodrequest/:foodrequestId'element={<UpdateStatus/>}/>
         </Route>
 
            {/*only for event organiser */}
@@ -58,7 +80,13 @@ export default function App() {
         <Route path='/update-fstatus/:fooddriveId' element={<UpdateFStatus />} />
       </Route>
         <Route path="/projects" element={<Project/>} />
-        <Route path="/event/:eventSlug" element={<EventPage/>} />
+
+        <Route path="/community" element={<CommunityHome/>} />
+      
+
+        <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
+         <Route path="/event/:eventSlug" element={<EventPage/>} />
+
       </Routes>
       <Footer/>
     </BrowserRouter>

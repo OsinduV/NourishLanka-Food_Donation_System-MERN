@@ -4,6 +4,9 @@ import dotenv from 'dotenv'
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
+
+import ReicipientpostRoutes from './CommunityManagement/routes/recipientpostroute.js'
+import FoodRequestRoutes from './CommunityManagement/routes/foodrequest.js'
 import eventRoutes from './Event/routes/event.route.js';
 import donationRoutes from './Event/routes/donation.route.js';
 import fooddriveRoutes from './Event/routes/fooddrive.route.js';
@@ -28,9 +31,13 @@ app.listen(3500 ,() =>{
 
 app.use('/api/user', userRoutes)
 app.use('/api/auth',authRoutes)
+
+app.use('/api/post',ReicipientpostRoutes)
+app.use('/api/foodrequest',FoodRequestRoutes)
 app.use('/api/event', eventRoutes); 
 app.use('/api/donation', donationRoutes); 
 app.use('/api/fooddrive', fooddriveRoutes); 
+
 
 app.use((err,req,res,next) =>{
     const statusCode = err.statusCode || 500;

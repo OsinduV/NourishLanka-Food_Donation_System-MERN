@@ -1,21 +1,24 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react'
-import React, { useEffect, useState } from 'react'
+
+import React from 'react'
 import { Link,useLocation,useNavigate } from 'react-router-dom'// can go to pages without refreshing
 import{AiOutlineSearch} from 'react-icons/ai'//icons
 import{FaMoon,FaSun} from 'react-icons/fa'
 import { useSelector,useDispatch } from 'react-redux'
 import { toggleTheme } from '../redux/theme/themeSlice'
 import { signoutSuccess } from '../redux/user/userSlice';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
+
+    const path = useLocation().pathname;
     const location = useLocation();
     const navigate = useNavigate();
-    const path = useLocation().pathname;
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state) => state.user);
     const { theme } = useSelector((state) => state.theme);
     const [searchTerm, setSearchTerm] = useState('');
-    console.log(searchTerm);
+
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -23,7 +26,8 @@ export default function Header() {
     if (searchTermFromUrl) {
       setSearchTerm(searchTermFromUrl);
     }
-  }, [location.search]);
+
+  }, [location.search]);//url of search
 
 
     const handleSignout = async () => {
@@ -47,6 +51,9 @@ export default function Header() {
       const urlParams = new URLSearchParams(location.search);
       urlParams.set('searchTerm', searchTerm);
       const searchQuery = urlParams.toString();
+
+      navigate(`/communitysearch?${searchQuery}`);
+    };
       navigate(`/search?${searchQuery}`);
     };
 
@@ -64,7 +71,9 @@ export default function Header() {
             rightIcon={AiOutlineSearch}
             className='hidden lg:inline'
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+
+          onChange={(e) => setSearchTerm(e.target.value)}//from this chnages in the search will chnage the url also
+
         />
        </form>
 
@@ -117,6 +126,12 @@ export default function Header() {
         <Navbar.Link active={path === '/projects'} as={'div'}>
           <Link to='/projects'>Projects</Link>
         </Navbar.Link>
+        <Navbar.Link active={path === '/community'} as={'div'}>
+          <Link to='/community'>Community</Link>
+        </Navbar.Link>
+        
+        
+
       </Navbar.Collapse>
       </Navbar>
   )

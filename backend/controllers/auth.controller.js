@@ -66,15 +66,11 @@ export const signin = async (req, res, next) => {
       return next(errorHandler(400, 'Invalid password'));
     }
 
-    //create token
     const token = jwt.sign(
-      //02.adding event organiser to the cookie////////////////////////////
-      { id: validUser._id, isEventOrganiser:validUser.isEventOrganiser},
-      process.env.JWT_SECRET 
-      //process.env.HWT_SECRET is a secret key which is unique only for you
-      //the token is created and based on the secret key
-      //created and saved in env for the security and called it here
+      { id: validUser._id, isCommunityAdmin: validUser.isCommunityAdmin,isEventOrganiser:validUser.isEventOrganiser},
+      process.env.JWT_SECRET
     );
+
 
     //seperate the password and it will be hidden from displaying(for security)
     const { password: pass, ...rest } = validUser._doc;
@@ -99,10 +95,10 @@ export const google = async (req, res, next) => {
 
     //if the user exists
     if (user) {
-      const token = jwt.sign(
 
-        ////////////04./////////////////////////
-        { id: user._id, isEventOrganiser: user.isEventOrganiser },
+
+      const token = jwt.sign(
+        { id: user._id, isCommunityAdmin: user.isCommunityAdmin,isEventOrganiser:validUser.isEventOrganiser },
         process.env.JWT_SECRET
       );
 
@@ -114,38 +110,35 @@ export const google = async (req, res, next) => {
         })
         .json(rest);
 
-        //user is not allowed to sign in without password
-        //hence a password will be generated and user will be able to change it later
-      } else {
-        const generatedPassword =
-          Math.random().toString(36).slice(-8) +
-          Math.random().toString(36).slice(-8);
-        const hashedPassword = bcrypt.hashSync(generatedPassword, 10);
-        const newUser = new User({
-          username:
-            name.toLowerCase().split(' ').join('') +
-            Math.random().toString(9).slice(-4),
-          email,
-          password: hashedPassword,
-          profilePicture: googlePhotoUrl,
-        });
-        await newUser.save();
-        const token = jwt.sign(
-          //05./////////////////////////////////////////////////////////
-          { id: newUser._id, isEventOrganiser: newUser.isEventOrganiser },
-          process.env.JWT_SECRET
-        );
-        const { password, ...rest } = newUser._doc;
-        res
-          .status(200)
-          .cookie('access_token', token, {
-            httpOnly: true,
-          })
-          .json(rest);
-      }
+    } else {
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+      const newUser = new User({
+        username:
+          name.toLowerCase().split(' ').join('') +
+          Math.random().toString(9).slice(-4),
+        email,
+        password: hashedPassword,
+        profilePicture: googlePhotoUrl,
+      });
+      await newUser.save();
+      const token = jwt.sign(
+        { id: newUser._id, isCommunityAdmin: newUser.isCommunityAdmin,isEventOrganiser:newUser.isEventOrganiser },
+        process.env.JWT_SECRET
+      );
+      const { password, ...rest } = newUser._doc;
+      res
+        .status(200)
+        .cookie('access_token', token, {
+          httpOnly: true,
+        })
+        .json(rest);
+    }
+  } catch (error) {
+    next(error);
 
-  }catch(error){
-    next(error)
   }
 
 
