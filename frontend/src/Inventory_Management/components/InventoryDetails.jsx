@@ -97,7 +97,7 @@ const InventoryDetails = ({ inventory }) => {
 
                     <p><strong>Quantity :</strong> {inventory.quantity}</p>
                     <p><strong>Location :</strong> {inventory.location}</p>
-                    {/* <p><strong>Exp.Date :</strong> {inventory.expdate.split("T")[0]}</p> */}
+                    <p><strong>Exp.Date :</strong> {inventory.expdate}</p>
 
                     <button onClick={handleDeleteClick}>Delete</button>
                     <button onClick={handleEditClick}>Edit</button>
