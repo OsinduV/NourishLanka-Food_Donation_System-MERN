@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
-
+import DashRecipientPost from '../CommunityManagement/components/DashRecipientPost';
+import DashFoodRequests from '../CommunityManagement/components/DashFoodRequests';
+import DashAdminFooddRequests from '../CommunityManagement/components/DashAdminFooddRequests';
 
 export default function Dashboard() {
 
@@ -24,6 +26,13 @@ export default function Dashboard() {
       </div>
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
+        {/* posts... */}
+        {tab === 'posts' && <DashRecipientPost/>}
+        {/*myfoodrequests*/}
+        {tab ==='myfoodrequests' && <DashFoodRequests/>}
+        {/*recipientsfoodrequests*/}
+        {tab ==='recipientsfoodrequests' && <DashAdminFooddRequests/>}
     </div>
+
   );
 }
