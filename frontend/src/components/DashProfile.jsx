@@ -21,7 +21,9 @@ import {
   } from '../redux/user/userSlice';
   import { useDispatch } from 'react-redux';
   import { HiOutlineExclamationCircle } from 'react-icons/hi';
+
   import { Link } from 'react-router-dom';
+
 
 
 
@@ -245,6 +247,7 @@ export default function DashProfile() {
         >
           {loading ? 'Loading...' : 'Update'}
           </Button>
+
           {currentUser.isCommunityAdmin && (
           <Link to={'/create-recipientpost'}>
             <Button
@@ -255,6 +258,18 @@ export default function DashProfile() {
               Create a Recipient Post
             </Button>
           </Link>
+          
+           {currentUser.isEventOrganiser&& (
+          <Link to={'/create-event'}>
+            <Button
+              type='button'
+              gradientDuoTone='greenToBlue'
+              className='w-full'
+            >
+              Publish Event
+            </Button>
+         </Link>
+
         )}
         </form>
         <div className="text-red-500 flex justify-between mt-5">

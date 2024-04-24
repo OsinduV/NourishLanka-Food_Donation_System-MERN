@@ -1,4 +1,5 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react'
+
 import React from 'react'
 import { Link,useLocation,useNavigate } from 'react-router-dom'// can go to pages without refreshing
 import{AiOutlineSearch} from 'react-icons/ai'//icons
@@ -18,13 +19,16 @@ export default function Header() {
     const { theme } = useSelector((state) => state.theme);
     const [searchTerm, setSearchTerm] = useState('');
 
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get('searchTerm');
     if (searchTermFromUrl) {
       setSearchTerm(searchTermFromUrl);
     }
+
   }, [location.search]);//url of search
+
 
     const handleSignout = async () => {
       try {
@@ -41,13 +45,18 @@ export default function Header() {
         console.log(error.message);
       }
     };
+
     const handleSubmit = (e) => {
       e.preventDefault();
       const urlParams = new URLSearchParams(location.search);
       urlParams.set('searchTerm', searchTerm);
       const searchQuery = urlParams.toString();
+
       navigate(`/communitysearch?${searchQuery}`);
     };
+      navigate(`/search?${searchQuery}`);
+    };
+
   return (
     
      <Navbar className='border-b-2'>
@@ -62,7 +71,9 @@ export default function Header() {
             rightIcon={AiOutlineSearch}
             className='hidden lg:inline'
             value={searchTerm}
+
           onChange={(e) => setSearchTerm(e.target.value)}//from this chnages in the search will chnage the url also
+
         />
        </form>
 
@@ -78,7 +89,7 @@ export default function Header() {
         color='gray'
         pill
         onClick={() => dispatch(toggleTheme())}
-      >
+      >  
         {theme === 'light' ? <FaSun /> : <FaMoon />}
       </Button>
         {currentUser ? (
@@ -109,11 +120,8 @@ export default function Header() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-      <Navbar.Link active={path === '/'} as={'div'}>
-      <Link to='/'>Home</Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === '/about'} as={'div'}>
-          <Link to='/about'>About</Link>
+        <Navbar.Link active={path === '/event-request'} as={'div'}>
+          <Link to='/event-description'>Host event</Link>
         </Navbar.Link>
         <Navbar.Link active={path === '/projects'} as={'div'}>
           <Link to='/projects'>Projects</Link>
