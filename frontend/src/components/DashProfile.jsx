@@ -235,10 +235,42 @@ export default function DashProfile() {
           placeholder='password'
           onChange={handleChange}
         />
-          <Button type='submit' gradientDuoTone='greenToBlue' outline disables={loading || imageFileUploading}>
-              {loading ? 'Loading...':'Update'}
+
+
+           <Button
+          type='submit'
+          gradientDuoTone='purpleToBlue'
+          outline
+          disabled={loading || imageFileUploading}
+        >
+          {loading ? 'Loading...' : 'Update'}
           </Button>
-          {
+
+          {currentUser.isAdmin && (
+          <Link to={'/create-recipientpost'}>
+            <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full'
+            >
+              Create a Recipient Post
+            </Button>
+          </Link>
+          )}
+          
+           {currentUser.isAdmin&& (
+          <Link to={'/create-event'}>
+            <Button
+              type='button'
+              gradientDuoTone='greenToBlue'
+              className='w-full'
+            >
+              Publish Event
+            </Button>
+         </Link>
+
+        )}
+        {
             currentUser.isAdmin && (
               <Link to ={'/create-schedules'}>
                  <Button
@@ -252,6 +284,8 @@ export default function DashProfile() {
           
             )
           }
+
+
         </form>
         <div className="text-red-500 flex justify-between mt-5">
         <span onClick={() => setShowModal(true)} className='cursor-pointer'>
