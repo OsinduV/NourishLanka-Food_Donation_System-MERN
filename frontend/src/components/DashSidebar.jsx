@@ -41,14 +41,14 @@ export default function DashSidebar() {
             <Sidebar.Item
               active={tab === 'profile'}
               icon={HiUser}
-              label={currentUser.isVolunteerManager ? 'Volunteer Manager':'User'}
+              label={currentUser.isAdmin ? 'Volunteer Manager':'User'}
               labelColor='dark'
               as='div'
             >
               Profile
             </Sidebar.Item>
           </Link>
-          {currentUser.isVolunteerManager && (
+          {currentUser.isAdmin && (
           <Link to='/dashboard?tab=schedules'>
             <Sidebar.Item 
               active={tab === 'schedules'}
@@ -61,7 +61,7 @@ export default function DashSidebar() {
           </Link>
           )}
            
-           {currentUser.isVolunteerManager && (
+           {currentUser.isAdmin && (
 
           <Link to='/dashboard?tab=volunteers'>
             <Sidebar.Item 
@@ -75,6 +75,18 @@ export default function DashSidebar() {
           </Link>
            )}
 
+<Link to='/dashboard?tab=volunteeringactivities'>
+            <Sidebar.Item
+              active={tab === 'profile'}
+              
+             
+              labelColor='dark'
+              as='div'
+            >
+              Volunteering activities
+            </Sidebar.Item>
+          </Link>
+
           
           <Sidebar.Item
             icon={HiArrowSmRight}
@@ -85,6 +97,7 @@ export default function DashSidebar() {
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
+      
     </Sidebar>
   );
 }

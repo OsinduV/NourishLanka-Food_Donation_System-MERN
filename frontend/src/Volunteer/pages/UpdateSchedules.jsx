@@ -139,17 +139,17 @@ export default function UpdateSchedules() {
             
            Volunteering activity : <Select
         required
-        id='catagory'
+        id='category'
         className='flex-1 '
         onChange={(e) =>
-          setFormData({ ...formData, catagory: e.target.value })
+          setFormData({ ...formData, category: e.target.value })
         }
-        value={formData.catagory}
+        value={formData.category}
          >
         <option value='uncategorized'>Choose a Voluneering catagory</option>
-        <option value='packing and Sorting'>Packing and Sorting</option>
-        <option value='cooking and Preparing '>Cooking and Preparing</option>
-        <option value='food Distribution'>Food Distribution</option>
+        <option value='Packing and Sorting'>Packing and Sorting</option>
+        <option value='Cooking and Preparing '>Cooking and Preparing</option>
+        <option value='Food Distribution'>Food Distribution</option>
         </Select>
 
           </div>

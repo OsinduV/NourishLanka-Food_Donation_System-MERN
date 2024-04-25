@@ -20,7 +20,7 @@ export default function DashSchedules() {
           const data = await res.json()
           if(res.ok){
                 setUserSchedules(data.schedules)
-                if(data.posts.length < 9){
+                if(data.schedules.length < 9){
                   setShowMore(false);
                 }
           }
@@ -28,10 +28,18 @@ export default function DashSchedules() {
           console.log(error.message)
         }
        };
-       if(currentUser.isVolunteerManager) {
+       if(currentUser.isAdmin) {
            fetchSchedules();
        }
      },[currentUser._id]);
+
+     const schedulesByCategory = {
+      'Packing and Sorting': userSchedules.filter((schedule) => schedule.category === 'Packing and Sorting'),
+      'Cooking and Preparing': userSchedules.filter((schedule) => schedule.category === 'Cooking and Preparing'),
+      'Food Distribution': userSchedules.filter((schedule) => schedule.category === 'Food Distribution'),
+      'Event': userSchedules.filter((schedule) => schedule.category === 'Event'),
+    };
+
 
      const handleShowMore = async () => {
         const startIndex = userSchedules.length;
@@ -41,7 +49,7 @@ export default function DashSchedules() {
           const data = await res.json();
           if(res.ok){
             setUserSchedules((prev) => [...prev, ...data.schedules]);
-            if(data.schedules.length < 9){
+            if(data.schedules.length < 16){
               setShowMore(false);
             }
           }
@@ -75,8 +83,12 @@ export default function DashSchedules() {
   return (
   
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-       {currentUser.isVolunteerManager && userSchedules.length > 0? (
-        <>
+       {currentUser.isAdmin &&  Object.keys(schedulesByCategory).map((category, index) => (
+        
+        <div key={index} className='mb-6'>
+            <h2 className='text-2xl font-bold'>{category}</h2>
+            {schedulesByCategory[category].length > 0 ? (
+
         <Table hoverable className='shadow-md '>
           <Table.Head>
               
@@ -93,7 +105,7 @@ export default function DashSchedules() {
                 <span>Delete</span>
                </Table.HeadCell>
           </Table.Head>
-          {userSchedules.map((schedules) => (
+          {schedulesByCategory[category].map((schedules) => (
             <Table.Body className='divide-y'>
                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                 
@@ -105,10 +117,10 @@ export default function DashSchedules() {
                 </Table.Cell>
                 <Table.Cell>{schedules.date}</Table.Cell>
                 <Table.Cell>{schedules.day}</Table.Cell>
-                <Table.Cell>{schedules.catagory}</Table.Cell>
+                <Table.Cell>{schedules.category}</Table.Cell>
                 <Table.Cell>{schedules.time}</Table.Cell>
                 <Table.Cell>
-                  <Link className='text-teal-500 hover:underline' to={`/updateSchedules/${schedules._id}`}>
+                  <Link className='text-teal-500 hover:underline' to={`/update-schedules/${schedules._id}`}>
                     <span>Edit</span>
                     </Link>
                 </Table.Cell>
@@ -131,6 +143,11 @@ export default function DashSchedules() {
           
 
         </Table>
+              ) : (
+                <p>You have no schedules for {category} yet!</p>
+              )}
+            </div>
+          ))}
         {
           showMore && (
             <button onClick={handleShowMore}
@@ -139,11 +156,9 @@ export default function DashSchedules() {
             </button>
           )
         }
-      </>
-       ):(
-        <p>You have no schedules yet!</p>
+      
 
-       )}
+      
 
 <Modal
         show={showModal}
@@ -171,6 +186,6 @@ export default function DashSchedules() {
       </Modal>
     </div>
    
-  )
+  );
   
 }

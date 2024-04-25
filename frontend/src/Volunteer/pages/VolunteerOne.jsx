@@ -18,14 +18,14 @@ export default function VolunteerOne() {
         `}
       </style>
 
-      <div className="gradient-background text-black flex flex-col items-center justify-center">
+      <div className=" flex flex-col items-center justify-center">
         <h1 className="text-3xl font-bold mb-1 px-1 mt-9">Share Your Kindness</h1>
         <p className="text-lg">Volunteer your time to make a difference in your community.</p>
       </div>
 
-      <div className="gradient-background text-white min-h-screen flex items-center justify-center">
+      <div className=" text-white min-h-screen flex items-center justify-center">
         <div className="flex w-full justify-center">
-          <div className="w-3/4 bg-white text-black p-8 rounded-lg shadow-lg">
+          <div className=" gradient-background w-3/4 bg-white text-black p-8 rounded-lg shadow-lg outline">
             <div className="mb-8">
               <h1 className="text-3xl font-bold mb-2">Join a Food Donating Event</h1>
               <p className="text-lg mb-4">Be a part of the solution! Find upcoming food Donating events in your area and participate in donating food to  families in need. Every contribution helps fight hunger in our community.</p>

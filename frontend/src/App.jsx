@@ -13,9 +13,10 @@ import VolunteerTwo from "./Volunteer/pages/VolunteerTwo"
 import VolunteerThree from "./Volunteer/pages/VolunteerThree"
 import VolunteerFour from "./Volunteer/pages/VolunteerFour"
 import VolunteerFive from "./Volunteer/pages/VolunteerFive"
-import OnlyVolunteerAdminPrivateRoute from "./Volunteer/components/OnlyVolunteerAdminPrivateRoute"
 import CreateSchedules from "./Volunteer/pages/CreateSchedules"
 import UpdateSchedules from "./Volunteer/pages/UpdateSchedules"
+import VolunteerSix from "./Volunteer/pages/VolunteerSix"
+import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 
 
 
@@ -34,12 +35,14 @@ export default function App() {
         <Route path="/volunteer-one" element={<VolunteerOne/>} />
         <Route path="/volunteer-two" element={<VolunteerTwo/>} />
         <Route path="/volunteer-three" element={<VolunteerThree/>} />
-        <Route path="/volunteer-four" element={<VolunteerFour/>} />
-        <Route path="/volunteer-five" element={<VolunteerFive/>} />
+        <Route path="/volunteer-four/:userId" element={<VolunteerFour/>} />
+        <Route path="/volunteer-five/:scheduleId" element={<VolunteerFive/>} />
+        <Route path="/volunteer-six/:userId" element={<VolunteerSix/>} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
+          
         </Route>
-        <Route element={<OnlyVolunteerAdminPrivateRoute />}>
+        <Route element={<OnlyAdminPrivateRoute />}>
           <Route path='/create-schedules' element={<CreateSchedules />} />
           <Route path='/update-schedules/:scheduleId' element={<UpdateSchedules />} />
         </Route>

@@ -6,10 +6,10 @@ import Schedule from "../model/schedule.model.js";
 export const create = async (req, res, next)=>{
     //check the person is volunteer manager or not
    
-    if(!req.user.isVolunteerManager){
+    if(!req.user.isAdmin){
         return next(errorHandler(403,'You are not allowed to create a schedule'))
     }
-    if(!req.body.scheduleId || !req.body.date || !req.body.day || !req.body.catagory || !req.body.time){
+    if(!req.body.scheduleId || !req.body.date || !req.body.day || !req.body.category || !req.body.time){
         return next(errorHandler(400,'Please provide all required fields'))
     }
 
@@ -46,13 +46,13 @@ export const getschedules = async (req,res,next)=> {
         const schedules = await Schedule.find({
             ...(req.query.userId && { userId: req.query.userId }),
             ...(req.query.category && { category: req.query.category }),
-            ...(req.query.day && { status: req.query.day }),
+            ...(req.query.day && { day: req.query.day }),
             ...(req.query.slug && { slug: req.query.slug }),
             ...(req.query.scheduleId && { _id: req.query.scheduleId }),
             ...(req.query.searchTerm && {
                 //using or it alows us to search between two places
               $or: [ 
-                { catagory: { $regex: req.query.searchTerm, $options: 'i' } }, //by regex tool it allows to search inside the title and from i, it tells that lowecase or uppercase is not important
+                { category: { $regex: req.query.searchTerm, $options: 'i' } }, //by regex tool it allows to search inside the title and from i, it tells that lowecase or uppercase is not important
                 { day: { $regex: req.query.searchTerm, $options: 'i' } },
               ],
         }),
@@ -89,7 +89,7 @@ export const getschedules = async (req,res,next)=> {
 
 export const deleteschedule = async (req,res,next) => {
      //check if the person is volunteer manager
-     if (!req.user.isVolunteerManager || req.user.id !== req.params.userId) {
+     if (!req.user.isAdmin || req.user.id !== req.params.userId) {
         return next(errorHandler(403, 'You are not allowed to delete this schedule'));
     }
     try {
@@ -103,7 +103,7 @@ export const deleteschedule = async (req,res,next) => {
 };
 
 export const updateschedule = async(req,res,next) => {
-    if (!req.user.isVolunteerManager || req.user.id !== req.params.userId) {
+    if (!req.user.isAdmin || req.user.id !== req.params.userId) {
         return next(errorHandler(403, 'You are not allowed to update this post'));
       }
       try {
@@ -114,7 +114,7 @@ export const updateschedule = async(req,res,next) => {
               scheduleId: req.body.scheduleId,
               date: req.body.date,
               day: req.body.day,
-              catagory: req.body.catagory,
+              category: req.body.category,
               time: req.body.time,
             
             },

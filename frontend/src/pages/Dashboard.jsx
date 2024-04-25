@@ -27,6 +27,8 @@ export default function Dashboard() {
       {tab === 'profile' && <DashProfile />}
        {/* schedules... */}
        {tab === 'schedules' && <DashSchedules/>}
+       {/* volunteering activities... */}
+       {tab === 'volunteeringactivities' && <Volunteeractivities/>}
        
     </div>
   );

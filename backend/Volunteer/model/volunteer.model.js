@@ -6,6 +6,11 @@ const volunteerSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      scheduleId: {
+        type: String,
+        required: true,
+    },
+   
     fullName:{
         type:String,
         required:true,
@@ -26,21 +31,22 @@ const volunteerSchema = new mongoose.Schema({
     district:{
         type:String,
         required:true,
-        default:'nodistrict',
+        
     },
-    volunteeringDay: {
+    date: {
         type: String,
-        default: 'uncategorized',
         required: true,
     },
-    volunteeringType: {
+    day: {
         type: String,
-        default: 'uncategorized',
         required: true,
     },
-    volunteeringTime: {
+    category: {
         type: String,
-        default: 'uncategorized',
+        required: true,
+    },
+    time: {
+        type: String,
         required: true,
     },
     slug: {
