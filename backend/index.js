@@ -4,6 +4,10 @@ import dotenv from 'dotenv'
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
+
+import schedulesRoutes from './Volunteer/route/schedules.route.js'
+import  volunteerRoutes from  './Volunteer/route/volunteer.route.js'
+
 import foodbank from './Foodbank/routes/foodbank.route.js'
 import cors from 'cors';
 
@@ -12,6 +16,7 @@ import FoodRequestRoutes from './CommunityManagement/routes/foodrequest.js'
 import eventRoutes from './Event/routes/event.route.js';
 import donationRoutes from './Event/routes/donation.route.js';
 import fooddriveRoutes from './Event/routes/fooddrive.route.js';
+
 
 dotenv.config()
 mongoose
@@ -35,14 +40,19 @@ app.listen(3500 ,() =>{
 
 })
 
+app.use('/api/volunteer',volunteerRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/auth',authRoutes)
+app.use('/api/schedules',schedulesRoutes);
+
 
 app.use('/api/post',ReicipientpostRoutes)
 app.use('/api/foodrequest',FoodRequestRoutes)
 app.use('/api/event', eventRoutes); 
 app.use('/api/donation', donationRoutes); 
 app.use('/api/fooddrive', fooddriveRoutes); 
+
+app.use('/api/foodbank',foodbank);
 
 
 app.use((err,req,res,next) =>{
@@ -52,9 +62,8 @@ app.use((err,req,res,next) =>{
         success:false,
         statusCode,
         message
-
     })
-
+  
 })
 
-app.use('/api/foodbank',foodbank);
+

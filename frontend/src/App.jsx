@@ -7,6 +7,16 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
+
+import VolunteerOne from "./Volunteer/pages/VolunteerOne"
+import VolunteerTwo from "./Volunteer/pages/VolunteerTwo"
+import VolunteerThree from "./Volunteer/pages/VolunteerThree"
+import VolunteerFour from "./Volunteer/pages/VolunteerFour"
+import VolunteerFive from "./Volunteer/pages/VolunteerFive"
+import CreateSchedules from "./Volunteer/pages/CreateSchedules"
+import UpdateSchedules from "./Volunteer/pages/UpdateSchedules"
+import VolunteerSix from "./Volunteer/pages/VolunteerSix"
+
 import FbRegisterpage from "./Foodbank/pages/foodbank_register"
 import Fbhome from './Foodbank/pages/foodbank_home'
 import FoodbankDash from "./Foodbank/pages/foodbankDash"
@@ -36,6 +46,7 @@ import DonationPage from "./Event/pages/DonationPage"
 import FooddrivePage from "./Event/pages/FooddrivePage"
 import PreviousDonations from "./Event/pages/PreviousDonations"
 import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
+
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 
 
@@ -53,6 +64,20 @@ export default function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+
+          //volunteer routes
+        <Route path="/volunteer-one" element={<VolunteerOne/>} />
+        <Route path="/volunteer-two" element={<VolunteerTwo/>} />
+        <Route path="/volunteer-three" element={<VolunteerThree/>} />
+        <Route path="/volunteer-four/:userId" element={<VolunteerFour/>} />
+        <Route path="/volunteer-five/:scheduleId" element={<VolunteerFive/>} />
+        <Route path="/volunteer-six/:userId" element={<VolunteerSix/>} />
+
+        <Route element={<OnlyAdminPrivateRoute />}>
+          <Route path='/create-schedules' element={<CreateSchedules />} />
+          <Route path='/update-schedules/:scheduleId' element={<UpdateSchedules />} />
+            </Route>
+
 
           //foodbank routes
         <Route path='/foodbankreg' element={<FbRegisterpage />} />
@@ -77,8 +102,8 @@ export default function App() {
           <Route path="/fooddrive-request" element={<FoodDriveRequest />} />
           <Route path="/donation/:donationSlug" element={<DonationPage/>} />
           <Route path="/fooddrive/:fooddriveSlug" element={<FooddrivePage/>} />
-
         </Route>
+
         <Route element={<OnlyAdminPrivateRoute/>}>
           <Route path='/create-recipientpost' element={<CreateRecipientPost/>} />
           <Route path='/update-recipientpost/:postId' element={<UpdateRecipientPost/>} />

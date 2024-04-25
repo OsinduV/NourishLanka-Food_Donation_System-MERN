@@ -1,5 +1,6 @@
 import { Sidebar } from 'flowbite-react';
 
+
 import { HiUser, HiArrowSmRight, HiDocument, HiDocumentText, HiOutlineUserGroup } from 'react-icons/hi';
 
 import { useEffect, useState } from 'react';
@@ -7,14 +8,17 @@ import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { MdNotes } from "react-icons/md";
+
 
 
 export default function DashSidebar() {
   const location = useLocation();
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
   const [tab, setTab] = useState('');
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -49,12 +53,55 @@ export default function DashSidebar() {
 
               label={currentUser.isAdmin ? 'Admin' : 'User'}
 
+
               labelColor='dark'
               as='div'
             >
               Profile
             </Sidebar.Item>
           </Link>
+
+          {currentUser.isAdmin && (
+          <Link to='/dashboard?tab=schedules'>
+            <Sidebar.Item 
+              active={tab === 'schedules'}
+              icon={HiDocumentText}
+              labelColor='dark'
+              as='div'
+            >
+            Schedules
+            </Sidebar.Item>
+          </Link>
+          )}
+           
+           {currentUser.isAdmin && (
+
+          <Link to='/dashboard?tab=volunteers'>
+            <Sidebar.Item 
+              active={tab === 'volunteers'}
+              icon={HiUser}
+              labelColor='dark'
+              as='div'
+            >
+            Volunteers
+            </Sidebar.Item>
+          </Link>
+           )}
+
+<Link to='/dashboard?tab=volunteeringactivities'>
+            <Sidebar.Item
+              active={tab === 'profile'}
+              
+             
+              labelColor='dark'
+              as='div'
+            >
+              Volunteering activities
+            </Sidebar.Item>
+          </Link>
+
+          
+
 
           <Link to='/dashboard?tab=users'>
             <Sidebar.Item
@@ -178,6 +225,7 @@ export default function DashSidebar() {
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
+      
     </Sidebar>
   );
 }

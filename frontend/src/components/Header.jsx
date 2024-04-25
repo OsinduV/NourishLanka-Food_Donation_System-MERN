@@ -122,8 +122,8 @@ export default function Header() {
         <Navbar.Link active={path === '/event-request'} as={'div'}>
           <Link to='/event-description'>Host event</Link>
         </Navbar.Link>
-        <Navbar.Link active={path === '/projects'} as={'div'}>
-          <Link to='/projects'>Projects</Link>
+        <Navbar.Link active={path === '/volunteer-one'} as={'div'}>
+          <Link to='/volunteer-one'>Volunteer</Link>
         </Navbar.Link>
 
         <Navbar.Link active={path === '/foodbank_Dashboard'} as={'div'}>

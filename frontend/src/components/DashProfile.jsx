@@ -270,6 +270,21 @@ export default function DashProfile() {
          </Link>
 
         )}
+        {
+            currentUser.isAdmin && (
+              <Link to ={'/create-schedules'}>
+                 <Button
+                  type='button'
+                  gradientDuoTone='greenToBlue'
+                  className='w-full'
+                  >
+                    Create schedules
+                  </Button>
+              </Link>
+          
+            )
+          }
+
 
         </form>
         <div className="text-red-500 flex justify-between mt-5">
