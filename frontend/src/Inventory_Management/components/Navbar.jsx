@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 //import { Link } from 'react-router-dom';
 import { useInventorysContext } from '../hooks/useInventorysContext';
 import endpoints from '../api/endpoints';
+import { Button } from 'flowbite-react';
 
 const Navbar = () => {
     const { dispatch } = useInventorysContext();
@@ -62,11 +63,11 @@ const Navbar = () => {
         <header>
             <div className="container flex items-center justify-between mx-auto my-0 px-5 py-2.5">
                 
-                    <h1>Inventory</h1>
+                    <h1 className='text-lg'>Inventory Management</h1>
 
                 <div className="search-bar">
                     <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                    <button onClick={handleSearch}>Search</button>
+                    <Button onClick={handleSearch} gradientMonochrome="success">Search</Button>
                 </div>
                 <div className="sort-buttons">
                     <button onClick={handleSortByQuantity}>Sort by Quantity</button>

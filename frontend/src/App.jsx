@@ -17,9 +17,9 @@ import CommunitySearch from "./CommunityManagement/pages/CommunitySearch";
 import CreateFoodRequest from "./CommunityManagement/pages/CreateFoodRequest";
 import FoodRequestPage from "./CommunityManagement/pages/FoodRequestPage";
 import UpdateStatus from "./CommunityManagement/pages/UpdateStatus";
-import InventoryHome from "./Inventory_Management/pages/InventoryHome"
+import InventoryHome from "./Inventory_Management/pages/InventoryHome";
 import { InventorysContextProvider } from "./Inventory_Management/context/InventoryContext";
-import Navbar from "./Inventory_Management/components/Navbar"
+import Navbar from "./Inventory_Management/components/Navbar";
 
 export default function App() {
   return (
@@ -63,14 +63,11 @@ export default function App() {
           />
         </Routes>
         {/* <React.StrictMode> */}
-          <InventorysContextProvider>
-            <Navbar />
-            <div className="pages">
-              <Routes>
-                <Route path="/inventory-home" element={<InventoryHome />} />
-              </Routes>
-            </div>
-          </InventorysContextProvider>
+        <InventorysContextProvider>
+          <Routes>
+            <Route path="/inventory-home" element={<InventoryHome />} />
+          </Routes>
+        </InventorysContextProvider>
         {/* </React.StrictMode> */}
         ,
         <Footer />
