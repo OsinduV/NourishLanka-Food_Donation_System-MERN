@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
 import Fbhome from './pages/foodbank_home'
 import FoodbankDash from "./pages/foodbankDash"
+import AdminDashFb from "./pages/AdminDashFb"
 
 
 export default function App() {
@@ -28,7 +29,8 @@ export default function App() {
         <Route path='/foodbankreg' element={<FbRegisterpage />} />
         <Route path='/foodbankhome' element={<Fbhome />} />
         <Route path='/foodbankDash' element={<FoodbankDash />} />
-        
+        <Route path='/AdminDashFb' element={<AdminDashFb />} />
+
          <Route element={<PrivateRoute />}>
         <Route path='/dashboard' element={<Dashboard />} />
          

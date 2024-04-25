@@ -3,10 +3,7 @@ import mongoose from "mongoose";
 const foodbankSchema = new mongoose.Schema({
     /*ownername foodbankname storagespace currentspace address district
     email phoneno opentime closetime status password*/
-    ownername:{
-        type:String,
-        required:true,
-    },
+
     foodbankname:{
         type:String,
         required:true,
@@ -45,14 +42,14 @@ const foodbankSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    status:{   
-        type:Boolean,
-        required:true,
-        default:false
+    status: {
+        type: String,
+        enum: ['pending', 'approved', 'rejected'],
+        default: 'pending',
     },
-    password:{
+    description:{
         type:String,
-        required:true,
+        default:'no description contact user',
     },
 
 },

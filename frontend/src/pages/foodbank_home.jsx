@@ -66,31 +66,31 @@ export default function foodbank_home() {
                             value={selectedDistrict}
                             onChange={(e) => setSelectedDistrict(e.target.value)}>
                             <option value="" defaultValue>locate foodbank</option>
-                            <option value="colombo">Colombo</option>
-                            <option value="gampaha">Gampaha</option>
-                            <option value="kalutara">Kalutara</option>
-                            <option value="kandy">Kandy</option>
-                            <option value="matale">Matale</option>
-                            <option value="nuwara eliya">Nuwara Eliya</option>
-                            <option value="galle">Galle</option>
-                            <option value="matara">Matara</option>
-                            <option value="hambantota">Hambantota</option>
-                            <option value="jaffna">Jaffna</option>
-                            <option value="killinochchi">Killinochchi</option>
-                            <option value="mannar">Mannar</option>
-                            <option value="vavuniya">Vavuniya</option>
-                            <option value="mullaitivu">Mullaitivu</option>
-                            <option value="batticaloa">Batticaloa</option>
-                            <option value="ampara">Ampara</option>
-                            <option value="trincomalee">Trincomalee</option>
-                            <option value="kurunegala">Kurunegala</option>
-                            <option value="puttalam">Puttalam</option>
-                            <option value="anuradhapura">Anuradhapura</option>
-                            <option value="polonnaruwa">Polonnaruwa</option>
-                            <option value="badulla">Badulla</option>
-                            <option value="monaragala">Monaragala</option>
-                            <option value="ratnapura">Ratnapura</option>
-                            <option value="kegalle">Kegalle</option>
+                            <option value="Colombo">Colombo</option>
+                            <option value="Gampaha">Gampaha</option>
+                            <option value="Kalutara">Kalutara</option>
+                            <option value="Kandy">Kandy</option>
+                            <option value="Matale">Matale</option>
+                            <option value="Nuwara eliya">Nuwara Eliya</option>
+                            <option value="Galle">Galle</option>
+                            <option value="Matara">Matara</option>
+                            <option value="Hambantota">Hambantota</option>
+                            <option value="Jaffna">Jaffna</option>
+                            <option value="Killinochchi">Killinochchi</option>
+                            <option value="Mannar">Mannar</option>
+                            <option value="Vavuniya">Vavuniya</option>
+                            <option value="Mullaitivu">Mullaitivu</option>
+                            <option value="Batticaloa">Batticaloa</option>
+                            <option value="Ampara">Ampara</option>
+                            <option value="Trincomalee">Trincomalee</option>
+                            <option value="Kurunegala">Kurunegala</option>
+                            <option value="Puttalam">Puttalam</option>
+                            <option value="Anuradhapura">Anuradhapura</option>
+                            <option value="Polonnaruwa">Polonnaruwa</option>
+                            <option value="Badulla">Badulla</option>
+                            <option value="Monaragala">Monaragala</option>
+                            <option value="Ratnapura">Ratnapura</option>
+                            <option value="Kegalle">Kegalle</option>
                          
                         </select>
                     </div>
