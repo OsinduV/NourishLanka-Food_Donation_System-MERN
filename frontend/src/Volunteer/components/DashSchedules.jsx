@@ -16,7 +16,7 @@ export default function DashSchedules() {
      useEffect(()=>{
        const fetchSchedules = async () => {
         try{
-          const res = await fetch(`/api/schedules/getschedules?userId=${currentUser._id}`)
+          const res = await fetch(`/api/schedules/getschedules`)
           const data = await res.json()
           if(res.ok){
                 setUserSchedules(data.schedules)

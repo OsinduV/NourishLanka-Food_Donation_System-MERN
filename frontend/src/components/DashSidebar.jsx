@@ -16,7 +16,7 @@ import { MdNotes } from "react-icons/md";
 
 export default function DashSidebar() {
   const location = useLocation();
-  const { currentUser } = useSelector((state) => state.user);
+ 
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const [tab, setTab] = useState('');

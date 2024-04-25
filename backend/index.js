@@ -20,7 +20,7 @@ import fooddriveRoutes from './Event/routes/fooddrive.route.js';
 
 dotenv.config()
 mongoose
-.connect(process.env.MONGOFB)
+.connect(process.env.MONGO)
 .then(() => {
     console.log ('Database is connected ..')
 }).catch(err => {
