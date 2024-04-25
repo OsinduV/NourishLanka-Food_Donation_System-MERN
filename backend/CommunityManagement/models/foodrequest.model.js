@@ -20,6 +20,30 @@ const FoodRequestSchema = new mongoose.Schema(
             default: 'uncategorized',
             required:true,
           },
+          position:{
+            type: String,
+            required: true, 
+          },
+          porphanage:{
+            type: String,
+            required: true, 
+          },
+
+          pelders:{
+            type: String,
+            required: true, 
+          },
+
+          pschool:{
+            type: String,
+            required: true, 
+          },
+
+          incomeLevel:{
+            type: String,
+            required: true, 
+          }, 
+
         contactnumber:{
           type: String,
           required: true, 
@@ -46,6 +70,11 @@ const FoodRequestSchema = new mongoose.Schema(
           type: String,
           
         },
+        zipcode: {
+          type: String,
+          
+        },
+        
        
         content:{
             type:String,
