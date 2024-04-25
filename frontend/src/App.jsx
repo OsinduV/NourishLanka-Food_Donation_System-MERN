@@ -48,6 +48,7 @@ import PreviousDonations from "./Event/pages/PreviousDonations"
 import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
+import ReviewPage from "./Ratings and Review_f/pages/ReviewPage"
 
 
 
@@ -122,6 +123,10 @@ export default function App() {
 
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
          <Route path="/event/:eventSlug" element={<EventPage/>} />
+
+
+        //Reviwe management
+        <Route path="/review-page" element={<ReviewPage/>} />
 
 
       </Routes>
