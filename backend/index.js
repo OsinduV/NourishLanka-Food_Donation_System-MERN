@@ -7,6 +7,12 @@ import cookieParser from 'cookie-parser'
 import foodbank from './Foodbank/routes/foodbank.route.js'
 import cors from 'cors';
 
+import ReicipientpostRoutes from './CommunityManagement/routes/recipientpostroute.js'
+import FoodRequestRoutes from './CommunityManagement/routes/foodrequest.js'
+import eventRoutes from './Event/routes/event.route.js';
+import donationRoutes from './Event/routes/donation.route.js';
+import fooddriveRoutes from './Event/routes/fooddrive.route.js';
+
 dotenv.config()
 mongoose
 .connect(process.env.MONGOFB)
@@ -21,14 +27,23 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+
 app.use(cors());
 
-app.listen(5000 ,() =>{
-    console.log  ('Server is runnning on port 5000 !')
+app.listen(3500 ,() =>{
+    console.log  ('Server is runnning on port 3500 !!')
+
 })
 
 app.use('/api/user', userRoutes)
 app.use('/api/auth',authRoutes)
+
+app.use('/api/post',ReicipientpostRoutes)
+app.use('/api/foodrequest',FoodRequestRoutes)
+app.use('/api/event', eventRoutes); 
+app.use('/api/donation', donationRoutes); 
+app.use('/api/fooddrive', fooddriveRoutes); 
+
 
 app.use((err,req,res,next) =>{
     const statusCode = err.statusCode || 500;
