@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
+import foodbank from './Foodbank/routes/foodbank.route.js'
+import cors from 'cors';
 
 import ReicipientpostRoutes from './CommunityManagement/routes/recipientpostroute.js'
 import FoodRequestRoutes from './CommunityManagement/routes/foodrequest.js'
@@ -13,9 +15,9 @@ import fooddriveRoutes from './Event/routes/fooddrive.route.js';
 
 dotenv.config()
 mongoose
-.connect(process.env.MONGO)
+.connect(process.env.MONGOFB)
 .then(() => {
-    console.log ('Database is connected')
+    console.log ('Database is connected ..')
 }).catch(err => {
     console.log(err)
 })
@@ -25,8 +27,12 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+
+app.use(cors());
+
 app.listen(3500 ,() =>{
     console.log  ('Server is runnning on port 3500 !!')
+
 })
 
 app.use('/api/user', userRoutes)
@@ -50,3 +56,5 @@ app.use((err,req,res,next) =>{
     })
 
 })
+
+app.use('/api/foodbank',foodbank);

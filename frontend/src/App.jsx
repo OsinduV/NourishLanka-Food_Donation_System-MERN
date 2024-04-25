@@ -7,6 +7,11 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
+import FbRegisterpage from "./Foodbank/pages/foodbank_register"
+import Fbhome from './Foodbank/pages/foodbank_home'
+import FoodbankDash from "./Foodbank/pages/foodbankDash"
+import AdminDashFb from "./Foodbank/pages/AdminDashFb"
+
 
 
 import CreateRecipientPost from "./CommunityManagement/pages/CreateRecipientPost"
@@ -49,6 +54,16 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
 
+          //foodbank routes
+        <Route path='/foodbankreg' element={<FbRegisterpage />} />
+        <Route path='/foodbankhome' element={<Fbhome />} />
+        <Route path='/foodbankDash' element={<FoodbankDash />} />
+        <Route path='/AdminDashFb' element={<AdminDashFb />} />
+
+    
+        <Route path="/projects" element={<Project/>} />        
+
+
         <Route path='/communitysearch' element={<CommunitySearch />} />
         <Route path="/search" element={<Search/>} />
         <Route path="/previousdonations" element={<PreviousDonations/>} />
@@ -82,6 +97,7 @@ export default function App() {
 
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
          <Route path="/event/:eventSlug" element={<EventPage/>} />
+
 
       </Routes>
       <Footer/>

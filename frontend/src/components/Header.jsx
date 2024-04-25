@@ -125,11 +125,17 @@ export default function Header() {
         <Navbar.Link active={path === '/projects'} as={'div'}>
           <Link to='/projects'>Projects</Link>
         </Navbar.Link>
+
+        <Navbar.Link active={path === '/foodbank_Dashboard'} as={'div'}>
+          <Link to='/foodbankhome'>FoodBank</Link>
+        </Navbar.Link>
+
         <Navbar.Link active={path === '/community'} as={'div'}>
           <Link to='/community'>Community</Link>
         </Navbar.Link>
         
         
+
 
       </Navbar.Collapse>
       </Navbar>
