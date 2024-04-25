@@ -21,6 +21,7 @@ import {
   } from '../redux/user/userSlice';
   import { useDispatch } from 'react-redux';
   import { HiOutlineExclamationCircle } from 'react-icons/hi';
+  import {Link} from 'react-router-dom';
 
   import { Link } from 'react-router-dom';
 
@@ -239,6 +240,8 @@ export default function DashProfile() {
           placeholder='password'
           onChange={handleChange}
         />
+
+
            <Button
           type='submit'
           gradientDuoTone='purpleToBlue'
@@ -272,6 +275,7 @@ export default function DashProfile() {
          </Link>
 
         )}
+
         </form>
         <div className="text-red-500 flex justify-between mt-5">
         <span onClick={() => setShowModal(true)} className='cursor-pointer'>
