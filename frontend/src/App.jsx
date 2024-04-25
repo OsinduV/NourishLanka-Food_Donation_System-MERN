@@ -8,11 +8,13 @@ import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
+import AddReview from "./pages/AddReview"
 
 export default function App() {
   return (
     <div>
     <BrowserRouter>
+  
      <Header/>
 
       <Routes>
@@ -24,7 +26,12 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
+      
+          <Route path='/add-review' element={<AddReview />} />
+         
+        
         <Route path="/projects" element={<Project/>} />
+        <Route path='/review/:reviewSlug' element={<reviewPage />} />
         
       </Routes>
       <Footer/>
