@@ -45,7 +45,7 @@ const InventoryForm = () => {
     };
 
     return (
-        <form className="workout-details" onSubmit={handleSubmit}>
+        <form className="workout-details bg-gray-200 dark:text-black" onSubmit={handleSubmit}>
             <h3>Add an Inventory</h3>
             <label>Inventory Title</label>
             <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} required />

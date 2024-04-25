@@ -90,7 +90,7 @@ const InventoryDetails = ({ inventory }) => {
   };
 
   return (
-    <div className="workout-details">
+    <div className="workout-details bg-gray-200 dark:text-black">
       {isEditing ? (
         <>
           <input
