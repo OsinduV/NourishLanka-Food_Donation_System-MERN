@@ -4,12 +4,12 @@ import dotenv from 'dotenv'
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
-import foodbank from './routes/foodbank.route.js'
+import foodbank from './Foodbank/routes/foodbank.route.js'
 import cors from 'cors';
 
 dotenv.config()
 mongoose
-.connect(process.env.MONGO)
+.connect(process.env.MONGOFB)
 .then(() => {
     console.log ('Database is connected ..')
 }).catch(err => {

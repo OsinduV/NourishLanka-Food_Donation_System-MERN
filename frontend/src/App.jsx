@@ -3,15 +3,15 @@ import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
 import Project from "./pages/Project"
 import Dashboard from "./pages/Dashboard"
-import FbRegisterpage from "./pages/foodbank_register"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Header from "./components/Header"
 import Footer from './components/Footer'
 import PrivateRoute from "./components/PrivateRoute"
-import Fbhome from './pages/foodbank_home'
-import FoodbankDash from "./pages/foodbankDash"
-import AdminDashFb from "./pages/AdminDashFb"
+import FbRegisterpage from "./Foodbank/pages/foodbank_register"
+import Fbhome from './Foodbank/pages/foodbank_home'
+import FoodbankDash from "./Foodbank/pages/foodbankDash"
+import AdminDashFb from "./Foodbank/pages/AdminDashFb"
 
 
 export default function App() {
