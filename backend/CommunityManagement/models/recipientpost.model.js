@@ -15,15 +15,26 @@ const postSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+     district: {
+      type: String,
+      required: true,
+    },
+
+      nameofplace: {
+      type: String,
+      required: true,
+    },
+
     image: {
       type: String,
       default:
-        'https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/09/how-to-write-a-blog-post.png',
+        'https://img.freepik.com/free-photo/smiley-female-volunteer-holding-food-donations_23-2148732641.jpg',
     },
     category: {
       type: String,
       default: 'uncategorized',
     },
+
     slug: {
       type: String,
       required: true,
