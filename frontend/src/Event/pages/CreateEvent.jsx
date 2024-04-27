@@ -141,6 +141,16 @@ export default function CreateEvent() {
               </Button>
             </div>
 
+
+          {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
+          {formData.image && (
+            <img
+              src={formData.image}
+              alt='upload'
+              className='w-full h-72 object-cover'
+            />
+           )}
+
             <TextInput
                  type='text'
                  placeholder='Organizing donor ID'
@@ -165,15 +175,6 @@ export default function CreateEvent() {
                 }
                />
            </div>
-
-          {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
-          {formData.image && (
-            <img
-              src={formData.image}
-              alt='upload'
-              className='w-full h-72 object-cover'
-            />
-           )}
 
 
           <div className={`flex flex-col gap-3 ${formData.category === 'FoodDrive' ? 'opacity-50 pointer-events-none' : ''}`}>
