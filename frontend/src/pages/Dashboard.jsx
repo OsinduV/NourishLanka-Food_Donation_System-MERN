@@ -32,6 +32,7 @@ import DecAllDonations from '../Event/pages/DecAllDonations';
 import ComAllDonations from '../Event/pages/ComAllDonations';
 import CompletedDonations from '../Event/pages/CompletedDonations';
 import CompletedFooddrives from '../Event/pages/CompletedFooddrives';
+import DashComments from '../Ratings and Review_f/components/DashComments';
 
 
 
@@ -153,6 +154,9 @@ export default function Dashboard() {
       {/* my completed fooddrive requests... */}
       {tab === 'fcompleted' && <CompletedFooddrives />}
 
+
+      {/* comments  */}
+      {tab === 'comments' && <DashComments />}
 
 
     </div>

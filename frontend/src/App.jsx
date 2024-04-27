@@ -49,6 +49,7 @@ import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 import ReviewPage from "./Ratings and Review_f/pages/ReviewPage"
+import ReviewHome from "./Ratings and Review_f/pages/ReviewHome"
 
 
 
@@ -119,6 +120,7 @@ export default function App() {
 
         <Route path="/projects" element={<Project/>} />
         <Route path="/community" element={<CommunityHome/>} />
+        <Route path="/review-home" element={<ReviewHome/>} />
       
 
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
