@@ -58,7 +58,10 @@ import PreviousDonations from "./Event/pages/PreviousDonations"
 import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
-import Home from "./pages/Home"
+
+import ReviewPage from "./Ratings and Review_f/pages/ReviewPage"
+import ReviewHome from "./Ratings and Review_f/pages/ReviewHome"
+
 
 
 
@@ -131,6 +134,7 @@ export default function App() {
 
         <Route path="/projects" element={<Project/>} />
         <Route path="/community" element={<CommunityHome/>} />
+        <Route path="/review-home" element={<ReviewHome/>} />
       
 
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
@@ -146,6 +150,10 @@ export default function App() {
           <Route path="/osindutst" element={<OsinduTst />} />
           <Route path="/frp-create" element={<FRPCreate />} />
           <Route path="/fr-reg" element={<FRReg />} />
+
+
+        //Reviwe management
+        <Route path="/review-page" element={<ReviewPage/>} />
 
 
       </Routes>

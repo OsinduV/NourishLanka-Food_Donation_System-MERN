@@ -19,6 +19,7 @@ import eventRoutes from './Event/routes/event.route.js';
 import donationRoutes from './Event/routes/donation.route.js';
 import fooddriveRoutes from './Event/routes/fooddrive.route.js';
 
+import commentRoutes from './Ratings and Reviews_b/routes/comment.route.js';
 
 dotenv.config()
 mongoose
@@ -63,6 +64,10 @@ app.use('/api/donation', donationRoutes);
 app.use('/api/fooddrive', fooddriveRoutes); 
 
 app.use('/api/foodbank',foodbank);
+
+
+// rating and reviews 
+app.use('/api/comment', commentRoutes);
 
 
 
