@@ -9,12 +9,10 @@ const eventSchema = new mongoose.Schema(
 
     content: {
         type: String,
-        required: true,
     },
 
     title: {
         type: String,
-        required: true,
         unique: true,
     },
 
@@ -26,20 +24,22 @@ const eventSchema = new mongoose.Schema(
 
     date: {
         type: String,
-        required: true,
     },
 
     time: {
         type: String,
-        required: true,
     },
 
     location: {
         type: String,
-        required: true,
     },
 
     donorid: {
+        type: String,
+        required: true,
+    },
+
+    donoremail: {
         type: String,
         required: true,
     },
@@ -53,6 +53,48 @@ const eventSchema = new mongoose.Schema(
         type: String,
         default: 'uncategorized',
     },
+
+    type: {
+        type: String,
+        default: 'notype',
+    },
+
+    eventdate: {
+        type: String,
+    },
+
+    eventlocation: {
+        type: String,
+    },
+
+    eventtimefrom: {
+        type: String,
+    },
+
+    eventtimeto: {
+        type: String,
+    },
+
+    DateFrom: {
+        type: String,
+    },
+
+    DateTo: {
+        type: String,
+    },
+
+    eventtimelongfrom: {
+        type: String,
+    },
+
+    eventtimelongto:{
+        type: String,
+    },
+
+    eventlocationlong:{
+        type: String,
+    },
+
 
     slug: {
         type: String,
