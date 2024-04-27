@@ -17,7 +17,7 @@ function Badge({
       <div className="flex items-center gap-x-2">
         <div className="text-4xl leading-none font-bold text-[#ec4899]">
           {startCountText}
-          <CountUp end={endCountNum} delay={0} duration={3} />
+          <CountUp end={endCountNum} delay={0} duration={2} />
           {endCountText}
         </div>
         <div className="max-w-[70px] leading-none text-[15px] font-medium">

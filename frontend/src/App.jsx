@@ -14,6 +14,7 @@ import FRPage from "./fundRaising/pages/FRPage";
 import DonatePage from "./fundRaising/pages/DonatePage";
 import OsinduTst from "./fundRaising/pages/OsinduTst";
 import FRPCreate from "./fundRaising/pages/FRPCreate";
+import FrpDonate from "./fundRaising/pages/FrpDonate";
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/fr-page/:frpId" element={<FRPage />} />
           <Route path="/fr-page/:frpId/:updatestat" element={<FRPage />} />
           <Route path="/donate-page" element={<DonatePage />} />
+          <Route path="/frpdonate-page/:frpId" element={<FrpDonate />} />
           <Route path="/osindutst" element={<OsinduTst />} />
           <Route path="/frp-create" element={<FRPCreate />} />
         </Routes>

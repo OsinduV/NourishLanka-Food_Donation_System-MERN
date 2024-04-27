@@ -16,7 +16,7 @@ export default function DisplayNameUpdate() {
           required
           id="displayName"
           className="flex-1"
-          defaultValue={formData.displayName || frp.displayName}
+          defaultValue={frp ? frp.displayName : formData.displayName || ""}
           onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
         />
       </div>

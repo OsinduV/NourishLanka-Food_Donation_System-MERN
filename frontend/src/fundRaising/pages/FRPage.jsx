@@ -9,6 +9,7 @@ import ImgUpload from "../components/frpComponents/ImgUpload";
 import GoalUpdate from "../components/frpComponents/GoalUpdate";
 import DisplayNameUpdate from "../components/frpComponents/DisplayNameUpdate";
 import BannerImgUpload from "../components/frpComponents/BannerImgUpload";
+import { MdModeEditOutline } from "react-icons/md";
 
 export const FormDataContext = createContext(null);
 
@@ -16,6 +17,8 @@ export default function FRPage() {
   const { frpId, updatestat } = useParams();
   const [loading, setLoading] = useState(true);
   const [frp, setFrp] = useState(null);
+  const [gotFrps, setGotFrps] = useState(null);
+  console.log(gotFrps);
 
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
@@ -23,6 +26,15 @@ export default function FRPage() {
   const [formData, setFormData] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
   const [count, setCount] = useState(0);
+  const [editMode, setEditMode] = useState(false);
+
+  const [nameModel, setNameModel] = useState(false);
+  const [imgModel, setImgModel] = useState(false);
+  const [bannerModel, setBannerModel] = useState(false);
+  const [contentModel, setContentModel] = useState(false);
+  const [goalModel, setGoalModel] = useState(false);
+
+  const [callUseEffect, setCallUseEffect] = useState(false);
 
   const [updateError, setUpdateError] = useState(null);
 
@@ -94,8 +106,31 @@ export default function FRPage() {
         return;
       }
     };
+
+    const fetchFrpDonations = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/frpdonation/getfrpdonations?frpId=${frpId}`);
+        const data = await res.json();
+        if (res.ok) {
+          setGotFrps(data);
+          setLoading(false);
+        }
+        if (!res.ok) {
+          setLoading(false);
+          console.log(data.message);
+          return;
+        }
+      } catch (error) {
+        console.log(error.message);
+        setLoading(false);
+        return;
+      }
+    };
+
     fetchFrp();
-  }, [frpId, updatestat]);
+    fetchFrpDonations();
+  }, [frpId, updatestat, callUseEffect]);
 
   const handleUpdateFrp = async (e) => {
     // e.preventDefault();
@@ -116,10 +151,11 @@ export default function FRPage() {
 
       if (res.ok) {
         setUpdateError(null);
-        navigate(`/fr-page/${data._id}`);
+        // navigate(`/fr-page/${data._id}`);
+        setCallUseEffect(!callUseEffect);
         // let newStep = currentStep;
         // setCurrentStep(++newStep);
-         setOpenModal(false);
+        setOpenModal(false);
       }
     } catch (error) {
       setUpdateError(error.message);
@@ -141,29 +177,72 @@ export default function FRPage() {
         <div className="max-h-[500px] relative">
           {/* Overlay */}
           <div className="absolute w-full h-full text-gray-200 max-h-[500px] bg-black/60 flex flex-col justify-center gap-6">
-            <div className="relative w-36 h-36 self-center cursor-pointer shadow-md rounded-full">
-              <img
-                src={frp.pageImage}
-                alt="PagePhoto"
-                className="rounded-full w-full h-full object-cover border-4 border-[lightgray] "
-              />
+            {(currentUser._id == frp.userId || currentUser.isAdmin) && (
+              <div className="absolute top-4 left-5">
+                <Button onClick={() => setEditMode(!editMode)}>
+                  {editMode ? "View" : "Edit"}
+                </Button>
+              </div>
+            )}
+            {editMode && (
+              <div
+                onClick={() => setBannerModel(true)}
+                className="absolute right-0 top-0 bg-gray-200 text-gray-800 text-lg rounded-md p-1 cursor-pointer m-6 hover:text-pink-500"
+              >
+                <MdModeEditOutline />
+              </div>
+            )}
+            <div className="relative mx-auto px-16">
+              <div className="w-36 h-36 self-center cursor-pointer shadow-md rounded-full">
+                <img
+                  src={frp.pageImage}
+                  alt="PagePhoto"
+                  className="rounded-full w-full h-full object-cover border-4 border-[lightgray] "
+                />
+              </div>
+              {editMode && (
+                <div
+                  onClick={() => setImgModel(true)}
+                  className="absolute right-0 top-0 bg-gray-200 text-gray-800 text-lg rounded-md p-1 cursor-pointer hover:text-pink-500"
+                >
+                  <MdModeEditOutline />
+                </div>
+              )}
+            </div>
+            <div className="mx-auto flex gap-3 relative px-16">
+              <h1 className="text-4xl font-bold mx-auto ">
+                {frp && frp.displayName}
+              </h1>
+              {editMode && (
+                <div
+                  onClick={() => setNameModel(true)}
+                  className="absolute right-0 bg-gray-200 text-gray-800 text-lg rounded-md p-1 cursor-pointer hover:text-pink-500"
+                >
+                  <MdModeEditOutline />
+                </div>
+              )}
             </div>
 
-            <h1 className="text-4xl font-bold mx-auto ">
-              {frp && frp.displayName}
-            </h1>
             <div className="mx-auto">
-              <Link to="/sign-in">
+              <Link to={`/frpdonate-page/${frp._id}`}>
                 <Button size="lg" gradientDuoTone="pinkToOrange">
                   Donate
                   <FaHandHoldingHeart className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>
-            <div className="w-3/4 lg:w-3/5 mx-auto">
+            <div className="w-3/4 lg:w-3/5 mx-auto relative px-14">
+              {editMode && (
+                <div
+                  onClick={() => setGoalModel(true)}
+                  className="absolute right-0 top-0 bg-gray-200 text-gray-800 text-lg rounded-md p-1 cursor-pointer hover:text-pink-500"
+                >
+                  <MdModeEditOutline />
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-md lg:text-lg font-semibold">
-                  Rs.5000000 RAISED
+                  Rs.{gotFrps && gotFrps.totalFrpDonationsAmount} RAISED
                 </span>
                 <span className="text-md lg:text-lg font-semibold">
                   Goal: RS.{frp && frp.goal}
@@ -171,7 +250,7 @@ export default function FRPage() {
               </div>
               <div className="border-2 rounded-full">
                 <Progress
-                  progress={65}
+                  progress={(gotFrps && frp) && gotFrps.totalFrpDonationsAmount/frp.goal*100}
                   size="xl"
                   color="pink"
                   className="bg-gray-700"
@@ -186,7 +265,15 @@ export default function FRPage() {
           />
         </div>
       </div>
-      <div className="px-4 py-10 flex flex-col max-w-6xl mx-auto">
+      <div className="px-14 py-10 flex flex-col max-w-6xl mx-auto relative">
+        {editMode && (
+          <div
+            onClick={() => setContentModel(true)}
+            className="absolute right-0 top-2 bg-gray-600 text-white dark:bg-gray-200 dark:text-gray-800 text-xl rounded-md p-2 cursor-pointer hover:text-pink-500"
+          >
+            <MdModeEditOutline />
+          </div>
+        )}
         <div
           className="mx-auto w-full post-content"
           dangerouslySetInnerHTML={{
@@ -252,6 +339,169 @@ export default function FRPage() {
             </div>
           </Modal.Footer>
         )}
+      </Modal>
+
+      <Modal show={nameModel} size="2xl" onClose={() => setNameModel(false)}>
+        <Modal.Header />
+
+        <Modal.Body>
+          <FormDataContext.Provider
+            value={{
+              formData,
+              setFormData,
+              currentUser,
+              currentStep,
+              setCurrentStep,
+              frp,
+            }}
+          >
+            <DisplayNameUpdate />
+          </FormDataContext.Provider>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            gradientMonochrome="teal"
+            onClick={() => {
+              handleUpdateFrp();
+              setNameModel(false);
+            }}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={imgModel} size="2xl" onClose={() => setImgModel(false)}>
+        <Modal.Header />
+
+        <Modal.Body>
+          <FormDataContext.Provider
+            value={{
+              formData,
+              setFormData,
+              currentUser,
+              currentStep,
+              setCurrentStep,
+              frp,
+            }}
+          >
+            <ImgUpload />
+          </FormDataContext.Provider>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            gradientMonochrome="teal"
+            onClick={() => {
+              handleUpdateFrp();
+              setImgModel(false);
+            }}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={bannerModel}
+        size="2xl"
+        onClose={() => setBannerModel(false)}
+      >
+        <Modal.Header />
+
+        <Modal.Body>
+          <FormDataContext.Provider
+            value={{
+              formData,
+              setFormData,
+              currentUser,
+              currentStep,
+              setCurrentStep,
+              frp,
+            }}
+          >
+            <BannerImgUpload />
+          </FormDataContext.Provider>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            gradientMonochrome="teal"
+            onClick={() => {
+              handleUpdateFrp();
+              setBannerModel(false);
+            }}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={goalModel} size="2xl" onClose={() => setGoalModel(false)}>
+        <Modal.Header />
+
+        <Modal.Body>
+          <FormDataContext.Provider
+            value={{
+              formData,
+              setFormData,
+              currentUser,
+              currentStep,
+              setCurrentStep,
+              frp,
+            }}
+          >
+            <GoalUpdate />
+          </FormDataContext.Provider>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            gradientMonochrome="teal"
+            onClick={() => {
+              handleUpdateFrp();
+              setGoalModel(false);
+            }}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={contentModel}
+        size="2xl"
+        onClose={() => setContentModel(false)}
+      >
+        <Modal.Header />
+
+        <Modal.Body>
+          <FormDataContext.Provider
+            value={{
+              formData,
+              setFormData,
+              currentUser,
+              currentStep,
+              setCurrentStep,
+              frp,
+            }}
+          >
+            <ContentUpdate />
+          </FormDataContext.Provider>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            gradientMonochrome="teal"
+            onClick={() => {
+              handleUpdateFrp();
+              setContentModel(false);
+            }}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

@@ -1,10 +1,16 @@
 import { Button, Progress } from "flowbite-react";
 import React from "react";
 import { FaHandHoldingHeart } from "react-icons/fa";
+import { FaPager } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Badge from "./Badge";
 
-export default function FRHero() {
+export default function FRHero({
+  raised,
+  participants,
+  frps
+}) {
   return (
     <div className="max-w-full mx-auto py-4">
       <div className="max-h-[500px] relative">
@@ -14,7 +20,7 @@ export default function FRHero() {
             Virtual Food Drives
           </h1>
           <div className="flex justify-center my-10 gap-4">
-            <Link to="/sign-in">
+            <Link to="/fr-reg">
               <Button size="lg" gradientDuoTone="pinkToOrange">
                 Register
               </Button>
@@ -30,24 +36,24 @@ export default function FRHero() {
           <div className="mx-auto flex flex-col gap-5 sm:flex-row">
             {/* badge */}
             <Badge
+              icon={<FaUsers />}
+              endCountNum={participants && participants}
+              startCountText=""
+              badgeText="Doners"
+              containerStyles="w-64 "
+            />
+            <Badge
               icon={<FaHandHoldingHeart />}
-              endCountNum={65}
+              endCountNum={raised && raised}
               startCountText="Rs."
               badgeText="RAISED"
-              containerStyles="w-64"
+              containerStyles="min-w-64 pr-4"
             />
             <Badge
-              icon={<FaHandHoldingHeart />}
-              endCountNum={786}
+              icon={<FaPager />}
+              endCountNum={frps && frps}
               startCountText=""
-              badgeText="Participants"
-              containerStyles="w-64"
-            />
-            <Badge
-              icon={<FaHandHoldingHeart />}
-              endCountNum={786}
-              startCountText=""
-              badgeText="Participants"
+              badgeText="Fundraising Pages"
               containerStyles="w-64"
             />
           </div>

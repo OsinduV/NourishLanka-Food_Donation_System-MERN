@@ -15,7 +15,7 @@ export default function GoalUpdate() {
           required
           id="goal"
           className="flex-1"
-          defaultValue={formData.goal || frp.goal}
+          defaultValue={frp ? frp.goal : formData.goal || ""}
           onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
         />
       </div>

@@ -1,69 +1,86 @@
-import React, { createContext, useState } from "react";
-import { Alert, Button, Modal } from "flowbite-react";
-import ContentUpdate from "../components/frpComponents/ContentUpdate";
-import ImgUpload from "../components/frpComponents/ImgUpload";
+import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
+import { useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { useNavigate } from "react-router-dom";
+
+import { FormDataContext } from "./FRPage";
+import DisplayNameUpdate from "../components/frpComponents/DisplayNameUpdate";
 import GoalUpdate from "../components/frpComponents/GoalUpdate";
-
-
-export const FormDataContext = createContext(null);
+import ImgUpload from "../components/frpComponents/ImgUpload";
+import BannerImgUpload from "../components/frpComponents/BannerImgUpload";
+import ContentUpdate from "../components/frpComponents/ContentUpdate";
 
 export default function FRPCreate() {
-  const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState({});
-  const [submitError, setSubmitError] = useState(null);
+  const [publishError, setPublishError] = useState(null);
+  console.log(formData)
 
-  console.log(formData);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch('/api/frp/createfrp', {
+    try {   
+      const res = await fetch("/api/frp/createfrp", {
         method: "POST",
         headers: {
           "content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
+
       const data = await res.json();
-      if(!res.ok){
-        setSubmitError(data.message);
+      if (!res.ok) {
+        setPublishError(data.message);
         return;
       }
-      if(res.ok){
-        setSubmitError(null);
+
+      if (res.ok) {
+        setPublishError(null);
+        // navigate(`/fr-page/${data._id}`);
+        navigate(`/dashboard?tab=myfrps`);
       }
     } catch (error) {
-      setSubmitError("Something went wrong");
+      setPublishError(error.message);
     }
-
   };
 
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
-      <Button onClick={() => setOpenModal(true)} className="mb-5">
-        Toggle modal
-      </Button>
-
-      <Modal show={openModal} size="2xl" onClose={() => setOpenModal(false)}>
-        <Modal.Header />
-        <Modal.Body>
-          <FormDataContext.Provider
-            value={{
-              formData,
-              setFormData,
-            }}
-          >
-            {/* <GoalUpdate/> */}
-            <ContentUpdate/>
-            {/* <ImgUpload/> */}
-          </FormDataContext.Provider>
-        </Modal.Body>
-
-        <Modal.Footer></Modal.Footer>
-      </Modal>
-      {
-        submitError && <Alert className="mt-5" color="failure">{submitError}</Alert>
-      }
+      <h1 className="text-center text-3xl my-7 font-semibold">
+        Create New Fundraising Page
+      </h1>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={handleSubmit}
+      >
+        <FormDataContext.Provider
+          value={{
+            formData,
+            setFormData,
+          }}
+        >
+          <div className="flex flex-col gap-7">
+            <DisplayNameUpdate />
+            <GoalUpdate />
+            <ImgUpload />
+            <BannerImgUpload />
+            <ContentUpdate />
+          </div>
+        </FormDataContext.Provider>
+        <Button
+          type="submit"
+          gradientDuoTone="purpleToPink"
+          className="mt-10 mb-5"
+        >
+          Create New
+        </Button>
+        {publishError && (
+          <Alert className="mt-5" color="failure">
+            {publishError}
+          </Alert>
+        )}
+      </form>
     </div>
   );
 }
