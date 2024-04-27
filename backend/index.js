@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
+import frpRoutes from './fundRaising/routes/frp.route.js'
+import frpDonationRoutes from './fundRaising/routes/frpdonation.route.js'
 import cookieParser from 'cookie-parser'
 
 import schedulesRoutes from './Volunteer/route/schedules.route.js'
@@ -43,7 +45,15 @@ app.listen(3500 ,() =>{
 app.use('/api/volunteer',volunteerRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/auth',authRoutes)
+
+
+//fund raising
+app.use('/api/frp', frpRoutes)
+app.use('/api/frpdonation', frpDonationRoutes)
+
+
 app.use('/api/schedules',schedulesRoutes);
+
 
 
 app.use('/api/post',ReicipientpostRoutes)
@@ -53,6 +63,7 @@ app.use('/api/donation', donationRoutes);
 app.use('/api/fooddrive', fooddriveRoutes); 
 
 app.use('/api/foodbank',foodbank);
+
 
 
 app.use((err,req,res,next) =>{

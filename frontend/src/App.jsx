@@ -1,12 +1,22 @@
-import { BrowserRouter,Routes,Route} from "react-router-dom"
-import SignIn from "./pages/SignIn"
-import SignUp from "./pages/SignUp"
-import Project from "./pages/Project"
-import Dashboard from "./pages/Dashboard"
-import About from "./pages/About"
-import Header from "./components/Header"
-import Footer from './components/Footer'
-import PrivateRoute from "./components/PrivateRoute"
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Project from "./pages/Project";
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import PrivateRoute from "./components/PrivateRoute";
+import FRHome from "./fundRaising/pages/FRHome";
+import FRReg from "./fundRaising/pages/FRReg";
+import FRPage from "./fundRaising/pages/FRPage";
+import DonatePage from "./fundRaising/pages/DonatePage";
+import OsinduTst from "./fundRaising/pages/OsinduTst";
+import FRPCreate from "./fundRaising/pages/FRPCreate";
+import FrpDonate from "./fundRaising/pages/FrpDonate";
+
 
 import VolunteerOne from "./Volunteer/pages/VolunteerOne"
 import VolunteerTwo from "./Volunteer/pages/VolunteerTwo"
@@ -54,8 +64,9 @@ import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
 export default function App() {
   return (
     <div>
-    <BrowserRouter>
-     <Header/>
+      <BrowserRouter>
+        <Header />
+
 
       <Routes>
 
@@ -122,12 +133,22 @@ export default function App() {
 
         <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
          <Route path="/event/:eventSlug" element={<EventPage/>} />
+           
+           
+          //fundraising
+            <Route path="/fr-home" element={<FRHome />} />
+          <Route path="/fr-page/:frpId" element={<FRPage />} />
+          <Route path="/fr-page/:frpId/:updatestat" element={<FRPage />} />
+          <Route path="/donate-page" element={<DonatePage />} />
+          <Route path="/frpdonate-page/:frpId" element={<FrpDonate />} />
+          <Route path="/osindutst" element={<OsinduTst />} />
+          <Route path="/frp-create" element={<FRPCreate />} />
 
 
       </Routes>
       <Footer/>
     </BrowserRouter>
+
     </div>
-  )
+  );
 }
- 
