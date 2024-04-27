@@ -110,11 +110,21 @@ export default function Header() {
           <Link to='/event-description'>Host event</Link>
         </Navbar.Link>
 
+        <Navbar.Link active={path === '/volunteer-one'} as={'div'}>
+          <Link to='/volunteer-one'>Volunteer</Link>
+        </Navbar.Link>
+
+        <Navbar.Link active={path === '/foodbank_Dashboard'} as={'div'}>
+          <Link to='/foodbankhome'>FoodBank</Link>
+        </Navbar.Link>
+
+
         <Navbar.Link active={path === '/community'} as={'div'}>
           <Link to='/community'>Community</Link>
         </Navbar.Link>
         
         
+
 
       </Navbar.Collapse>
       </Navbar>

@@ -2,6 +2,13 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
+import DashMyFrps from '../fundRaising/components/DashMyFrps';
+import DashFrps from '../fundRaising/components/DashFrps';
+
+
+import DashSchedules from '../Volunteer/components/DashSchedules';
+
+import DashUsers  from '../components/DashUsers';
 
 import DashRecipientPost from '../CommunityManagement/components/DashRecipientPost';
 import DashFoodRequests from '../CommunityManagement/components/DashFoodRequests';
@@ -30,6 +37,7 @@ import CompletedDonations from '../Event/pages/CompletedDonations';
 import CompletedFooddrives from '../Event/pages/CompletedFooddrives';
 
 
+
 export default function Dashboard() {
 
   const location = useLocation();
@@ -50,6 +58,23 @@ export default function Dashboard() {
       </div>
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
+
+      {/* frps... */}
+      {tab === 'frps' && <DashFrps/>}
+      {/* myFrps... */}
+      {tab === 'myfrps' && <DashMyFrps />}
+
+
+       {/* schedules... */}
+       {tab === 'schedules' && <DashSchedules/>}
+       {/* volunteering activities... */}
+       {tab === 'volunteeringactivities' && <Volunteeractivities/>}
+       
+
+
+       {/* users... */}
+       {tab === 'users' && <DashUsers />}
+
 
         {/* posts... */}
         {tab === 'posts' && <DashRecipientPost/>}
