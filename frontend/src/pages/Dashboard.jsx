@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
+import DashMyFrps from '../fundRaising/components/DashMyFrps';
+import DashFrps from '../fundRaising/components/DashFrps';
+
 
 import DashSchedules from '../Volunteer/components/DashSchedules';
 
@@ -56,6 +59,12 @@ export default function Dashboard() {
       </div>
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
+
+      {/* frps... */}
+      {tab === 'frps' && <DashFrps/>}
+      {/* myFrps... */}
+      {tab === 'myfrps' && <DashMyFrps />}
+
 
        {/* schedules... */}
        {tab === 'schedules' && <DashSchedules/>}
@@ -155,8 +164,10 @@ export default function Dashboard() {
       {tab === 'fcompleted' && <CompletedFooddrives />}
 
 
+
       {/* comments  */}
       {tab === 'comments' && <DashComments />}
+
 
 
     </div>

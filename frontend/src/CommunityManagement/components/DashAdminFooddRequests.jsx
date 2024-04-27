@@ -57,7 +57,9 @@ export default function DashAdminFoodRequests() {
                     </div>
                     <Table hoverable className='shadow-md'>
                         <Table.Head>
-                            <Table.HeadCell>Date updated</Table.HeadCell>
+                           <Table.HeadCell>Details</Table.HeadCell>
+                           <Table.HeadCell>Food Request ID</Table.HeadCell>
+                            <Table.HeadCell>Date Updated</Table.HeadCell>
                             <Table.HeadCell>Recipient Name</Table.HeadCell>
                             <Table.HeadCell>District</Table.HeadCell>
                             <Table.HeadCell>Category</Table.HeadCell>
@@ -69,6 +71,17 @@ export default function DashAdminFoodRequests() {
                         <Table.Body className='divide-y'>
                             {userFoodRequests.map((foodrequest) => (
                                 <Table.Row key={foodrequest._id} className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                                    <Table.Cell>
+                      <Link
+                        className='font-medium text-gray-900 dark:text-white'
+                        to={`/foodrequest/${foodrequest.slug}`}
+                      >
+                        View Details
+                      </Link>
+                    </Table.Cell>
+                    <Table.Cell>
+                      {foodrequest.foodrequestId}
+                    </Table.Cell>
                                     <Table.Cell>{new Date(foodrequest.updatedAt).toLocaleDateString()}</Table.Cell>
                                     <Table.Cell>
                                         <Link className='font-medium text-gray-900 dark:text-white' to={`/foodrequest/${foodrequest.slug}`}>

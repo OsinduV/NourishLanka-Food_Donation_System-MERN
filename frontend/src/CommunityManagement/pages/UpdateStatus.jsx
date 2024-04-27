@@ -113,9 +113,11 @@ export default function UpdateStatus() {
   return (
     <div className='relative flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto'>
     
-    
-       <div className='container mx-auto'>
+   
+  <div className='container mx-auto'>
   <h1 className='text-center text-3xl my-7 font-semibold'>Update Food Request Status</h1>
+  <div className='text-center top-0 left-0 bg-red-500 text-white px-3 py-1 rounded-full font-bold'>Current Status -{formData.status}</div>
+  <h1 className='text-3xl mt-3 p-3 text-center font-semibold max-w-2xl mx-auto lg:text-2xl'>Food Request ID - {formData.foodrequestId}</h1>
   <form className='flex flex-col gap-4'  onSubmit={handleSubmit}>
   <div >
             <div className='flex flex-col gap-4 sm:flex-row justify-between font-semibold mt-10 mb-10 text-lg'>
@@ -128,202 +130,14 @@ export default function UpdateStatus() {
                  >
                     <option value='Pending'>Pending</option>
                     <option value='Approved'>Approved</option>
-                   <option value='Declined'>Rejected</option>
+                   <option value='Declined'>Declined</option>
                    <option value='Published'>Published</option>
                    
                 </Select>
               </div>
           </div>
     
-    <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-      <TextInput
-        type='text'
-        placeholder='Name of the Requester'
-        required
-        id='name'
-        className='flex-1'
-        onChange={(e) =>
-          setFormData({ ...formData, recipientname: e.target.value })
-        }
-        value={formData.recipientname}
-      />
-      <Select
-        required
-        id='district'
-        className='flex-1'
-        onChange={(e) =>
-          setFormData({ ...formData, district: e.target.value })
-        }
-        value={formData.district}
-      >
-        <option value=''>Select  a District</option>
-        <option value='Colombo'>Colombo</option>
-        <option value='Gampaha'>Gampaha</option>
-        <option value='Kalutara'>Kalutara</option>
-        <option value='Kandy'>Kandy</option>
-        <option value='Matale'>Matale</option>
-        <option value='Nuwara Eliya'>Nuwara Eliya</option>
-        <option value='Galle'>Galle</option>
-        <option value='Matara'>Matara</option>
-        <option value='Hambantota'>Hambantota</option>
-        <option value='Jaffna'>Jaffna</option>
-        <option value='Kilinochchi'>Kilinochchi</option>
-        <option value='Mannar'>Mannar</option>
-        <option value='Vavuniya'>Vavuniya</option>
-        <option value='Mullaitivu'>Mullaitivu</option>
-        <option value='Batticaloa'>Batticaloa</option>
-        <option value='Ampara'>Ampara</option>
-        <option value='Trincomalee'>Trincomalee</option>
-        <option value='Kurunegala'>Kurunegala</option>
-        <option value='Puttalam'>Puttalam</option>
-        <option value='Anuradhapura'>Anuradhapura</option>
-        <option value='Polonnaruwa'>Polonnaruwa</option>
-        <option value='Badulla'>Badulla</option>
-        <option value='Monaragala'>Monaragala</option>
-        <option value='Ratnapura'>Ratnapura</option>
-        <option value='Kegalle'>Kegalle</option>
-      </Select>
-    </div>
-    <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-      <Select
-        required
-        id='category'
-        className='flex-1 '
-        onChange={(e) =>
-          setFormData({ ...formData,  category: e.target.value })
-        }
-        value={formData.category}
-      >
-        <option value='uncategorized'>Select a category</option>
-        <option value='Low-Income Families'>Low-Income Families</option>
-        <option value='Orphanages'>Orphanages</option>
-        <option value='Elderly Individuals'>Elderly Individuals</option>
-      </Select>
-      
-      < TextInput
-        type='tel'
-        placeholder='Contact Number'
-        required
-        id='contact'
-        className='flex-1 '
-        pattern="[0-9]{10}"
-        title="Phone number must be 10 digits"
-        onChange={(e) =>
-          setFormData({ ...formData,  contactnumber: e.target.value })
-        }
-        value={formData.contactnumber}
-
-      />
-    </div>
-    <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-      <TextInput
-        type='number'
-        placeholder='Number of children'
-        required
-        id='children'
-        className='flex-1'
-        min="0"
-        onChange={(e) =>
-          setFormData({ ...formData,  nochildren: e.target.value })
-        }
-        value={formData.nochildren}
-      />
-      <TextInput
-        type='number'
-        placeholder='Number of males'
-        required
-        id='nomales'
-        className='flex-1'
-        min="0"
-        onChange={(e) =>
-          setFormData({ ...formData,  nomales: e.target.value })
-        }
-        value={formData.nomales}
-      />
-      <TextInput
-        type='number'
-        placeholder='Number of females'
-        required
-        id='nofemales'
-        className='flex-1'
-        min="0"
-        onChange={(e) =>
-          setFormData({ ...formData,  nofemales: e.target.value })
-        }
-        value={formData.nofemales}
-      />
-    </div>
-    <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-      <TextInput
-        type='email'
-        placeholder='Gmail'
-        id='email'
-        className='flex-1 '
-        pattern="a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        title="Enter a valid email address"
-        onChange={(e) =>
-          setFormData({ ...formData,  email: e.target.value })
-        }
-        value={formData.email}
-      />
-      <TextInput
-        type='text'
-        placeholder='Address'
-        id='address'
-        className='flex-1'
-        onChange={(e) =>
-          setFormData({ ...formData,  address: e.target.value })
-        }
-        value={formData.address}
-      />
-    </div>
-    <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
-          <FileInput
-            type='file'
-            accept='image/*'
-            onChange={(e) => setFile(e.target.files[0])}//one image [0]
-          /> 
-          <Button
-            type='button'
-            gradientDuoTone='greenToBlue'
-            size='sm'
-            outline
-            onClick={handleUpdloadImage}
-            disabled={imageUploadProgress}
-          >
-           
-            {imageUploadProgress ? (
-              <div className='w-16 h-16'>
-                <CircularProgressbar
-                  value={imageUploadProgress}
-                  text={`${imageUploadProgress || 0}%`}
-                />
-              </div>
-            ) : (
-              ' Upload Grama Niladhari Certificate for low-income familes'
-            )}
-          </Button>
-        </div>
-        {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
-        {formData.image && (
-          <img
-            src={formData.image}
-            alt='upload'
-            className='w-full h-72 object-cover'
-          />
-        )
-        }
-    <ReactQuill
-          theme='snow'
-          value={formData.content}
-          placeholder='Add special needs here...'
-          className='h-72 mb-12'
-          required
-          onChange={(value) => {
-            setFormData({ ...formData, content: value });
-          }}
     
-        />
        
     <Button
       type='submit'
