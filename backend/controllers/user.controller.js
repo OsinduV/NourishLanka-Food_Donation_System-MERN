@@ -139,63 +139,10 @@ export const updateUser = async (req, res, next) => {
 };
 
 
-  //deleteUser function
 
-  //check the owner of the account
-  export const deleteUser = async (req, res, next) => {
 
-    //if the user id in the cookie is not equal to the given id return error
-    if (req.user.id !== req.params.userId) {
-      return next(errorHandler(403, 'You are not allowed to delete this user'));
-    }
-    try {
-      await User.findByIdAndDelete(req.params.userId);
-      res.status(200).json('User has been deleted');
-    } catch (error) {
-      next(error);
 
-    }
 
-    //lowercase username
-    if (req.body.username !== req.body.username.toLowerCase()) {
-      return next(errorHandler(400, "Username must be lowercase"));
-    }
-
-    //usernames only match characters from a-z , A-Z , 0-9
-    if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
-      return next(
-        errorHandler(400, "Username can only contain letters and numbers")
-      );
-    }
-  }
-  //create request for updateuser
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.userId,
-      {
-        //set is a method of updating
-        $set: {
-          username: req.body.username,
-          email: req.body.email,
-          profilePicture: req.body.profilePicture,
-          password: req.body.password,
-        },
-      },
-
-      //in order to send the updated information
-      //will send back the new information
-      { new: true }
-    );
-
-    //update without the password
-    const { password, ...rest } = updatedUser._doc;
-    res.status(200).json(rest);
-  } catch (error) {
-    next(error);
-  }
-};
-
-//deleteUser function
 
 //check the owner of the account
 export const deleteUser = async (req, res, next) => {
