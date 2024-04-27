@@ -239,7 +239,7 @@ export default function DashProfile() {
 
            <Button
           type='submit'
-          gradientDuoTone='purpleToBlue'
+          gradientDuoTone='greenToBlue'
           outline
           disabled={loading || imageFileUploading}
         >
@@ -250,7 +250,7 @@ export default function DashProfile() {
           <Link to={'/create-recipientpost'}>
             <Button
               type='button'
-              gradientDuoTone='purpleToPink'
+              gradientDuoTone='greenToBlue'
               className='w-full'
             >
               Create a Recipient Post

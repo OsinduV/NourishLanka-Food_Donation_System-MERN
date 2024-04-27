@@ -132,10 +132,11 @@ export default function CommunitySearch() {
               value={sidebarData.category}
               id='category'
             >
-              <option value='uncategorized'>Uncategorized</option>
+              <option value='uncategorized'>Select a Category</option>
               <option value='Low-Income Families'>Low-Income Families</option>
-              <option value='Orphanages'>Orphanages</option>
-              <option value='Elderly Individuals'>Elderly Individuals</option>
+             <option value='Orphanages'>Orphanages</option>
+             n<option value='Elderly Care Homes'>Elderly care Homes</option>
+              <option value='Schools'>Schools</option>
             </Select>
           </div>
           <Button type='submit' outline gradientDuoTone='greenToBlue'>
@@ -149,7 +150,7 @@ export default function CommunitySearch() {
         </h1>
         <div className='p-7 flex flex-wrap gap-4'>
           {!loading && posts.length === 0 && (
-            <p className='text-xl text-gray-500'>No posts found.</p>
+            <p className='text-xl text-gray-500'>No  Recipient posts found.</p>
           )}
           {loading && <p className='text-xl text-gray-500'>Loading...</p>}
           {!loading &&

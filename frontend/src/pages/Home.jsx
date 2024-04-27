@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button, Card } from 'flowbite-react';
+import { Link } from 'react-router-dom';
+
 
 export default function Home() {
   return (
@@ -40,6 +42,60 @@ export default function Home() {
           </div>
         </Card>
       </div>
+
+
+      <div className="flex gap-6 mt-8">
+      
+      <Card className="w-full md:w-1/3">
+       <div className="card-content">
+       <img src="https://img.freepik.com/premium-photo/volunteers-food-day-giving-out-donations_23-2148637964.jpg?w=360" alt="Card 1" className="card-image" />
+       <div className="text-center mb-6 mt-7">
+      <Link to="/community" className="text-2xl font-bold mb-6 mt-7">
+        Find Community
+      </Link>
+    </div>
+  </div>
+</Card>
+
+<Card className="w-full md:w-1/3">
+       <div className="card-content">
+       <img src="https://www.shutterstock.com/image-photo/group-multiethnic-volunteers-putting-food-600nw-752375233.jpg" alt="Card 1" className="card-image" />
+       <div className="text-center mb-6 mt-7">
+      <Link to="/event-home" className="text-2xl font-bold mb-6 mt-7">
+        Host an Event
+      </Link>
+    </div>
+  </div>
+</Card>
+
+<Card className="w-full md:w-1/3">
+       <div className="card-content">
+       <img src="https://img.freepik.com/premium-photo/volunteers-food-day-giving-out-donations_23-2148637964.jpg?size=626&ext=jpg" alt="Card 1" className="card-image" />
+       <div className="text-center mb-6 mt-7">
+      <Link to="/volunteer-one" className="text-2xl font-bold mb-6 mt-7">
+        Be a Volunteer
+      </Link>
+    </div>
+  </div>
+</Card>
+
+
+
+
+<Card className="w-full md:w-1/3">
+       <div className="card-content">
+       <img src="https://st3.depositphotos.com/3261171/16185/i/450/depositphotos_161855718-stock-photo-passionate-friendly-people-happy-doing.jpg" alt="Card 1" className="card-image" />
+       <div className="text-center mb-6 mt-7">
+      <Link to="/fr-home" className="text-2xl font-bold mb-6 mt-7">
+        Start a Fundraise
+      </Link>
+    </div>
+  </div>
+</Card>
+      </div>
+
+
+     
     </div>
   );
 }
