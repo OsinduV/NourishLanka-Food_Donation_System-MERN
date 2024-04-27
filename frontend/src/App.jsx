@@ -32,6 +32,7 @@ import FooddrivePage from "./Event/pages/FooddrivePage"
 import PreviousDonations from "./Event/pages/PreviousDonations"
 import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
+import Home from "./pages/Home"
 
 
 
@@ -42,8 +43,9 @@ export default function App() {
      <Header/>
 
       <Routes>
-
-        <Route path="/" element={<EventHome/>} />
+        
+         <Route path="/" element={<Home/>} />
+        <Route path="/event-home" element={<EventHome/>} />
         <Route path="/event-description" element={<EventDescription/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
