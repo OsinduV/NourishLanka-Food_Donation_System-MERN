@@ -143,6 +143,7 @@ export default function App() {
           <Route path="/frpdonate-page/:frpId" element={<FrpDonate />} />
           <Route path="/osindutst" element={<OsinduTst />} />
           <Route path="/frp-create" element={<FRPCreate />} />
+          <Route path="/fr-reg" element={<FRReg />} />
 
 
       </Routes>
