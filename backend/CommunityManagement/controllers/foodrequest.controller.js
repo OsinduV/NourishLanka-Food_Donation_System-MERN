@@ -1,6 +1,13 @@
 import FoodRequest from "../models/foodrequest.model.js";
 import { errorHandler } from "../../utills/error.js";
 
+
+// Validate email format
+const validateemail = (email) => {
+  const emailRegex = /\S+@\S+\.\S+/;
+  return emailRegex.test(email);
+};
+
 export const createfoodrequest = async(req,res,next) =>{
 
 
@@ -12,7 +19,11 @@ export const createfoodrequest = async(req,res,next) =>{
     if (!req.body.recipientname|| !req.body.district) {
         return next(errorHandler(400, 'Please provide all required fields'));
       }
+       
 
+      if (!validateemail(req.body.email)) {
+        return next(errorHandler(400, 'Please provide a valid  email address'));
+    }
       //generating a slug
 
       const slug = req.body.recipientname
