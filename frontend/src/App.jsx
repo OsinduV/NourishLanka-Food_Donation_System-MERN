@@ -9,6 +9,12 @@ import About from "./pages/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
+
+
+import InventoryHome from "./Inventory_Management/pages/InventoryHome";
+import { InventorysContextProvider } from "./Inventory_Management/context/InventoryContext";
+import Navbar from "./Inventory_Management/components/Navbar";
+
 import FRHome from "./fundRaising/pages/FRHome";
 import FRReg from "./fundRaising/pages/FRReg";
 import FRPage from "./fundRaising/pages/FRPage";
@@ -42,6 +48,8 @@ import CommunitySearch from "./CommunityManagement/pages/CommunitySearch"
 import CreateFoodRequest from "./CommunityManagement/pages/CreateFoodRequest"
 import FoodRequestPage from "./CommunityManagement/pages/FoodRequestPage"
 import UpdateStatus from "./CommunityManagement/pages/UpdateStatus"
+
+
 import CreateEvent from "./Event/pages/CreateEvent"
 import UpdateEvent from "./Event/pages/UpdateEvent"
 import EventPage from "./Event/pages/EventPage"
@@ -70,6 +78,7 @@ export default function App() {
     <div>
       <BrowserRouter>
         <Header />
+
 
 
       <Routes>
@@ -157,8 +166,16 @@ export default function App() {
 
 
       </Routes>
+
+          //Inventory Management
+          <InventorysContextProvider>
+          <Routes>
+            <Route path="/inventory-home" element={<InventoryHome />} />
+          </Routes>
+        </InventorysContextProvider>
       <Footer/>
     </BrowserRouter>
+
 
     </div>
   );

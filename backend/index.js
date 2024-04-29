@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
@@ -15,11 +16,15 @@ import cors from 'cors';
 
 import ReicipientpostRoutes from './CommunityManagement/routes/recipientpostroute.js'
 import FoodRequestRoutes from './CommunityManagement/routes/foodrequest.js'
+
+import inventoryRoutes from './InventoryManagement/routes/inventorys.js'
+
 import eventRoutes from './Event/routes/event.route.js';
 import donationRoutes from './Event/routes/donation.route.js';
 import fooddriveRoutes from './Event/routes/fooddrive.route.js';
 
 import commentRoutes from './Ratings and Reviews_b/routes/comment.route.js';
+
 
 dotenv.config()
 mongoose
@@ -31,6 +36,8 @@ mongoose
 })
 
 const app = express();
+
+app.use(cors({methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH']}))
 
 app.use(express.json());
 app.use(cookieParser());
@@ -69,6 +76,10 @@ app.use('/api/foodbank',foodbank);
 // rating and reviews 
 app.use('/api/comment', commentRoutes);
 
+
+
+//inventory
+app.use('/api/inventorys', inventoryRoutes);
 
 
 app.use((err,req,res,next) =>{
