@@ -23,9 +23,6 @@ import {
   import { HiOutlineExclamationCircle } from 'react-icons/hi';
   import {Link} from 'react-router-dom';
 
-  import { Link } from 'react-router-dom';
-
-
 
 
 export default function DashProfile() {
