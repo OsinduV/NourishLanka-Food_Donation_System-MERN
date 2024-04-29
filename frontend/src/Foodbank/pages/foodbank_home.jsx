@@ -27,27 +27,7 @@ export default function foodbank_home() {
     };
     return (
         <div className='min-h-screen mt-2'>
-            <div className="flex flex-row gap-2 justify-center mb-2">
-                <p className='xl:text-xl text-green-950 dark:text-white font-semibold mt-1 mr-11'>
-                    FOODBANK HOME
-                </p>
-                <Link to='/foodbankreg'>
-                    <Button outline gradientDuoTone="greenToBlue">
-                        Register Foodbank
-                    </Button>
-                </Link>
-                <Link to='/foodbankDash'>
-                    <Button outline gradientDuoTone="greenToBlue">
-                        Dashboard
-                    </Button>
-                </Link>
-                <Button outline gradientDuoTone="greenToBlue">
-                    Volunteer
-                </Button>
-                <Button outline gradientDuoTone="greenToBlue">
-                    Event Host
-                </Button>
-            </div>
+            
             <div className="h-56 sm:h-64 xl:h-80 2xl:h-80">
                 <Carousel>
                     <img src="https://img.freepik.com/free-photo/front-view-food-provision-donation-with-boxes_23-2148732629.jpg?t=st=1713765286~exp=1713768886~hmac=77a77248b38e8bd7d32da0e8726667afe8e448dc078030ae8dcfcf4083f93de7&w=900" alt="..." />

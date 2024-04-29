@@ -54,8 +54,7 @@ export default function SignIn() {
             Lanka
           </Link>
           <p className='text-sm mt-5'>
-            This is a demo project. You can sign up with your email and password
-            or with Google.
+          Cultivating Compassion, Sharing Meals: Where Every Bite Sustains, Every Heart Finds Home
           </p>
         </div>
         {/* right */}
