@@ -4,6 +4,8 @@ import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
 
 import DashSchedules from '../Volunteer/components/DashSchedules';
+import Volunteeringactivities from '../Volunteer/components/Volunteeringactivities';
+import Volunteers from '../Volunteer/components/Volunteers';
 
 import DashUsers  from '../components/DashUsers';
 
@@ -35,6 +37,7 @@ import CompletedFooddrives from '../Event/pages/CompletedFooddrives';
 
 
 
+
 export default function Dashboard() {
 
   const location = useLocation();
@@ -56,10 +59,16 @@ export default function Dashboard() {
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
 
+{/*VOLUNTEER MANAGER DASHBOARD */}
        {/* schedules... */}
        {tab === 'schedules' && <DashSchedules/>}
+
+        {/* volunteers... */}
+        {tab === 'volunteers' && <Volunteers/>}
+
+  {/*USER DASHBOARD */}
        {/* volunteering activities... */}
-       {tab === 'volunteeringactivities' && <Volunteeractivities/>}
+       {tab === 'volunteeringactivities' && <Volunteeringactivities/>}
        
 
 

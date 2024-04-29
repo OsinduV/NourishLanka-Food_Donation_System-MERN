@@ -40,10 +40,12 @@ export default function foodbank_home() {
                     <Button outline gradientDuoTone="greenToBlue">
                         Dashboard
                     </Button>
-                </Link>
+                </Link >
+                <Link to ='/volunteer-one'>
                 <Button outline gradientDuoTone="greenToBlue">
                     Volunteer
                 </Button>
+                </Link>
                 <Button outline gradientDuoTone="greenToBlue">
                     Event Host
                 </Button>

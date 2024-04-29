@@ -79,7 +79,7 @@ export default function DashSidebar() {
           <Link to='/dashboard?tab=volunteers'>
             <Sidebar.Item 
               active={tab === 'volunteers'}
-              icon={HiUser}
+              icon={HiOutlineUserGroup}
               labelColor='dark'
               as='div'
             >
@@ -90,8 +90,8 @@ export default function DashSidebar() {
 
 <Link to='/dashboard?tab=volunteeringactivities'>
             <Sidebar.Item
-              active={tab === 'profile'}
-              
+              active={tab === 'volunteeringactivities'}
+              icon={MdNotes}
              
               labelColor='dark'
               as='div'
