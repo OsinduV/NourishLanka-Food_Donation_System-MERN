@@ -96,14 +96,11 @@ export default function DashEvents() {
           <Table hoverable className='shadow-md'>
             <Table.Head>
               <Table.HeadCell>Date updated</Table.HeadCell>
+              <Table.HeadCell>Event ID</Table.HeadCell>
               <Table.HeadCell>Event image</Table.HeadCell>
               <Table.HeadCell>Event title</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
-              <Table.HeadCell>Organzer(donor) ID</Table.HeadCell>
               <Table.HeadCell>Event status</Table.HeadCell>
-              <Table.HeadCell>Hosting date</Table.HeadCell>
-              <Table.HeadCell>Hosting time</Table.HeadCell>
-              <Table.HeadCell>Hosting Location</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit</span>
@@ -114,6 +111,7 @@ export default function DashEvents() {
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                 <Table.Cell>{new Date(event.updatedAt).toLocaleDateString()}</Table.Cell>
+                <Table.Cell>{event.customId}</Table.Cell>
                 <Table.Cell>
                   <Link to={`/event/${event.slug}`}>
                       <img
@@ -129,11 +127,7 @@ export default function DashEvents() {
                   </Link>
                 </Table.Cell>
                 <Table.Cell>{event.category}</Table.Cell>
-                <Table.Cell>{event.donorid}</Table.Cell>
                 <Table.Cell>{event.status}</Table.Cell>
-                <Table.Cell>{event.date}</Table.Cell>
-                <Table.Cell>{event.time}</Table.Cell>
-                <Table.Cell>{event.location}</Table.Cell>
                 <Table.Cell>
                   <span onClick={() => {
                         setShowModal(true);
