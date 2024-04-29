@@ -5,6 +5,7 @@ import CalltoAction from '../components/CalltoAction';
 import { MdLocationOn } from "react-icons/md";
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { IoIosTime } from "react-icons/io";
+import CommentSection from '../../Ratings and Review_f/components/CommentSection';
 
 
 export default function EventPage() {
@@ -91,6 +92,7 @@ return (
     
 
     <div className='max-w-4xl mx-auto w-full mt-20'>
+    <CommentSection postId={event._id} />
         <CalltoAction />
       </div>
     </main>

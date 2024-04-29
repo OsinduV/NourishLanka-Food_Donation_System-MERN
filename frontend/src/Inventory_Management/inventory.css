@@ -1,0 +1,97 @@
+/* google font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
+
+/* layout */
+:root {
+  --primary: #1aac83;
+  --error: #e7195a;
+}
+body {
+  @apply m-0;
+  /* background: #f1f1f1; */
+  font-family: "Poppins";
+}
+header {
+  /* background: #fff; */
+}
+header .container {
+  @apply max-w-[1400px] flex items-center justify-between mx-auto my-0 px-5 py-2.5;
+}
+header a {
+  @apply no-underline;
+}
+.pages {
+  @apply max-w-[1400px] mx-auto my-0 p-5;
+}
+
+/* homepage */
+.home {
+  @apply grid grid-cols-[3fr_1fr] gap-[100px];
+}
+.workout-details {
+  @apply rounded relative shadow-[2px_2px_5px_rgba(0,0,0,0.05)] mx-auto my-5 p-5;
+  /* background: #fff; */
+  max-height: 500px;
+}
+.workout-details h4 {
+  @apply text-[1.2em] text-[color:var(--primary)] mt-0 mb-2.5 mx-0;
+}
+.workout-details p {
+  @apply text-[0.9em] m-0;
+}
+/* .workout-details span {
+  @apply absolute cursor-pointer text-[#333] p-1.5 rounded-[50%] right-5 top-5;
+  background: #1aac83;
+} */
+
+/* new workout form */
+label,
+input {
+  @apply block;
+}
+input {
+  @apply w-full border rounded box-border mt-2.5 mb-5 p-2.5 border-solid border-[#ddd];
+}
+form button {
+  @apply rounded cursor-pointer p-2.5 border-0;
+  background: var(--primary);
+  font-family: "Poppins";
+}
+div.error {
+  @apply border border-[color:var(--error)] text-[color:var(--error)] rounded mx-0 my-5 p-2.5 border-solid;
+  background: #ffefef;
+}
+input.error {
+  @apply border border-[color:var(--error)] border-solid;
+}
+/* Button styles */
+button {
+  @apply bg-[color:var(--primary)] rounded cursor-pointer transition-[background-color] duration-[0.3s] ease-[ease] mr-2.5 px-5 py-2.5 border-[none] last:mr-0 hover:bg-[darken(var(--primary),10%)]; /* Add margin-right for spacing between buttons */
+}
+button:last-child {
+  /* Remove margin-right for the last button */
+}
+
+/* Add styles for search bar */
+.search-bar {
+    @apply flex items-center space-x-2.5;
+}
+
+.search-bar input {
+    @apply border rounded p-2.5;
+}
+
+/* Add styles for sort buttons */
+.sort-buttons {
+    @apply flex items-center space-x-2.5;
+}
+
+.sort-buttons button {
+  @apply bg-[color:var(--primary)] rounded cursor-pointer px-5 py-2.5;
+}
+
+.no-search-result-message {
+  @apply bg-white p-5 rounded shadow-[2px_2px_5px_rgba(0,0,0,0.05)]
+     font-medium text-lg;
+}
+

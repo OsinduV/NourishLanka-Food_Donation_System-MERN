@@ -24,7 +24,6 @@ import {
   import {Link} from 'react-router-dom';
 
 
-
 export default function DashProfile() {
   
   const { currentUser,error,loading } = useSelector((state) => state.user);
@@ -241,7 +240,7 @@ export default function DashProfile() {
 
            <Button
           type='submit'
-          gradientDuoTone='purpleToBlue'
+          gradientDuoTone='greenToBlue'
           outline
           disabled={loading || imageFileUploading}
         >
@@ -252,7 +251,7 @@ export default function DashProfile() {
           <Link to={'/create-recipientpost'}>
             <Button
               type='button'
-              gradientDuoTone='purpleToPink'
+              gradientDuoTone='greenToBlue'
               className='w-full'
             >
               Create a Recipient Post
@@ -272,6 +271,21 @@ export default function DashProfile() {
          </Link>
 
         )}
+        {
+            currentUser.isAdmin && (
+              <Link to ={'/create-schedules'}>
+                 <Button
+                  type='button'
+                  gradientDuoTone='greenToBlue'
+                  className='w-full'
+                  >
+                    Create schedules
+                  </Button>
+              </Link>
+          
+            )
+          }
+
 
         </form>
         <div className="text-red-500 flex justify-between mt-5">
