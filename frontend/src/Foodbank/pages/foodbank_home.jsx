@@ -11,7 +11,7 @@ export default function foodbank_home() {
 
     const handleSearch = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/foodbank/searchfb?district=${selectedDistrict}`);
+            const response = await fetch(`http://localhost:3500/api/foodbank/searchfb?district=${selectedDistrict}`);
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -46,9 +46,11 @@ export default function foodbank_home() {
                     Volunteer
                 </Button>
                 </Link>
+                <Link to='/event-description'>
                 <Button outline gradientDuoTone="greenToBlue">
                     Event Host
                 </Button>
+                </Link>
             </div>
             <div className="h-56 sm:h-64 xl:h-80 2xl:h-80">
                 <Carousel>
