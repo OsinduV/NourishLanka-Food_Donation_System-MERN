@@ -7,6 +7,8 @@ import DashFrps from '../fundRaising/components/DashFrps';
 
 
 import DashSchedules from '../Volunteer/components/DashSchedules';
+import Volunteeringactivities from '../Volunteer/components/Volunteeringactivities';
+import Volunteers from '../Volunteer/components/Volunteers';
 
 import DashUsers  from '../components/DashUsers';
 
@@ -39,6 +41,7 @@ import DashComments from '../Ratings and Review_f/components/DashComments';
 
 
 
+
 export default function Dashboard() {
 
   const location = useLocation();
@@ -60,16 +63,25 @@ export default function Dashboard() {
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
 
+
+{/*VOLUNTEER MANAGER DASHBOARD */}
+
       {/* frps... */}
       {tab === 'frps' && <DashFrps/>}
       {/* myFrps... */}
       {tab === 'myfrps' && <DashMyFrps />}
 
 
+
        {/* schedules... */}
        {tab === 'schedules' && <DashSchedules/>}
+
+        {/* volunteers... */}
+        {tab === 'volunteers' && <Volunteers/>}
+
+  {/*USER DASHBOARD */}
        {/* volunteering activities... */}
-       {tab === 'volunteeringactivities' && <Volunteeractivities/>}
+       {tab === 'volunteeringactivities' && <Volunteeringactivities/>}
        
 
 

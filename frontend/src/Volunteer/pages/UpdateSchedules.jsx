@@ -150,6 +150,7 @@ export default function UpdateSchedules() {
         <option value='Packing and Sorting'>Packing and Sorting</option>
         <option value='Cooking and Preparing '>Cooking and Preparing</option>
         <option value='Food Distribution'>Food Distribution</option>
+        <option value='Event'>Event</option>
         </Select>
 
           </div>

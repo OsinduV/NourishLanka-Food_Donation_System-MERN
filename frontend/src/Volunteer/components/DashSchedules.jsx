@@ -45,11 +45,11 @@ export default function DashSchedules() {
         const startIndex = userSchedules.length;
         try{
 
-          const res = await fetch (`api/schedules/getschedules?userId=${currentUser._id}&startIndex=${startIndex}`);
+          const res = await fetch (`api/schedules/getschedules?startIndex=${startIndex}`);
           const data = await res.json();
           if(res.ok){
             setUserSchedules((prev) => [...prev, ...data.schedules]);
-            if(data.schedules.length < 16){
+            if(data.schedules.length < 9){
               setShowMore(false);
             }
           }
