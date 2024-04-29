@@ -13,9 +13,9 @@ function Badge({
     <div
       className={`h-[68px] bg-gray-700 dark:backdrop-blur-[44px] shadow-2xl rounded-[10px] flex items-center gap-x-4 border ${containerStyles}`}
     >
-      <div className="ml-3 text-3xl text-[#ec4899]">{icon}</div>
+      <div className="ml-3 text-3xl text-green-300">{icon}</div>
       <div className="flex items-center gap-x-2">
-        <div className="text-4xl leading-none font-bold text-[#ec4899]">
+        <div className="text-4xl leading-none font-bold text-green-300">
           {startCountText}
           <CountUp end={endCountNum} delay={0} duration={2} />
           {endCountText}

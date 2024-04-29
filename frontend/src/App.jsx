@@ -90,7 +90,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
 
-          //volunteer routes
+          {/* volunteer routes */}
         <Route path="/volunteer-one" element={<VolunteerOne/>} />
         <Route path="/volunteer-two" element={<VolunteerTwo/>} />
         <Route path="/volunteer-three" element={<VolunteerThree/>} />
@@ -104,7 +104,7 @@ export default function App() {
             </Route>
 
 
-          //foodbank routes
+          {/* foodbank routes */}
         <Route path='/foodbankreg' element={<FbRegisterpage />} />
         <Route path='/foodbankhome' element={<Fbhome />} />
         <Route path='/foodbankDash' element={<FoodbankDash />} />
@@ -150,7 +150,7 @@ export default function App() {
          <Route path="/event/:eventSlug" element={<EventPage/>} />
            
            
-          //fundraising
+          {/* fundraising */}
             <Route path="/fr-home" element={<FRHome />} />
           <Route path="/fr-page/:frpId" element={<FRPage />} />
           <Route path="/fr-page/:frpId/:updatestat" element={<FRPage />} />
@@ -161,7 +161,7 @@ export default function App() {
           <Route path="/fr-reg" element={<FRReg />} />
 
 
-        //Reviwe management
+        {/* Reviwe management */}
         <Route path="/review-page" element={<ReviewPage/>} />
 
 

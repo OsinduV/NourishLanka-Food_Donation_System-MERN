@@ -123,6 +123,10 @@ export default function Header() {
           <Link to='/community'>Community</Link>
         </Navbar.Link>
         
+
+        <Navbar.Link active={path === '/review-home'} as={'div'}>
+          <Link to='/review-home'>Ratings and Reviews</Link>
+        </Navbar.Link>
         
 
 
