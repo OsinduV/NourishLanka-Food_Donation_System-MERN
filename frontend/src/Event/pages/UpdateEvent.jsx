@@ -468,7 +468,7 @@ export default function UpdateEvent() {
               />
 
         <Button type='submit' gradientDuoTone='greenToBlue'>
-          Publish
+          Update
         </Button>
 
         {publishError && (
