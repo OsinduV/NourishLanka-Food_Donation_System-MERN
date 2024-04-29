@@ -105,7 +105,7 @@ export const getfoodrequests = async (req, res, next) => {
 };
 
 export const updatefoodrequeststatus = async(req,res,next)=>{
-    if (!req.user.isCommunityAdmin) {
+    if (!req.user.isAdmin) {
       return next(errorHandler(403, 'You are not allowed to update the status of the foodrequest'));
     }
     try {

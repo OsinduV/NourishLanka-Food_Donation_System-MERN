@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
     height: 100vh;
   }
@@ -12,6 +13,7 @@ body {
 
   .post-content p {
     margin-bottom: 0.5rem;
+    font-size: 1.2rem;
   }
   
   .post-content h1 {

@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 
 const FoodRequestSchema = new mongoose.Schema(
-    {
+    {   
+      foodrequestId: {
+        type: String,
+        default: function () {
+          return 'FR' + Date.now(); // Generating a unique ID based on the current timestamp
+        },
+        unique: true,
+      },
         userId: {
           type: String,
           required: true,
@@ -20,21 +27,39 @@ const FoodRequestSchema = new mongoose.Schema(
             default: 'uncategorized',
             required:true,
           },
+          position:{
+            type: String,
+    
+          },
+          porphanage:{
+            type: String, 
+          },
+
+          pelders:{
+            type: String,
+          },
+
+          pschool:{
+            type: String,
+          },
+
+          incomeLevel:{
+            type: String,
+         
+          }, 
+
         contactnumber:{
           type: String,
           required: true, 
         },
         nochildren:{
             type: String,
-            required: true, 
           },
         nomales:{
             type: String,
-            required: true, 
           },
         nofemales:{
             type: String,
-            required: true, 
           },
         email:{
             type: String,
@@ -46,6 +71,14 @@ const FoodRequestSchema = new mongoose.Schema(
           type: String,
           
         },
+        zipcode: {
+          type: String,
+          
+        },
+        householdSize:{
+          type: String,
+        },
+        
        
         content:{
             type:String,
@@ -58,7 +91,7 @@ const FoodRequestSchema = new mongoose.Schema(
         slug: {
           type: String,
           required: true,
-          unique: true,
+          unique:true,
         },
       },
       { timestamps: true }
