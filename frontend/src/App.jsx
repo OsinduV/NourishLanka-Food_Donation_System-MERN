@@ -167,7 +167,7 @@ export default function App() {
 
       </Routes>
 
-          //Inventory Management
+          
           <InventorysContextProvider>
           <Routes>
             <Route path="/inventory-home" element={<InventoryHome />} />

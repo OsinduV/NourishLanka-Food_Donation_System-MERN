@@ -45,16 +45,16 @@ const InventoryForm = () => {
     };
 
     return (
-        <form className="workout-details bg-gray-200 dark:text-black" onSubmit={handleSubmit}>
-            <h3>Add an Inventory</h3>
-            <label>Inventory Title</label>
-            <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} required />
-            <label>Quantity</label>
-            <input type="text" pattern="[0-9]*" onChange={(e) => setQuantity(e.target.value)} value={quantity} required />
-            <label>Location</label>
-            <input type="text" onChange={(e) => setlocation(e.target.value)} value={location} required />
-            <label>Exp.Date</label>
-            <input type="date" onChange={(e) => setExpDate(e.target.value)} value={expdate} required />
+        <form className="workout-details bg-gray-200 dark:text-black flex flex-col gap-5" onSubmit={handleSubmit}>
+            <h3 className='font-bold text-lg'>Add an Inventory</h3>
+            <div><label>Inventory Title</label>
+            <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} required /></div>
+            <div><label>Quantity (KG)</label>
+            <input type="text" pattern="[0-9]*" onChange={(e) => setQuantity(e.target.value)} value={quantity} required /></div>
+            <div><label>Location</label>
+            <input type="text" onChange={(e) => setlocation(e.target.value)} value={location} required /></div>
+            <div><label>Exp.Date</label>
+            <input type="date" onChange={(e) => setExpDate(e.target.value)} value={expdate} required /></div>
             <button type="submit">Add Detail</button>
         </form>
     );

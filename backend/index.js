@@ -12,7 +12,6 @@ import schedulesRoutes from './Volunteer/route/schedules.route.js'
 import  volunteerRoutes from  './Volunteer/route/volunteer.route.js'
 
 import foodbank from './Foodbank/routes/foodbank.route.js'
-import cors from 'cors';
 
 import ReicipientpostRoutes from './CommunityManagement/routes/recipientpostroute.js'
 import FoodRequestRoutes from './CommunityManagement/routes/foodrequest.js'
