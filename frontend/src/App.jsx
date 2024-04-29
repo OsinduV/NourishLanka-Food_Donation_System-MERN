@@ -32,6 +32,7 @@ import FooddrivePage from "./Event/pages/FooddrivePage"
 import PreviousDonations from "./Event/pages/PreviousDonations"
 import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
+import Dshedules from "./Event/pages/Dshedules"
 
 
 
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+        <Route path="/shedules" element={<Dshedules/>} />
 
         <Route path='/communitysearch' element={<CommunitySearch />} />
         <Route path="/search" element={<Search/>} />
