@@ -113,7 +113,6 @@ export default function DeclinedDonations() {
               <Table.HeadCell>Event date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Your event status</Table.HeadCell>
-              <Table.HeadCell>Delete your event</Table.HeadCell>
             </Table.Head>
 
             {userDonations.map((donation) => (
@@ -134,14 +133,6 @@ export default function DeclinedDonations() {
                 </Table.Cell>
                 <Table.Cell>{donation.status}</Table.Cell>
 
-                <Table.Cell>
-                  <span onClick={()=>{
-                      setShowModal(true);
-                      setmyDonationIdToDelete(donation._id);
-                  }}
-                  className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
-                </Table.Cell>
-                
 
 
                 </Table.Row>

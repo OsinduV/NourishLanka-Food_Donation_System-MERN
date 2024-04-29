@@ -118,9 +118,7 @@ export default function LongdayFooddrives() {
           <Table hoverable className='shadow-md'>
             <Table.Head>
               <Table.HeadCell>Date updated</Table.HeadCell>
-              <Table.HeadCell>Event title</Table.HeadCell>
               <Table.HeadCell>Donor ID</Table.HeadCell>
-              <Table.HeadCell>Donor Email</Table.HeadCell>
               <Table.HeadCell>Event stating date</Table.HeadCell>
               <Table.HeadCell>Event ending date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
@@ -136,13 +134,7 @@ export default function LongdayFooddrives() {
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                 <Table.Cell>{new Date(fooddrive.updatedAt).toLocaleDateString()}</Table.Cell>
-                <Table.Cell>
-                  <Link className='font-medium text-gray-900 dark:text-white' to={`/fooddrive/${fooddrive.slug}`}>
-                    {fooddrive.eventtitle}
-                  </Link>
-                </Table.Cell>
                 <Table.Cell>{fooddrive.dnid}</Table.Cell>
-                <Table.Cell>{fooddrive.donoremail}</Table.Cell>
                 <Table.Cell>{fooddrive.DateFrom}</Table.Cell>
                 <Table.Cell>{fooddrive.DateTo}</Table.Cell>
                 <Table.Cell>

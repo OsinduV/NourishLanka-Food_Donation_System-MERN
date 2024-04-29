@@ -133,13 +133,24 @@ export default function DashDRequests() {
                 </Table.Cell>
                 <Table.Cell>{donation.status}</Table.Cell>
 
+        {/* check delete button to make ufunction whether the status is processing */}
                 <Table.Cell>
-                  <span onClick={()=>{
+                    {donation.status === 'processing' ? (
+                    <span
+                      onClick={() => {
                       setShowModal(true);
                       setmyDonationIdToDelete(donation._id);
-                  }}
-                  className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
-                </Table.Cell>
+                    }}
+                    className='font-medium text-red-500 hover:underline cursor-pointer'
+                      >
+                    Delete
+                  </span>
+                ) : (
+                    <span className='font-medium text-red-500 cursor-not-allowed' disabled>
+                Delete
+                </span>
+                )}
+              </Table.Cell>
                 
 
 

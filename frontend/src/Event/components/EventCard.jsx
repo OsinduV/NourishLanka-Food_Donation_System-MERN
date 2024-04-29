@@ -95,7 +95,7 @@ export default function EventCard({ event }) {
         <img
           src={event.image}
           alt="event cover"
-          className="h-[260px] w-[350px] object-cover group-hover:h-[200px] transition-all duration-300 z-20"
+          className="h-[260px] w-[370px] object-cover group-hover:h-[200px] transition-all duration-300 z-20"
         />
       </Link>
 

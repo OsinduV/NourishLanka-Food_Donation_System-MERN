@@ -1,4 +1,4 @@
-import { Button, Modal, Spinner, Table, TableCell } from 'flowbite-react';
+import { Button, Modal, Spinner, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
@@ -14,12 +14,13 @@ export default function Dshedules() {
   const [showModal, setShowModal] = useState(false);
   const [eventIdToDelete, setEventIdToDelete] = useState('');
   useEffect(() => {
+
     console.log("useEffect triggered");
     const fetchEvents = async () => {
       try {
         setLoading(true);
         console.log("fetchEvents function called");
-        const res = await fetch(`/api/event/getevents?status=approved&category=DonationEvent`);
+        const res = await fetch(`/api/event/getevents?userId=${currentUser._id}`);
         const data = await res.json();
         if (res.ok) {
           console.log("Data received:", data.events);
@@ -95,30 +96,50 @@ export default function Dshedules() {
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-   
+              <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>Event ID</Table.HeadCell>
+              <Table.HeadCell>Event image</Table.HeadCell>
               <Table.HeadCell>Event title</Table.HeadCell>
-              <Table.HeadCell>Event Date</Table.HeadCell>
-              <Table.HeadCell>Event Time</Table.HeadCell>
-              <Table.HeadCell>Event Location</Table.HeadCell>
-              <Table.HeadCell>Organizer(Donor) Email</Table.HeadCell>
-            
+              <Table.HeadCell>Category</Table.HeadCell>
+              <Table.HeadCell>Event status</Table.HeadCell>
+              <Table.HeadCell>Delete</Table.HeadCell>
+              <Table.HeadCell>
+                <span>Edit</span>
+              </Table.HeadCell>
             </Table.Head>
 
             {userEvents.map((event) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                <Table.Cell>{new Date(event.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>{event.customId}</Table.Cell>
-
+                <Table.Cell>
+                  <Link to={`/event/${event.slug}`}>
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className='w-20 h-10 object-cover bg-gray-500'
+                      />
+                  </Link>
+                </Table.Cell>
                 <Table.Cell>
                   <Link className='font-medium text-gray-900 dark:text-white' to={`/event/${event.slug}`}>
                     {event.title}
                   </Link>
                 </Table.Cell>
-                <TableCell>{event.date}</TableCell>
-                <TableCell>{event.time}</TableCell>
-                <TableCell>{event.location}</TableCell>
-                <TableCell>{event.donoremail}</TableCell>
+                <Table.Cell>{event.category}</Table.Cell>
+                <Table.Cell>{event.status}</Table.Cell>
+                <Table.Cell>
+                  <span onClick={() => {
+                        setShowModal(true);
+                        setEventIdToDelete(event._id);
+                      }} className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
+                </Table.Cell>
+                <Table.Cell>
+                  <Link className='text-teal-500 hover:underline' to={`/update-event/${event._id}`}>
+                    <span>Edit</span>
+                  </Link>
+                </Table.Cell>
                 </Table.Row>
               </Table.Body>
             ))}
