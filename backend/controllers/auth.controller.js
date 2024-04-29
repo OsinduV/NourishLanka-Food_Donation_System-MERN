@@ -18,6 +18,7 @@ export const signup = async (req, res, next) => {
     email === "" ||
     password === ""
   ) {
+
     //using the errorHandler function created in error.js
     next(errorHandler(400, "All fields are required"));
   }
@@ -25,6 +26,7 @@ export const signup = async (req, res, next) => {
   //hashed password
   //10 is the number of source which is going to be mix with our password to make it secure
   const hashedPassword = bcryptjs.hashSync(password, 10);
+
 
   const newUser = new User({
     username,
@@ -50,6 +52,7 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
   //if any field is empty, set error
+
   if (!email || !password || email === "" || password === "") {
     next(errorHandler(400, "All fields are required"));
   }
@@ -68,6 +71,7 @@ export const signin = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password"));
     }
+
 
     const token = jwt.sign(
       { id: validUser._id, isAdmin: validUser.isAdmin },
@@ -121,6 +125,7 @@ export const google = async (req, res, next) => {
         process.env.JWT_SECRET
       );
 
+      
       const { password, ...rest } = newUser._doc;
       res
         .status(200)

@@ -63,22 +63,9 @@ export default function Header() {
           <span className='px-2 py-1 bg-gradient-to-r from-green-500 via-green-300 to-green-400 rounded-lg text-white'>NourishLanka</span>
          
        </Link>
-       <form onSubmit={handleSubmit}>
-        <TextInput
-            type='text'
-            placeholder='Search..'
-            rightIcon={AiOutlineSearch}
-            className='hidden lg:inline'
-            value={searchTerm}
+       
 
-          onChange={(e) => setSearchTerm(e.target.value)}//from this chnages in the search will chnage the url also
-
-        />
-       </form>
-
-       <Button className='w-12 h-10 lg:hidden' color='gray' pill>
-        <AiOutlineSearch/>
-       </Button>
+      
 
        <div className="flex gap-3 md:order-2">
 
@@ -111,7 +98,7 @@ export default function Header() {
           </Dropdown>
         ) : (
           <Link to='/sign-in'>
-            <Button gradientDuoTone='purpleToBlue' outline>
+            <Button gradientDuoTone='greenToBlue' outline>
               Sign In
             </Button>
           </Link>
@@ -122,6 +109,7 @@ export default function Header() {
         <Navbar.Link active={path === '/event-request'} as={'div'}>
           <Link to='/event-description'>Host event</Link>
         </Navbar.Link>
+
         <Navbar.Link active={path === '/volunteer-one'} as={'div'}>
           <Link to='/volunteer-one'>Volunteer</Link>
         </Navbar.Link>
@@ -130,10 +118,15 @@ export default function Header() {
           <Link to='/foodbankhome'>FoodBank</Link>
         </Navbar.Link>
 
+
         <Navbar.Link active={path === '/community'} as={'div'}>
           <Link to='/community'>Community</Link>
         </Navbar.Link>
         
+
+        <Navbar.Link active={path === '/review-home'} as={'div'}>
+          <Link to='/review-home'>Ratings and Reviews</Link>
+        </Navbar.Link>
         
 
 

@@ -92,7 +92,8 @@ export default function DashFoodRequests() {
             </div>
             <Table hoverable className='shadow-md'>
               <Table.Head>
-                <Table.HeadCell>Date Updated</Table.HeadCell>
+               <Table.HeadCell>View</Table.HeadCell>
+                <Table.HeadCell>Food Request ID</Table.HeadCell>
                 <Table.HeadCell>Date Created</Table.HeadCell>
                 <Table.HeadCell>Recipient Name</Table.HeadCell>
                 <Table.HeadCell>District</Table.HeadCell>
@@ -100,13 +101,21 @@ export default function DashFoodRequests() {
                 <Table.HeadCell>Email</Table.HeadCell>
                 <Table.HeadCell>Contact Number</Table.HeadCell>
                 <Table.HeadCell>Delete Food Request</Table.HeadCell>
-                <Table.HeadCell>Status</Table.HeadCell>  
+                <Table.HeadCell>Current Status</Table.HeadCell>  
               </Table.Head>
               {userFoodRequests.map((foodrequest) => (
                 <Table.Body className='divide-y'>
                   <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                  <Table.Cell>
+                      <Link
+                        className='font-medium text-gray-900 dark:text-white'
+                        to={`/foodrequest/${foodrequest.slug}`}
+                      >
+                        View Details
+                      </Link>
+                    </Table.Cell>
                     <Table.Cell>
-                      {new Date(foodrequest.updatedAt).toLocaleDateString()}
+                      {foodrequest.foodrequestId}
                     </Table.Cell>
                     <Table.Cell>
                       {new Date(foodrequest.createdAt).toLocaleDateString()}
@@ -135,7 +144,9 @@ export default function DashFoodRequests() {
                         Delete 
                       </span>
                     </Table.Cell>
-                    <Table.Cell>{foodrequest.status}</Table.Cell>
+                    <Table.Cell 
+                    className='font-medium text-red-500 '>
+                      {foodrequest.status}</Table.Cell>
                     
                   </Table.Row>
                 </Table.Body>

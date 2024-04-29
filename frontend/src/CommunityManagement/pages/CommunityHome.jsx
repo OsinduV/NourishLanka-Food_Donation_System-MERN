@@ -53,7 +53,10 @@ export default function CommunityHome() {
             <p className='text-center'>Join us in making a difference! Your contributions directly impact individuals in need of food assistance. Explore recipient profiles, filter by district or urgency, and align your donations with causes that resonate with you. Together, we can alleviate food insecurity and promote community resilience in Sri Lanka.</p>
           </div>
         </Card>
-      </div>
+      </div> 
+
+
+      
 </div>
 
   )
