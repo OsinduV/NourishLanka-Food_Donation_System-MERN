@@ -3,9 +3,16 @@ import { errorHandler } from "../../utills/error.js";
 
 
 // Validate email format
-const validateemail = (email) => {
+const validateEmail = (email) => {
   const emailRegex = /\S+@\S+\.\S+/;
   return emailRegex.test(email);
+}
+
+
+// Validate phone number format
+const validatePhoneNumber = (phoneNumber) => {
+  const phoneRegex = /^[0-9]{10}$/;
+  return phoneRegex.test(phoneNumber);
 };
 
 export const createfoodrequest = async(req,res,next) =>{
@@ -21,9 +28,20 @@ export const createfoodrequest = async(req,res,next) =>{
       }
        
 
-      if (!validateemail(req.body.email)) {
-        return next(errorHandler(400, 'Please provide a valid  email address'));
-    }
+      // Validate email
+  if (!validateEmail(req.body.email)) {
+    return next(errorHandler(400, 'Please provide a valid email address'));
+  }
+
+  // Validate phone number
+  if (!validatePhoneNumber(req.body.contactnumber)) {
+    return next(errorHandler(400, 'Please provide a valid phone number'));
+  }
+
+  // Validate recipient name - only letters from A-Z and a-z
+  if (!/^[a-zA-Z]+$/.test(req.body.recipientname)) {
+    return next(errorHandler(400, 'Recipient name should only contain letters from A-Z'));
+  }
       //generating a slug
 
       const slug = req.body.recipientname
