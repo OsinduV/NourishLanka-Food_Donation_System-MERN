@@ -122,6 +122,9 @@ export default function Header() {
           <Link to='/foodbankhome'>FoodBank</Link>
         </Navbar.Link>
 
+        <Navbar.Link active={path === '/fr-home'} as={'div'}>
+          <Link to='/fr-home'>FundRaise</Link>
+        </Navbar.Link>
 
         <Navbar.Link active={path === '/community'} as={'div'}>
           <Link to='/community'>Community</Link>
