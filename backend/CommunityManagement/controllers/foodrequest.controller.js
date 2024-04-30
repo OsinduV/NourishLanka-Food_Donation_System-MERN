@@ -38,10 +38,7 @@ export const createfoodrequest = async(req,res,next) =>{
     return next(errorHandler(400, 'Please provide a valid phone number'));
   }
 
-  // Validate recipient name - only letters from A-Z and a-z
-  if (!/^[a-zA-Z]+$/.test(req.body.recipientname)) {
-    return next(errorHandler(400, 'Recipient name should only contain letters from A-Z'));
-  }
+  
       //generating a slug
 
       const slug = req.body.recipientname
