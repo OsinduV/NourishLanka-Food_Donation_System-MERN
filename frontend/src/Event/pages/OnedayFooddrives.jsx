@@ -70,7 +70,7 @@ export default function OnedayFooddrives() {
           setUserFooddrives((prev) =>
             prev.filter((fooddrive) => fooddrive._id !== fooddriveIdToDelete)
           );
-        }
+        } 
       } catch (error) {
         console.log(error.message);
       }
@@ -85,10 +85,10 @@ export default function OnedayFooddrives() {
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-
         <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
             <h2 className="text-3xl font-semibold flex">One Day FoodDrive Request List</h2>
         </div>
+
                   {/* Header-like section */}
                   <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold"></h2>
@@ -117,13 +117,12 @@ export default function OnedayFooddrives() {
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-              <Table.HeadCell>Date updated</Table.HeadCell>
-              <Table.HeadCell>Event title</Table.HeadCell>
+              <Table.HeadCell>Request created date</Table.HeadCell>
               <Table.HeadCell>Donor ID</Table.HeadCell>
               <Table.HeadCell>Donor Email</Table.HeadCell>
-              <Table.HeadCell>Event date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Current Status</Table.HeadCell>
+              <Table.HeadCell>Status update date</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit</span>
               </Table.HeadCell>
@@ -134,15 +133,9 @@ export default function OnedayFooddrives() {
             {userFooddrives.map((fooddrive) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>{new Date(fooddrive.updatedAt).toLocaleDateString()}</Table.Cell>
-                <Table.Cell>
-                  <Link className='font-medium text-gray-900 dark:text-white' to={`/fooddrive/${fooddrive.slug}`}>
-                    {fooddrive.eventtitle}
-                  </Link>
-                </Table.Cell>
+                <Table.Cell>{new Date(fooddrive.createdAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>{fooddrive.dnid}</Table.Cell>
                 <Table.Cell>{fooddrive.donoremail}</Table.Cell>
-                <Table.Cell>{fooddrive.eventdate}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/fooddrive/${fooddrive.slug}`}>
                     <span>View more Details</span>
@@ -150,6 +143,7 @@ export default function OnedayFooddrives() {
                 </Table.Cell>
 
                 <Table.Cell>{fooddrive.status}</Table.Cell>
+                <Table.Cell>{new Date(fooddrive.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/update-fstatus/${fooddrive._id}`}>
                     <span>Edit status</span>

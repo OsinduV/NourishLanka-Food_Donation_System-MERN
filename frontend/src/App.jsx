@@ -66,6 +66,7 @@ import PreviousDonations from "./Event/pages/PreviousDonations"
 import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
+import Dshedules from "./Event/pages/Dshedules"
 
 import ReviewPage from "./Ratings and Review_f/pages/ReviewPage"
 import ReviewHome from "./Ratings and Review_f/pages/ReviewHome"
@@ -89,6 +90,7 @@ export default function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+        <Route path="/shedules" element={<Dshedules/>} />
 
           {/* volunteer routes */}
         <Route path="/volunteer-one" element={<VolunteerOne/>} />

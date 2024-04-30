@@ -86,7 +86,7 @@ export default function DecAllFdLong() {
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
     <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-        <h2 className="text-3xl font-semibold flex">Long Day FoodDrive Request List</h2>
+        <h2 className="text-3xl font-semibold flex">Long Day FoodDrive Request List - Declined</h2>
     </div>
                   {/* Header-like section1 */}
                   <div className="flex justify-between items-center mb-5">
@@ -118,9 +118,7 @@ export default function DecAllFdLong() {
           <Table hoverable className='shadow-md'>
             <Table.Head>
               <Table.HeadCell>Date updated</Table.HeadCell>
-              <Table.HeadCell>Event title</Table.HeadCell>
               <Table.HeadCell>Donor ID</Table.HeadCell>
-              <Table.HeadCell>Donor Email</Table.HeadCell>
               <Table.HeadCell>Event stating date</Table.HeadCell>
               <Table.HeadCell>Event ending date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
@@ -136,13 +134,7 @@ export default function DecAllFdLong() {
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                 <Table.Cell>{new Date(fooddrive.updatedAt).toLocaleDateString()}</Table.Cell>
-                <Table.Cell>
-                  <Link className='font-medium text-gray-900 dark:text-white' to={`/fooddrive/${fooddrive.slug}`}>
-                    {fooddrive.eventtitle}
-                  </Link>
-                </Table.Cell>
                 <Table.Cell>{fooddrive.dnid}</Table.Cell>
-                <Table.Cell>{fooddrive.donoremail}</Table.Cell>
                 <Table.Cell>{fooddrive.DateFrom}</Table.Cell>
                 <Table.Cell>{fooddrive.DateTo}</Table.Cell>
                 <Table.Cell>

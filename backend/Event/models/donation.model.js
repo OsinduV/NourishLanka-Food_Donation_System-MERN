@@ -9,38 +9,31 @@ const donationSchema = new mongoose.Schema(
 
         eventtitle: {
             type: String,
-            required: true,
             unique: true,
         },
 
         dnid: {
             type: String,
-            required: true,
         },
 
         donoremail: {
             type: String,
-            required: true,
         },
 
         eventdate: {
             type: String,
-            required: true,
         },
 
         eventtime: {
             type: String,
-            required: true,
         },
 
         eventlocation: {
             type: String,
-            required: true,
         },
 
         eventdescription: {
             type: String,
-            required: true,
         },
 
         budget: {
@@ -63,12 +56,10 @@ const donationSchema = new mongoose.Schema(
 
         attendees: {
             type: String,
-            required: true,
         },
 
         volunteers: {
             type: String,
-            required: true,
         },
 
         conserns: {

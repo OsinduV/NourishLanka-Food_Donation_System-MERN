@@ -30,7 +30,6 @@ const fooddriveSchema = new mongoose.Schema(
 
         group: {
             type: String,
-            required: true,
         },
 
         ogname: {

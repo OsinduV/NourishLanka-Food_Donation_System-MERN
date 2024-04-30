@@ -96,7 +96,7 @@ export default function DashDonations() {
                 <Link to='/dashboard?tab=donations'>All</Link>
                 <Link to='/dashboard?tab=approveddonations'>Approved</Link>
                 <Link to='/dashboard?tab=declineddonations'>Declined</Link>
-                <Link to="/dashboard?tab=fcompletedone">Completed</Link>
+                <Link to="/dashboard?tab=completeddonations">Completed</Link>
                     {/* Add more navigation links as needed */}
                 </div>
             </div>
@@ -104,13 +104,13 @@ export default function DashDonations() {
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-              <Table.HeadCell>Date updated</Table.HeadCell>
-              <Table.HeadCell>Event title</Table.HeadCell>
+              <Table.HeadCell>Date created</Table.HeadCell>
               <Table.HeadCell>Donor ID</Table.HeadCell>
               <Table.HeadCell>Donor Email</Table.HeadCell>
               <Table.HeadCell>Event date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Current Status</Table.HeadCell>
+              <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit Status</span>
               </Table.HeadCell>
@@ -120,12 +120,7 @@ export default function DashDonations() {
             {userDonations.map((donation) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>{new Date(donation.updatedAt).toLocaleDateString()}</Table.Cell>
-                <Table.Cell>
-                  <Link className='font-medium text-gray-900 dark:text-white' to={`/donation/${donation.slug}`}>
-                    {donation.eventtitle}
-                  </Link>
-                </Table.Cell>
+                <Table.Cell>{new Date(donation.createdAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>{donation.dnid}</Table.Cell>
                 <Table.Cell>{donation.donoremail}</Table.Cell>
                 <Table.Cell>{donation.eventdate}</Table.Cell>
@@ -136,7 +131,7 @@ export default function DashDonations() {
                 </Table.Cell>
                 <Table.Cell>{donation.status}</Table.Cell>
 
-
+                <Table.Cell>{new Date(donation.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/update-dstatus/${donation._id}`}>
                     <span>Edit status</span>
