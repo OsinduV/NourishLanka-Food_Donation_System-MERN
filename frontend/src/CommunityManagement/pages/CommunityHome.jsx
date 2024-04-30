@@ -20,7 +20,7 @@ export default function CommunityHome() {
                         <a href="/communitysearch">
                             <Button type='button' gradientDuoTone='greenToBlue'>Find Recipients </Button>
                         </a>
-                        <a href="/schedules">
+                        <a href="/shedules">
                             <Button type='button' gradientDuoTone='greenToBlue'>Find Scheduled Donation Events</Button>
                         </a>
                     </div>
