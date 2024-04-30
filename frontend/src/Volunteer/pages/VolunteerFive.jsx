@@ -71,7 +71,8 @@ export default function VolunteerFive() {
      
  
       <div className='p-3 max-w-3xl mx-auto min-h-screen'>
-          <h1 className='text-3xl font-semibold text-center my-7'>Sign up for a Volunteering shift</h1>
+          <h1 className='text-3xl font-semibold text-center my-4 '>Sign up for a Volunteering shift</h1>
+          <p className="text-lg mb-10 text-center ">     Sign up today to lend a helping hand and spread kindness in your community.</p>
           <form className='flex flex-col mb-7 gap-4' onSubmit={handleSubmit}>
           
           <div className='flex flex-col mb-7 gap-4 sm:flex-row justify-between'>
@@ -253,6 +254,7 @@ export default function VolunteerFive() {
           <option value='Packing and Sorting'>Packing and Sorting</option>
           <option value='Cooking and Preparing '>Cooking and Preparing</option>
           <option value='Food Distribution'>Food Distribution</option>
+          <option value='Event'>Event</option>
           readOnly </Select>
   
             </div>

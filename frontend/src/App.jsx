@@ -21,48 +21,55 @@ import OsinduTst from "./fundRaising/pages/OsinduTst";
 import FRPCreate from "./fundRaising/pages/FRPCreate";
 import FrpDonate from "./fundRaising/pages/FrpDonate";
 
-import VolunteerOne from "./Volunteer/pages/VolunteerOne";
-import VolunteerTwo from "./Volunteer/pages/VolunteerTwo";
-import VolunteerThree from "./Volunteer/pages/VolunteerThree";
-import VolunteerFour from "./Volunteer/pages/VolunteerFour";
-import VolunteerFive from "./Volunteer/pages/VolunteerFive";
-import CreateSchedules from "./Volunteer/pages/CreateSchedules";
-import UpdateSchedules from "./Volunteer/pages/UpdateSchedules";
-import VolunteerSix from "./Volunteer/pages/VolunteerSix";
 
-import FbRegisterpage from "./Foodbank/pages/foodbank_register";
-import Fbhome from "./Foodbank/pages/foodbank_home";
-import FoodbankDash from "./Foodbank/pages/foodbankDash";
-import AdminDashFb from "./Foodbank/pages/AdminDashFb";
 
-import CreateRecipientPost from "./CommunityManagement/pages/CreateRecipientPost";
-import UpdateRecipientPost from "./CommunityManagement/pages/UpdateRecipientPost";
-import RecipientPostPage from "./CommunityManagement/pages/RecipientPostPage";
-import CommunityHome from "./CommunityManagement/pages/CommunityHome";
-import CommunitySearch from "./CommunityManagement/pages/CommunitySearch";
-import CreateFoodRequest from "./CommunityManagement/pages/CreateFoodRequest";
-import FoodRequestPage from "./CommunityManagement/pages/FoodRequestPage";
-import UpdateStatus from "./CommunityManagement/pages/UpdateStatus";
+import VolunteerOne from "./Volunteer/pages/VolunteerOne"
+import VolunteerTwo from "./Volunteer/pages/VolunteerTwo"
+import VolunteerThree from "./Volunteer/pages/VolunteerThree"
+import VolunteerFour from "./Volunteer/pages/VolunteerFour"
+import VolunteerFive from "./Volunteer/pages/VolunteerFive"
+import CreateSchedules from "./Volunteer/pages/CreateSchedules"
+import UpdateSchedules from "./Volunteer/pages/UpdateSchedules"
+import VolunteerSix from "./Volunteer/pages/VolunteerSix"
 
-import CreateEvent from "./Event/pages/CreateEvent";
-import UpdateEvent from "./Event/pages/UpdateEvent";
-import EventPage from "./Event/pages/EventPage";
-import EventHome from "./Event/pages/EventHome";
-import Search from "./Event/pages/Search";
-import DonationRequest from "./Event/pages/DonationRequest";
-import EventDescription from "./Event/pages/EventDescription";
-import UpdateDStatus from "./Event/pages/UpdateDStatus";
-import FoodDriveRequest from "./Event/pages/FoodDriveRequest";
-import UpdateFStatus from "./Event/pages/UpdateFStatus";
-import DonationPage from "./Event/pages/DonationPage";
-import FooddrivePage from "./Event/pages/FooddrivePage";
-import PreviousDonations from "./Event/pages/PreviousDonations";
-import PreviousFooddrives from "./Event/pages/PreviousFooddrives";
+import FbRegisterpage from "./Foodbank/pages/foodbank_register"
+import Fbhome from './Foodbank/pages/foodbank_home'
+import FoodbankDash from "./Foodbank/pages/foodbankDash"
+import AdminDashFb from "./Foodbank/pages/AdminDashFb"
 
-import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
 
-import ReviewPage from "./Ratings and Review_f/pages/ReviewPage";
-import ReviewHome from "./Ratings and Review_f/pages/ReviewHome";
+
+import CreateRecipientPost from "./CommunityManagement/pages/CreateRecipientPost"
+import UpdateRecipientPost from "./CommunityManagement/pages/UpdateRecipientPost"
+import RecipientPostPage from "./CommunityManagement/pages/RecipientPostPage"
+import CommunityHome from "./CommunityManagement/pages/CommunityHome"
+import CommunitySearch from "./CommunityManagement/pages/CommunitySearch"
+import CreateFoodRequest from "./CommunityManagement/pages/CreateFoodRequest"
+import FoodRequestPage from "./CommunityManagement/pages/FoodRequestPage"
+import UpdateStatus from "./CommunityManagement/pages/UpdateStatus"
+
+
+import CreateEvent from "./Event/pages/CreateEvent"
+import UpdateEvent from "./Event/pages/UpdateEvent"
+import EventPage from "./Event/pages/EventPage"
+import EventHome from "./Event/pages/EventHome"
+import Search from "./Event/pages/Search"
+import DonationRequest from "./Event/pages/DonationRequest"
+import EventDescription from "./Event/pages/EventDescription"
+import UpdateDStatus from "./Event/pages/UpdateDStatus"
+import FoodDriveRequest from "./Event/pages/FoodDriveRequest"
+import UpdateFStatus from "./Event/pages/UpdateFStatus"
+import DonationPage from "./Event/pages/DonationPage"
+import FooddrivePage from "./Event/pages/FooddrivePage"
+import PreviousDonations from "./Event/pages/PreviousDonations"
+import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
+
+import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
+import Dshedules from "./Event/pages/Dshedules"
+
+import ReviewPage from "./Ratings and Review_f/pages/ReviewPage"
+import ReviewHome from "./Ratings and Review_f/pages/ReviewHome"
+
 
 export default function App() {
   return (
@@ -70,13 +77,19 @@ export default function App() {
       <BrowserRouter>
         <Header />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/event-home" element={<EventHome />} />
-          <Route path="/event-description" element={<EventDescription />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
+
+
+
+      <Routes>
+        
+         <Route path="/" element={<Home/>} />
+        <Route path="/event-home" element={<EventHome/>} />
+        <Route path="/event-description" element={<EventDescription/>} />
+        <Route path="/about" element={<About/>} />
+        <Route path="/sign-in" element={<SignIn/>} />
+        <Route path="/sign-up" element={<SignUp/>} />
+        <Route path="/shedules" element={<Dshedules/>} />
+
 
           {/* volunteer routes */}
           <Route path="/volunteer-one" element={<VolunteerOne />} />

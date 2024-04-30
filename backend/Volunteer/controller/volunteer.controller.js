@@ -112,3 +112,20 @@ export const getvolunteer = async (req,res,next)=> {
     }
 };
 
+export const deletevolunteer = async (req,res,next) => {
+  
+  if ( req.user.id !== req.params.userId) {
+     return next(errorHandler(403, 'You are not allowed to delete '));
+ }
+ try {
+     await Volunteer.findByIdAndDelete(req.params.userId);
+     res.status(200).json('The user has been deleted');
+   } catch (error) {
+     next(error);
+   }
+
+
+};
+
+
+

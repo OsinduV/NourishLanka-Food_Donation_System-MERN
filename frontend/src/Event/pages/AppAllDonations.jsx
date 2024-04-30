@@ -72,13 +72,12 @@ export default function AppAllDonations() {
       }
     };
 
-  return (
+    return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
 
-        <div className="flex items-center mb-10 justify-center mt-10 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-            <h2 className="text-3xl font-semibold flex">Donation Campaign Request List</h2>
-        </div>
+
+            <h2 className="text-3xl font-semibold flex">Approved Donation Requests</h2>
 
                               {/* Header-like section2 */}
                               <div className="flex justify-between items-center mb-5">
@@ -96,13 +95,13 @@ export default function AppAllDonations() {
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-              <Table.HeadCell>Date updated</Table.HeadCell>
-              <Table.HeadCell>Event title</Table.HeadCell>
+              <Table.HeadCell>Date created</Table.HeadCell>
               <Table.HeadCell>Donor ID</Table.HeadCell>
               <Table.HeadCell>Donor Email</Table.HeadCell>
               <Table.HeadCell>Event date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Current Status</Table.HeadCell>
+              <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit Status</span>
               </Table.HeadCell>
@@ -112,12 +111,7 @@ export default function AppAllDonations() {
             {userDonations.map((donation) => (
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>{new Date(donation.updatedAt).toLocaleDateString()}</Table.Cell>
-                <Table.Cell>
-                  <Link className='font-medium text-gray-900 dark:text-white' to={`/donation/${donation.slug}`}>
-                    {donation.eventtitle}
-                  </Link>
-                </Table.Cell>
+                <Table.Cell>{new Date(donation.createdAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>{donation.dnid}</Table.Cell>
                 <Table.Cell>{donation.donoremail}</Table.Cell>
                 <Table.Cell>{donation.eventdate}</Table.Cell>
@@ -128,7 +122,7 @@ export default function AppAllDonations() {
                 </Table.Cell>
                 <Table.Cell>{donation.status}</Table.Cell>
 
-
+                <Table.Cell>{new Date(donation.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/update-dstatus/${donation._id}`}>
                     <span>Edit status</span>

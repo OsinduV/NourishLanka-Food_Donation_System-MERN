@@ -130,13 +130,26 @@ export default function DashFRequests() {
                   </Link>
                 </Table.Cell>
                 <Table.Cell>{fooddrive.status}</Table.Cell>
+
+                        {/* check delete button to make ufunction whether the status is processing */}
                 <Table.Cell>
-                         <span onClick={()=>{
+                    {fooddrive.status === 'processing' ? (
+                    <span
+                      onClick={() => {
                       setShowModal(true);
-                      setmyFooddriveIdToDelete(fooddrive._id);
-                  }}
-                  className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
-                </Table.Cell>
+                      setmyDonationIdToDelete(fooddrive._id);
+                    }}
+                    className='font-medium text-red-500 hover:underline cursor-pointer'
+                      >
+                    Delete
+                  </span>
+                ) : (
+                    <span className='font-medium text-red-500 cursor-not-allowed' disabled>
+                Delete
+                </span>
+                )}
+              </Table.Cell>
+
 
                 </Table.Row>
               </Table.Body>

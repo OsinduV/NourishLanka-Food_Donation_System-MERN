@@ -57,15 +57,15 @@ export default function VolunteerSix() {
 
         <div className='flex justify-between max-w-4xl mx-auto mt-10'>
         
-        <div className='bg-white text-black border-green-500 rounded-lg shadow-md p-8 max-w-md font-serif'>
-            <h1 className='text-3xl font-semibold text-center mb-6'>Volunteering details</h1>
+        <div className='bg-white text-black border-green-500 rounded-lg shadow-md p-8 max-w-md '>
+            <h1 className='text-3xl font-bold text-center mb-6'>Volunteering details</h1>
             <form className='flex flex-col gap-4 mb-7' onSubmit={handleSubmit}>
                 
             </form>
           
-            <div className='border border-gray-300 p-4'>
-                <h1 className='text-lg font-semibold mb-2'>Volunteering Details</h1>
-                <ul className='list-disc list-inside'>
+            <div className=' border-gray-300 p-4  '>
+                <h1 className='text-lg font-bold mb-2'>Volunteering Details</h1>
+                <ul className=' list-inside'>
                     <li className='mb-2'>
                         <strong>fullName:</strong> {formData.fullName}
                     </li>
@@ -94,7 +94,9 @@ export default function VolunteerSix() {
                         <strong>time:</strong> {formData.time}
                     </li>
                 </ul>
+              
             </div>
+
            
             {publishError && (
                 <Alert className='mt-5' color='failure'>
@@ -102,7 +104,9 @@ export default function VolunteerSix() {
                 </Alert>
             )}
         </div>
-
+        <div className='flex-1 ml-4'>
+                        <img src="https://img.freepik.com/free-photo/smiley-volunteers-preparing-food-provisions-donation_23-2148637978.jpg?t=st=1714180638~exp=1714184238~hmac=725fc4f845d749fb3126a98815415791d2f0deb3aee23ef4a64b28373fbf6b74&w=740" className='h-full' />
+                    </div>
       
         
     </div>
