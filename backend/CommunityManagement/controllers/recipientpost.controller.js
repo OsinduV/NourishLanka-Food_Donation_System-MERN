@@ -96,6 +96,8 @@ export const create = async (req, res, next) => {
               content: req.body.content,
               category: req.body.category,
               image: req.body.image,
+              nameofplace:req.body.nameofplace,
+              district:req.body.district
             },
           },
           { new: true }

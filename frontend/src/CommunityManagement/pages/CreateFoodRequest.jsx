@@ -1,5 +1,5 @@
 import React from 'react'
-import {Alert, Button, FileInput, Select, TextInput, } from 'flowbite-react';
+import {Alert, Button, FileInput, Select, TextInput,Textarea } from 'flowbite-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {
@@ -156,26 +156,93 @@ export default function CreateFoodRequest() {
           setFormData({ ...formData,  category: e.target.value })
         }
       >
-        <option value='uncategorized'>Select a category</option>
+        <option value='uncategorized'>Select a Category</option>
         <option value='Low-Income Families'>Low-Income Families</option>
         <option value='Orphanages'>Orphanages</option>
-        <option value='Elderly Individuals'>Elderly Individuals</option>
-      </Select>
-      
-      < TextInput
-        type='tel'
-        placeholder='Contact Number'
-        required
-        id='contact'
-        className='flex-1 '
-        pattern="[0-9]{10}"
-        title="Phone number must be 10 digits"
-        onChange={(e) =>
-          setFormData({ ...formData,  contactnumber: e.target.value })
-        }
+        <option value='Elderly Care Homes'>Elderly care Homes</option>
+        <option value='Schools'>Schools</option>
+        
 
-      />
+
+      </Select>
+
+      <TextInput
+        type='text'
+        placeholder='Position of the Requester'
+        id='position'
+        className='flex-1'
+        onChange={(e) =>
+          setFormData({ ...formData,  position: e.target.value })
+        }
+        disabled={formData.category === 'Low-Income Families'}
+      />    
     </div>
+
+    <div className='flex flex-col gap-4 sm:flex-row justify-between'>
+      <TextInput
+        type='number'
+        placeholder='Population of the Orphanage'
+        required
+        id='porphange'
+        className='flex-1'
+        min="0"
+        onChange={(e) =>
+          setFormData({ ...formData,  porphanage: e.target.value })
+        }
+        disabled={formData.category !== 'Orphanages'}
+      />
+      <TextInput
+        type='number'
+        placeholder='Population of the Elderly Homes'
+        required
+        id='pelders'
+        className='flex-1'
+        min="0"
+        onChange={(e) =>
+          setFormData({ ...formData,  pelders: e.target.value })
+        }
+        disabled={formData.category !== 'Elderly Care Homes'}
+      />
+      <TextInput
+        type='number'
+        placeholder='Population of the School'
+        required
+        id='pschool'
+        className='flex-1'
+        min="0"
+        onChange={(e) =>
+          setFormData({ ...formData,  pschool: e.target.value })
+        }
+        disabled={formData.category !== 'Schools'}
+      />
+    </div> 
+    <div className='flex flex-col gap-4 sm:flex-row justify-between'>
+  <TextInput
+    type='number'
+    placeholder='Household Size'
+    required
+    id='householdSize'
+    className='flex-1'
+    min='0'
+    onChange={(e) => setFormData({ ...formData, householdSize: e.target.value })}
+    disabled={formData.category !== 'Low-Income Families'}
+    
+  />
+  <Select
+    required
+    id='incomeLevel'
+    className='flex-1'
+    onChange={(e) => setFormData({ ...formData, incomeLevel: e.target.value })}
+    disabled={formData.category !== 'Low-Income Families'}
+  >
+    <option value=''>Select Income Level</option>
+    <option value='10,000 - 15,000'>10,000 - 15,000</option>
+    <option value='15,000-20,000'>15,000 -20,000</option>
+    <option value='20,000 - 25,000'>20,000 - 25,000</option>
+
+  </Select>
+</div>
+
     <div className='flex flex-col gap-4 sm:flex-row justify-between'>
       <TextInput
         type='number'
@@ -187,6 +254,7 @@ export default function CreateFoodRequest() {
         onChange={(e) =>
           setFormData({ ...formData,  nochildren: e.target.value })
         }
+        disabled={formData.category !== 'Orphanages' && formData.category !== 'Schools'}
       />
       <TextInput
         type='number'
@@ -198,6 +266,7 @@ export default function CreateFoodRequest() {
         onChange={(e) =>
           setFormData({ ...formData,  nomales: e.target.value })
         }
+        disabled={formData.category !== 'Elderly Care Homes'}
       />
       <TextInput
         type='number'
@@ -209,6 +278,7 @@ export default function CreateFoodRequest() {
         onChange={(e) =>
           setFormData({ ...formData,  nofemales: e.target.value })
         }
+        disabled={formData.category !== 'Elderly Care Homes'}
       />
     </div>
     <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -233,6 +303,33 @@ export default function CreateFoodRequest() {
         }
       />
     </div>
+
+    <div className='flex flex-col gap-4 sm:flex-row justify-between'>
+    < TextInput
+        type='tel'
+        placeholder='Contact Number'
+        required
+        id='contact'
+        className='flex-1 '
+        pattern="[0-9]{10}"
+        title="Phone number must be 10 digits"
+        onChange={(e) =>
+          setFormData({ ...formData,  contactnumber: e.target.value })
+        }
+        />
+
+          <TextInput
+           type='text'
+           placeholder='ZIP Code'
+           id='zipcode'
+           className='flex-1'
+           onChange={(e) =>
+          setFormData({ ...formData, zipcode: e.target.value })
+            }
+        />
+
+
+    </div>
     <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
           <FileInput
             type='file'
@@ -240,13 +337,14 @@ export default function CreateFoodRequest() {
             onChange={(e) => setFile(e.target.files[0])}//one image [0]
           /> 
           <Button
-            type='button'
-            gradientDuoTone='greenToBlue'
-            size='sm'
-            outline
-            onClick={handleUpdloadImage}
-            disabled={imageUploadProgress}
-          >
+           type='button'
+           gradientDuoTone='greenToBlue'
+           size='sm'
+           outline
+           onClick={handleUpdloadImage}
+           disabled={imageUploadProgress || formData.category !== 'Low-Income Families'}
+           >
+
            
             {imageUploadProgress ? (
               <div className='w-16 h-16'>

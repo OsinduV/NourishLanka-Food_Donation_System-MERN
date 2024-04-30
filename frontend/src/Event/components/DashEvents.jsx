@@ -19,7 +19,7 @@ export default function DashEvents() {
       try {
         setLoading(true);
         console.log("fetchEvents function called");
-        const res = await fetch(`/api/event/getevents?userId=${currentUser._id}`);
+        const res = await fetch(`/api/event/getevents`);
         const data = await res.json();
         if (res.ok) {
           console.log("Data received:", data.events);

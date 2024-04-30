@@ -2,6 +2,15 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
+import DashMyFrps from '../fundRaising/components/DashMyFrps';
+import DashFrps from '../fundRaising/components/DashFrps';
+
+
+import DashSchedules from '../Volunteer/components/DashSchedules';
+import Volunteeringactivities from '../Volunteer/components/Volunteeringactivities';
+import Volunteers from '../Volunteer/components/Volunteers';
+
+import DashUsers  from '../components/DashUsers';
 
 import DashRecipientPost from '../CommunityManagement/components/DashRecipientPost';
 import DashFoodRequests from '../CommunityManagement/components/DashFoodRequests';
@@ -28,6 +37,9 @@ import DecAllDonations from '../Event/pages/DecAllDonations';
 import ComAllDonations from '../Event/pages/ComAllDonations';
 import CompletedDonations from '../Event/pages/CompletedDonations';
 import CompletedFooddrives from '../Event/pages/CompletedFooddrives';
+import DashComments from '../Ratings and Review_f/components/DashComments';
+
+
 
 
 export default function Dashboard() {
@@ -50,6 +62,32 @@ export default function Dashboard() {
       </div>
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
+
+
+{/*VOLUNTEER MANAGER DASHBOARD */}
+
+      {/* frps... */}
+      {tab === 'frps' && <DashFrps/>}
+      {/* myFrps... */}
+      {tab === 'myfrps' && <DashMyFrps />}
+
+
+
+       {/* schedules... */}
+       {tab === 'schedules' && <DashSchedules/>}
+
+        {/* volunteers... */}
+        {tab === 'volunteers' && <Volunteers/>}
+
+  {/*USER DASHBOARD */}
+       {/* volunteering activities... */}
+       {tab === 'volunteeringactivities' && <Volunteeringactivities/>}
+       
+
+
+       {/* users... */}
+       {tab === 'users' && <DashUsers />}
+
 
         {/* posts... */}
         {tab === 'posts' && <DashRecipientPost/>}
@@ -136,6 +174,13 @@ export default function Dashboard() {
 
       {/* my completed fooddrive requests... */}
       {tab === 'fcompleted' && <CompletedFooddrives />}
+
+
+
+      {/* comments  */}
+      {tab === 'comments' && <DashComments />}
+
+
 
     </div>
 

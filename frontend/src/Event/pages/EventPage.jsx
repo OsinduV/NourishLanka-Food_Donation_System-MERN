@@ -5,6 +5,7 @@ import CalltoAction from '../components/CalltoAction';
 import { MdLocationOn } from "react-icons/md";
 import { BsCalendar2DateFill } from "react-icons/bs";
 import { IoIosTime } from "react-icons/io";
+import CommentSection from '../../Ratings and Review_f/components/CommentSection';
 
 export default function EventPage() {
   const { eventSlug } = useParams();
@@ -137,6 +138,7 @@ export default function EventPage() {
                 <p className='text-sm text-gray-600 truncate dark:text-white'>{event.eventlocationlong}</p>
               </div>
 
+
               <div className='flex justify-center items-center gap-1'>
                 <p className='text-sm text-gray-600 truncate dark:text-white'>Drive Type - {event.type}</p>
               </div>
@@ -151,7 +153,11 @@ export default function EventPage() {
 
       </div>
 
-      <div className='max-w-4xl mx-auto w-full mt-20'>
+  
+
+    <div className='max-w-4xl mx-auto w-full mt-20'>
+    <CommentSection postId={event._id} />
+
         <CalltoAction />
       </div>
     </main>

@@ -132,10 +132,11 @@ export default function CommunitySearch() {
               value={sidebarData.category}
               id='category'
             >
-              <option value='uncategorized'>Uncategorized</option>
+              <option value='uncategorized'>Select a Category</option>
               <option value='Low-Income Families'>Low-Income Families</option>
-              <option value='Orphanages'>Orphanages</option>
-              <option value='Elderly Individuals'>Elderly Individuals</option>
+             <option value='Orphanages'>Orphanages</option>
+             <option value='Elderly Care Homes'>Elderly care Homes</option>
+              <option value='Schools'>Schools</option>
             </Select>
           </div>
           <Button type='submit' outline gradientDuoTone='greenToBlue'>
@@ -144,12 +145,15 @@ export default function CommunitySearch() {
         </form>
       </div>
       <div className='w-full'>
-        <h1 className='text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5 '>
-          Recipient's Details
+      <h1 className='text-3xl  text-center font-semibold sm:border-bp-3 mt-5 '>
+         Give Your Hand to the Community
         </h1>
+        <p className='text-1xl  text-center  sm:border-b border-gray-500 p-3 mt-3 '>
+        "Explore stories of individuals and families in various districts facing food scarcity. Discover firsthand accounts, challenges, and needs, empowering you to make a meaningful difference. Join our community-driven platform to connect, support, and uplift those in need across Sri Lanka."
+        </p>
         <div className='p-7 flex flex-wrap gap-4'>
           {!loading && posts.length === 0 && (
-            <p className='text-xl text-gray-500'>No posts found.</p>
+            <p className='text-xl text-gray-500'>No  Recipient posts found.</p>
           )}
           {loading && <p className='text-xl text-gray-500'>Loading...</p>}
           {!loading &&

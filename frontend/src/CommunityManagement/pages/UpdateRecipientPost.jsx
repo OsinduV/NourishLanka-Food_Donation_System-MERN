@@ -110,7 +110,7 @@ export default function UpdateRecipientPost() {
     };
     return (
       <div className='p-3 max-w-3xl mx-auto min-h-screen'>
-        <h1 className='text-center text-3xl my-7 font-semibold'>Update post</h1>
+        <h1 className='text-center text-3xl my-7 font-semibold'>Update a Recipient post</h1>
         <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <TextInput
@@ -130,12 +130,64 @@ export default function UpdateRecipientPost() {
               }
               value={formData.category}
             >
-             <option value='uncategorized'>Select a category</option>
+             <option value='uncategorized'>Select a Category</option>
              <option value='Low-Income Families'>Low-Income Families</option>
              <option value='Orphanages'>Orphanages</option>
-             <option value='Elderly Individuals'>Elderly Individuals</option>
+             <option value='Elderly Care Homes'>Elderly care Homes</option>
+             <option value='Schools'>Schools</option>
             </Select>
           </div>
+
+          <div className='flex flex-col gap-4 sm:flex-row justify-between'>
+      <TextInput
+        type='text'
+        placeholder='Name of the Orphanage / School/ Elderly Care Home'
+        required
+        id='name'
+        className='flex-1'
+        onChange={(e) =>
+          setFormData({ ...formData, nameofplace: e.target.value })
+        }
+        value={formData.nameofplace}
+      />
+      <Select
+        required
+        id='district'
+        className='flex-1'
+        onChange={(e) =>
+          setFormData({ ...formData, district: e.target.value })
+        }
+        value={formData.district}
+      >
+        <option value=''>Select  a District</option>
+        <option value='Colombo'>Colombo</option>
+        <option value='Gampaha'>Gampaha</option>
+        <option value='Kalutara'>Kalutara</option>
+        <option value='Kandy'>Kandy</option>
+        <option value='Matale'>Matale</option>
+        <option value='Nuwara Eliya'>Nuwara Eliya</option>
+        <option value='Galle'>Galle</option>
+        <option value='Matara'>Matara</option>
+        <option value='Hambantota'>Hambantota</option>
+        <option value='Jaffna'>Jaffna</option>
+        <option value='Kilinochchi'>Kilinochchi</option>
+        <option value='Mannar'>Mannar</option>
+        <option value='Vavuniya'>Vavuniya</option>
+        <option value='Mullaitivu'>Mullaitivu</option>
+        <option value='Batticaloa'>Batticaloa</option>
+        <option value='Ampara'>Ampara</option>
+        <option value='Trincomalee'>Trincomalee</option>
+        <option value='Kurunegala'>Kurunegala</option>
+        <option value='Puttalam'>Puttalam</option>
+        <option value='Anuradhapura'>Anuradhapura</option>
+        <option value='Polonnaruwa'>Polonnaruwa</option>
+        <option value='Badulla'>Badulla</option>
+        <option value='Monaragala'>Monaragala</option>
+        <option value='Ratnapura'>Ratnapura</option>
+        <option value='Kegalle'>Kegalle</option>
+      </Select>
+    </div>
+
           <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
             <FileInput
               type='file'
@@ -180,7 +232,7 @@ export default function UpdateRecipientPost() {
               setFormData({ ...formData, content: value });
             }}
           />
-          <Button type='submit' gradientDuoTone='purpleToPink'>
+          <Button type='submit' gradientDuoTone='greenToBlue'>
             Update a Recipient post
           </Button>
           {publishError && (
