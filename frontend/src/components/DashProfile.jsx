@@ -286,6 +286,21 @@ export default function DashProfile() {
             )
           }
 
+{
+            currentUser.isAdmin && (
+              <Link to ={'/inventory-home'}>
+                 <Button
+                  type='button'
+                  gradientDuoTone='greenToBlue'
+                  className='w-full'
+                  >
+                    Manage Inventries
+                  </Button>
+              </Link>
+          
+            )
+          }
+
 
         </form>
         <div className="text-red-500 flex justify-between mt-5">
