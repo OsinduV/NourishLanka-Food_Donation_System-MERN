@@ -119,12 +119,11 @@ export const getTopFrpDonations = async (req, res, next) => {
         },
       }, // Group by frpId and keep the first frpIdData
       { $sort: { totalAmount: -1 } }, // Sort in descending order
+      { $limit: 5 } // Limit to 5 records
     ]);
 
     res.status(200).json({
-      totalAmountwithtopfrp,
-      totalAmountForFrpId,
-      // sortedFundRaisingPages
+      totalAmountwithtopfrp
     });
   } catch (error) {
     next(error);

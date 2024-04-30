@@ -23,12 +23,12 @@ export const register = async(req, res) => {
     }
   };
   //read one food bank data
- 
+
 export const readFb = async (req, res) => {
   const { id } = req.params; 
   
   try {
-    const foodbank = await Foodbank.findById(id);
+    const foodbank = await Foodbank.findById(req.params.id);
     if (!foodbank) {
       return res.status(404).json({ message: 'Food bank not found' });
     }

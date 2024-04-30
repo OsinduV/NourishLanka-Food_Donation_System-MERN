@@ -8,7 +8,7 @@ export function EditFoodBankPopover({ foodBankId, onSave, onCancel }) {
 
   useEffect(() => {
     if (open && foodBankId) {
-      fetch(`http://localhost:5000/api/foodbank/readfb/${foodBankId}`)
+      fetch(`http://localhost:3500/api/foodbank/readfb/${foodBankId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to fetch food bank data");
@@ -33,7 +33,7 @@ export function EditFoodBankPopover({ foodBankId, onSave, onCancel }) {
   };
 
   const handleSave = () => {
-    fetch(`http://localhost:5000/api/foodbank/updatefb/${foodBankId}`, {
+    fetch(`http://localhost:3500/api/foodbank/updatefb/${foodBankId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -139,6 +139,15 @@ export function EditFoodBankPopover({ foodBankId, onSave, onCancel }) {
                   id="email"
                   name="email"
                   value={foodBankData.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Label htmlFor="status" value="status" />
+                <TextInput
+                  id="status"
+                  name="status"
+                  value={foodBankData.status}
                   onChange={handleChange}
                 />
               </div>

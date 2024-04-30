@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Card ,Progress } from 'flowbite-react';
 import { EditFoodBankPopover } from '../components/editfoodbankadminpopover.jsx';
+import emailjs from '@emailjs/browser';
 
 export default function AdminDashFb() {
     // retreiving the foodbank pending requests
@@ -10,7 +11,7 @@ export default function AdminDashFb() {
     useEffect(() => {
         const fetchPendingFoodBanks = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/foodbank/pendingfb?status=pending');
+                const response = await fetch('http://localhost:3500/api/foodbank/pendingfb?status=pending');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -31,7 +32,7 @@ export default function AdminDashFb() {
     useEffect(() => {
         const fetchAllFoodBanks = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/foodbank/readallfb');
+                const response = await fetch('http://localhost:3500/api/foodbank/readallfb');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -47,7 +48,7 @@ export default function AdminDashFb() {
 
     //delete button
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/api/foodbank/deletefb/${id}`, {
+        fetch(`http://localhost:3500/api/foodbank/deletefb/${id}`, {
             method: 'DELETE',
         })
             .then(response => {
@@ -66,30 +67,52 @@ export default function AdminDashFb() {
             });
     };
     //approve
-    const handleApprove = async (id) => {
+    const handleApprove = async (id,email,foodbankname) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/foodbank/statusapprove/${id}`, {
+            const response = await fetch(`http://localhost:3500/api/foodbank/statusapprove/${id}`, {
                 method: 'PUT'
             });
             if (!response.ok) {
                 throw new Error('Failed to approve food bank');
             }
-            window.location.reload();
+            else{
+            //approved email sending
+                emailjs.init({
+                    publicKey: 'M8SpLmJec29Thf0Yz',
+                    });
+                const emailResponse = await emailjs.send("nourishlankafoodbankgml", "template_e9th1tt", {
+                    foodbankname,
+                    email 
+                 });
+                 window.location.reload();
+            }
+            
         } catch (error) {
             console.error('Error approving food bank:', error);
             setError(error.message);
         }
     };
     //reject
-    const handleReject = async (id) => {
+    const handleReject = async (id,email,foodbankname) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/foodbank/statusreject/${id}`, {
+            const response = await fetch(`http://localhost:3500/api/foodbank/statusreject/${id}`, {
                 method: 'PUT'
             });
             if (!response.ok) {
                 throw new Error('Failed to reject food bank');
             }
-            window.location.reload();
+            else{
+                //rejected email sending
+                emailjs.init({
+                    publicKey: 'M8SpLmJec29Thf0Yz',
+                    });
+                const emailResponse = await emailjs.send("nourishlankafoodbankgml", "template_gls2o6e", {
+                    foodbankname,
+                    email 
+                 });
+                 window.location.reload();
+            }
+            
         } catch (error) {
             console.error('Error rejecting food bank:', error);
             setError(error.message);
@@ -119,7 +142,7 @@ export default function AdminDashFb() {
                                             <p>
                                                 Space:- {foodBank.storagespace} sqft <br />
                                                 Location:- {foodBank.address}, {foodBank.district}<br />
-                                                OpenTime:- {foodBank.opentime} to {foodBank.closetime}<br />
+                                                OpenTime:- {foodBank.opentime} to {foodBank.closetime}<br /><br />
                                                 More:-{foodBank.description}
                                             </p>
                                         </Table.Cell>
@@ -133,8 +156,8 @@ export default function AdminDashFb() {
                                         <Table.Cell>
                                             <div className="flex flex-wrap gap-2">
                                                 <Button.Group>
-                                                    <Button outline gradientDuoTone="greenToBlue" onClick={() => handleApprove(foodBank._id)}>APPROVE</Button>
-                                                    <Button outline gradientDuoTone="pinkToOrange" onClick={() => handleReject(foodBank._id)}>REJECT</Button>
+                                                    <Button outline gradientDuoTone="greenToBlue" onClick={() => handleApprove(foodBank._id,foodBank.email,foodBank.foodbankname) }>APPROVE</Button>
+                                                    <Button outline gradientDuoTone="pinkToOrange" onClick={() => handleReject(foodBank._id,foodBank.email,foodBank.foodbankname)}>REJECT</Button>
                                                 </Button.Group>
                                             </div>
                                         </Table.Cell>
@@ -151,7 +174,7 @@ export default function AdminDashFb() {
             
             <Card className='ml-10 mr-10 mt-2 mb-2'>
                 <div className='flex row mt-2 justify-center'>
-                    <div className="overflow-x-auto w-4/5 h-4/7">
+                    <div className="overflow-x-auto w-4/5 h-96">
                         <Table>
                             <Table.Head className='sticky top-0 z-50 bg-white'>
                                 <Table.HeadCell>Foodbank Name</Table.HeadCell>

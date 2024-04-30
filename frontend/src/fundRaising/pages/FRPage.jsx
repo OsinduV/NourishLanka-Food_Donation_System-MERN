@@ -10,6 +10,7 @@ import GoalUpdate from "../components/frpComponents/GoalUpdate";
 import DisplayNameUpdate from "../components/frpComponents/DisplayNameUpdate";
 import BannerImgUpload from "../components/frpComponents/BannerImgUpload";
 import { MdModeEditOutline } from "react-icons/md";
+import CommentSection from "../../Ratings and Review_f/components/CommentSection";
 
 export const FormDataContext = createContext(null);
 
@@ -503,6 +504,7 @@ export default function FRPage() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <CommentSection postId={frp._id} />
     </div>
   );
 }
