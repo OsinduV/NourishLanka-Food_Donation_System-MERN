@@ -46,7 +46,7 @@ export default function EventPage() {
   return (
     <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
       <h1 className='text-3xl mt-10 p-3 text-center max-w-2xl mx-auto lg:text-4xl'>{event && event.title}</h1>
-      <p className='font-semibold text-slate-700 dark:text-slate-300 mx-auto'>Event ID - {event.customId}</p>
+      <p className='font-semibold text-slate-700 dark:text-slate-300 mx-auto text-xl'>Event ID - {event.customId}</p>
       <p className='font-semibold text-slate-700 dark:text-slate-300 mx-auto'>status - {event.status}</p>
 
       ,<div className='flex flex-row'></div>
