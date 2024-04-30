@@ -9,6 +9,11 @@ export default function EventCard({ event }) {
     if (event.category === 'DonationEvent') {
       return (
         <>
+
+<div className="flex justify-center items-center gap-1">
+           <MdLocationOn className="h-6 w-7 text-teal-500" />
+            <p className="text-sm text-gray-600 truncate dark:text-white">{event.location}</p>
+          </div>
           <div className="flex justify-center items-center gap-1">
             <BsCalendar2DateFill className="h-4 w-6 text-teal-500" />
             <p className="text-sm text-gray-600 truncate dark:text-white">{event.date}</p>
