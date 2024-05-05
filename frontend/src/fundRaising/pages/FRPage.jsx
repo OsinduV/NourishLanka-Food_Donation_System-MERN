@@ -1,4 +1,11 @@
-import { Alert, Button, Modal, Progress, Spinner } from "flowbite-react";
+import {
+  Alert,
+  Button,
+  Modal,
+  Navbar,
+  Progress,
+  Spinner,
+} from "flowbite-react";
 import React, { createContext, useEffect, useState } from "react";
 import { FaHandHoldingHeart } from "react-icons/fa";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -11,6 +18,7 @@ import DisplayNameUpdate from "../components/frpComponents/DisplayNameUpdate";
 import BannerImgUpload from "../components/frpComponents/BannerImgUpload";
 import { MdModeEditOutline } from "react-icons/md";
 import CommentSection from "../../Ratings and Review_f/components/CommentSection";
+import FrpDonations from "../components/FrpDonations";
 
 export const FormDataContext = createContext(null);
 
@@ -34,6 +42,8 @@ export default function FRPage() {
   const [bannerModel, setBannerModel] = useState(false);
   const [contentModel, setContentModel] = useState(false);
   const [goalModel, setGoalModel] = useState(false);
+
+  const [showDonations, setShowDonations] = useState(false);
 
   const [callUseEffect, setCallUseEffect] = useState(false);
 
@@ -111,7 +121,9 @@ export default function FRPage() {
     const fetchFrpDonations = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/frpdonation/getfrpdonations?frpId=${frpId}`);
+        const res = await fetch(
+          `/api/frpdonation/getfrpdonations?frpId=${frpId}`
+        );
         const data = await res.json();
         if (res.ok) {
           setGotFrps(data);
@@ -194,7 +206,7 @@ export default function FRPage() {
               </div>
             )}
             <div className="relative mx-auto px-16">
-              <div className="w-36 h-36 self-center cursor-pointer shadow-md rounded-full">
+              <div className="w-40 h-40 self-center cursor-pointer shadow-md rounded-full">
                 <img
                   src={frp.pageImage}
                   alt="PagePhoto"
@@ -226,7 +238,7 @@ export default function FRPage() {
 
             <div className="mx-auto">
               <Link to={`/frpdonate-page/${frp._id}`}>
-                <Button size="lg" gradientDuoTone="pinkToOrange">
+                <Button size="lg" gradientDuoTone="greenToBlue">
                   Donate
                   <FaHandHoldingHeart className="ml-2 h-5 w-5" />
                 </Button>
@@ -251,9 +263,13 @@ export default function FRPage() {
               </div>
               <div className="border-2 rounded-full">
                 <Progress
-                  progress={(gotFrps && frp) && gotFrps.totalFrpDonationsAmount/frp.goal*100}
+                  progress={
+                    gotFrps &&
+                    frp &&
+                    (gotFrps.totalFrpDonationsAmount / frp.goal) * 100
+                  }
                   size="xl"
-                  color="pink"
+                  color="teal"
                   className="bg-gray-700"
                 />
               </div>
@@ -266,22 +282,50 @@ export default function FRPage() {
           />
         </div>
       </div>
-      <div className="px-14 py-10 flex flex-col max-w-6xl mx-auto relative">
-        {editMode && (
+
+      <Navbar className="border-b-2">
+        <div className="mx-auto flex gap-3">
           <div
-            onClick={() => setContentModel(true)}
-            className="absolute right-0 top-2 bg-gray-600 text-white dark:bg-gray-200 dark:text-gray-800 text-xl rounded-md p-2 cursor-pointer hover:text-pink-500"
+            className={`hover:bg-gray-300 p-2 rounded-md cursor-pointer ${
+              !showDonations ? "bg-gray-300" : ""
+            }`}
+            onClick={() => setShowDonations(false)}
           >
-            <MdModeEditOutline />
+            <p className="text-lg">Story</p>
           </div>
-        )}
-        <div
-          className="mx-auto w-full post-content"
-          dangerouslySetInnerHTML={{
-            __html: frp && frp.content,
-          }}
-        ></div>
-      </div>
+          <div
+            className={`hover:bg-gray-300 p-2 rounded-md cursor-pointer ${
+              showDonations ? 'bg-gray-300' : ''
+            }`}
+            onClick={() => setShowDonations(true)}
+          >
+            <p className="text-lg">Donations</p>
+          </div>
+        </div>
+      </Navbar>
+      {showDonations ? (
+        <div className="px-14 py-10 max-w-6xl mx-auto">
+          <FrpDonations frp_Id={frp._id} />
+        </div>
+      ) : (
+        <div className="px-14 py-10 flex flex-col max-w-6xl mx-auto relative">
+          {editMode && (
+            <div
+              onClick={() => setContentModel(true)}
+              className="absolute right-0 top-2 bg-gray-600 text-white dark:bg-gray-200 dark:text-gray-800 text-xl rounded-md p-2 cursor-pointer hover:text-pink-500"
+            >
+              <MdModeEditOutline />
+            </div>
+          )}
+          <div
+            className="mx-auto w-full post-content"
+            dangerouslySetInnerHTML={{
+              __html: frp && frp.content,
+            }}
+          ></div>
+        </div>
+      )}
+
       <Modal show={openModal} size="2xl" onClose={() => setOpenModal(false)}>
         {currentStep > 1 && <Modal.Header />}
         <Modal.Body>

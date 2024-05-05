@@ -69,6 +69,7 @@ import Dshedules from "./Event/pages/Dshedules"
 
 import ReviewPage from "./Ratings and Review_f/pages/ReviewPage"
 import ReviewHome from "./Ratings and Review_f/pages/ReviewHome"
+import FrpSearch from "./fundRaising/pages/FrpSearch";
 
 
 export default function App() {
@@ -181,6 +182,7 @@ export default function App() {
           <Route path="/frpdonate-page/:frpId" element={<FrpDonate />} />
           <Route path="/osindutst" element={<OsinduTst />} />
           <Route path="/frp-create" element={<FRPCreate />} />
+          <Route path="/frp-search" element={<FrpSearch />} />
           <Route element={<PrivateRoute />}>
           <Route path="/fr-page/:frpId" element={<FRPage />} />
           <Route path="/fr-page/:frpId/:updatestat" element={<FRPage />} />
