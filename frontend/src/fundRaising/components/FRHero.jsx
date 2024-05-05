@@ -5,12 +5,14 @@ import { FaPager } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Badge from "./Badge";
+import { useSelector } from "react-redux";
 
 export default function FRHero({
   raised,
   participants,
   frps
 }) {
+  const { currentUser } = useSelector((state) => state.user);
   return (
 
     <div className="max-w-full mx-auto py-4">
@@ -22,11 +24,11 @@ export default function FRHero({
           </h1>
           <div className="flex justify-center my-10 gap-4">
             <Link to="/fr-reg">
-              <Button size="lg" gradientDuoTone="greenToBlue">
-                Register
+              <Button size="lg" gradientDuoTone="greenToBlue">{}
+              {currentUser && currentUser.isFundraiser ? "Create New" : "Register"}
               </Button>
             </Link>
-            <Link to="/sign-in">
+            <Link to="/frp-search">
               <Button size="lg" gradientDuoTone="greenToBlue">
                 Donate
                 <FaHandHoldingHeart className="ml-2 h-5 w-5" />
@@ -41,21 +43,21 @@ export default function FRHero({
               endCountNum={participants && participants}
               startCountText=""
               badgeText="Doners"
-              containerStyles="w-64 "
+              containerStyles="w-64 bg-gray-700"
             />
             <Badge
               icon={<FaHandHoldingHeart />}
               endCountNum={raised && raised}
               startCountText="Rs."
               badgeText="RAISED"
-              containerStyles="min-w-64 pr-4"
+              containerStyles="min-w-64 pr-4 bg-gray-700"
             />
             <Badge
               icon={<FaPager />}
               endCountNum={frps && frps}
               startCountText=""
               badgeText="Fundraising Pages"
-              containerStyles="w-64"
+              containerStyles="w-64 bg-gray-700"
             />
           </div>
         </div>
