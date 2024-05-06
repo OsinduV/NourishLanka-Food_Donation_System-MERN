@@ -47,9 +47,36 @@ export default function Volunteers() {
       console.log(error.message);
     }
   };
+  const generateReport = () => {
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      "Full Name,Email,Address,Phone Number, Date,Volunteering activity,time\n";
+    const rows = volunteers.map(
+      (request) =>
+        `${request.fullName},${request.email},${request.address},${request.phoneNumber},${new Date(
+          request.updatedAt
+        ).toLocaleDateString()},${ request.category},${request.time}`
+    );
+    const csvRows = rows.join("\n");
+    const csv = csvContent + csvRows;
+    const encodedUri = encodeURI(csv);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "volunteers_report.csv");
+    document.body.appendChild(link);
+    link.click();
+  };
 
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+      <Button
+              type="button"
+              gradientDuoTone="greenToBlue"
+              onClick={generateReport}
+              className="ml-auto"
+            >
+              Generate Report
+            </Button>
       <Table hoverable className='shadow-md'>
         <Table.Head>
           <Table.HeadCell>Full Name</Table.HeadCell>
