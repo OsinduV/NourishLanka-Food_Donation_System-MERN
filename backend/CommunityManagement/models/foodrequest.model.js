@@ -2,13 +2,12 @@ import mongoose from "mongoose";
 
 const FoodRequestSchema = new mongoose.Schema(
     {   
-      foodrequestId: {
-        type: String,
-        default: function () {
-          return 'FR' + Date.now(); // Generating a unique ID based on the current timestamp
+        foodrequestID: {
+            type: String,
+            unique: true,
+            required: true,
+            default: () => `frid${Math.floor(1000 + Math.random() * 9000)}` // Generates a random ID starting with "frid" followed by 4 digits
         },
-        unique: true,
-      },
         userId: {
           type: String,
           required: true,
@@ -26,63 +25,52 @@ const FoodRequestSchema = new mongoose.Schema(
             type: String,
             default: 'uncategorized',
             required:true,
-          },
-          position:{
-            type: String,
-    
-          },
-          porphanage:{
-            type: String, 
-          },
-
-          pelders:{
-            type: String,
-          },
-
-          pschool:{
-            type: String,
-          },
-
-          incomeLevel:{
-            type: String,
-         
-          }, 
-
+        },
+        position:{
+          type: String,
+        },
+        porphanage:{
+          type: String, 
+        },
+        pelders:{
+          type: String,
+        },
+        pschool:{
+          type: String,
+        },
+        incomeLevel:{
+          type: String,
+        }, 
         contactnumber:{
           type: String,
           required: true, 
         },
         nochildren:{
             type: String,
-          },
+        },
         nomales:{
             type: String,
-          },
+        },
         nofemales:{
             type: String,
-          },
+        },
         email:{
             type: String,
-          },
-          address:{
+        },
+        address:{
             type: String,
-          },
+        },
         image: {
           type: String,
-          
         },
         zipcode: {
           type: String,
-          
         },
         householdSize:{
           type: String,
         },
-        
-       
         content:{
             type:String,
-
         },
         status:{
           type:String,
@@ -95,11 +83,7 @@ const FoodRequestSchema = new mongoose.Schema(
         },
       },
       { timestamps: true }
-    );
-    
-    const FoodRequest= mongoose.model('FoodRequest', FoodRequestSchema);
-    
-    export default FoodRequest;
+);
 
-
-
+const FoodRequest = mongoose.model('FoodRequest', FoodRequestSchema);
+export default FoodRequest;
