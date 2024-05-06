@@ -72,10 +72,18 @@ export default function Dshedules() {
   };
 
   return (
+
+    
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
 
       { userEvents.length > 0 ? (
         <>
+             <div className='text-center'>
+                    <h2 className='md:text-4xl text-4xl font-bold mb-6 leading-relaxed'>Find Scheduled Donation Events Here</h2>
+                    </div>
+
+        
+
             <Table hoverable className='shadow-md'>
              <Table.Head>
              <Table.HeadCell>Event ID</Table.HeadCell>

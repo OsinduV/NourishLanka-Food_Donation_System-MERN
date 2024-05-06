@@ -3,7 +3,9 @@ import FRHero from "../components/FRHero";
 import { Card, Progress, Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 
+
 export default function FRHome() {
+
   const [loading, setLoading] = useState(true);
   const [gotFrpDonations, setGotFrpDonations] = useState(null);
   const [frps, setFrps] = useState(null);

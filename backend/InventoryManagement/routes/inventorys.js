@@ -20,6 +20,7 @@ import {
   searchInventory,
   sortInventoryByExpDate,
   sortInventoryByQuantity,
+  generateInventoryReport,
 } from "../controllers/inventoryController.js";
 
 const router = express.Router();
@@ -47,6 +48,9 @@ router.get("/sort/quantity", sortInventoryByQuantity);
 
 //Sort by date
 router.get("/sort/expdate", sortInventoryByExpDate);
+
+// Generate PDF report route
+router.get("/report/reportgen", generateInventoryReport);
 
 // module.exports = router;
 export default router;

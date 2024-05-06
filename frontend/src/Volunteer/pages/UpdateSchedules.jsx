@@ -93,8 +93,8 @@ export default function UpdateSchedules() {
         <div className='flex flex-col mb-7 gap-4 sm:flex-row justify-between'>
             
         Date :<TextInput
-                 type='text'
-                 placeholder='dd/mm/yyyy'
+                 type='date'
+                 placeholder=''
                  required
                  icon={BsCalendar2DateFill}
                  id='date'
@@ -109,28 +109,7 @@ export default function UpdateSchedules() {
             </div>
             
             
-            <div className='flex flex-col  mb-7 gap-4 sm:flex-row justify-between'>
-            Day : <Select
-        required
-        id='day'
-        className='flex-1 '
-        onChange={(e) =>
-          setFormData({ ...formData, day: e.target.value })
-        }
-        value={formData.day}
-         >
-        <option value='uncategorized'>Choose Day</option>
-        <option value='monday'>Monday</option>
-        <option value='tuesday '>Tuesday</option>
-        <option value='wednesday'>Wednesday</option>
-        <option value='thursday'>Thursday</option>
-        <option value='friday'>Friday</option>
-        <option value='saturday'>Saturday</option>
-        <option value='sunday'>Sunday</option>
-        </Select>
-       
-        
-            </div>
+            
 
            
             

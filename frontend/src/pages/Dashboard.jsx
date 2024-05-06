@@ -38,6 +38,9 @@ import ComAllDonations from '../Event/pages/ComAllDonations';
 import CompletedDonations from '../Event/pages/CompletedDonations';
 import CompletedFooddrives from '../Event/pages/CompletedFooddrives';
 import DashComments from '../Ratings and Review_f/components/DashComments';
+import DashMyDonationHistory from '../fundRaising/components/DashMyDonationHistory';
+import DashAdminDonations from '../fundRaising/components/DashAdminDonations';
+import AdminDashFb from '../Foodbank/pages/AdminDashFb';
 
 
 
@@ -63,15 +66,19 @@ export default function Dashboard() {
       {/* profile... */}
       {tab === 'profile' && <DashProfile />}
 
-
-{/*VOLUNTEER MANAGER DASHBOARD */}
+{/* Fund Raising management */}
 
       {/* frps... */}
       {tab === 'frps' && <DashFrps/>}
       {/* myFrps... */}
       {tab === 'myfrps' && <DashMyFrps />}
+      {/* mydonationhistory */}
+      {tab === 'mydonationHistory' && <DashMyDonationHistory />}
+      {/* all Donations  */}
+      {tab === 'admindonations' && <DashAdminDonations />}
 
 
+{/*VOLUNTEER MANAGER DASHBOARD */}
 
        {/* schedules... */}
        {tab === 'schedules' && <DashSchedules/>}
@@ -175,6 +182,8 @@ export default function Dashboard() {
       {/* my completed fooddrive requests... */}
       {tab === 'fcompleted' && <CompletedFooddrives />}
 
+
+      {tab === 'FoodBanks' && <AdminDashFb />}
 
 
       {/* comments  */}

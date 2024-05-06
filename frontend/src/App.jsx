@@ -12,6 +12,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import InventoryHome from "./Inventory_Management/pages/InventoryHome";
 import { InventorysContextProvider } from "./Inventory_Management/context/InventoryContext";
 import Navbar from "./Inventory_Management/components/Navbar";
+import InventoryShow from "./Inventory_Management/pages/InventoryShow";
 
 import FRHome from "./fundRaising/pages/FRHome";
 import FRReg from "./fundRaising/pages/FRReg";
@@ -69,6 +70,7 @@ import Dshedules from "./Event/pages/Dshedules"
 
 import ReviewPage from "./Ratings and Review_f/pages/ReviewPage"
 import ReviewHome from "./Ratings and Review_f/pages/ReviewHome"
+import FrpSearch from "./fundRaising/pages/FrpSearch";
 
 
 export default function App() {
@@ -92,28 +94,28 @@ export default function App() {
 
 
           {/* volunteer routes */}
-          <Route path="/volunteer-one" element={<VolunteerOne />} />
-          <Route path="/volunteer-two" element={<VolunteerTwo />} />
-          <Route path="/volunteer-three" element={<VolunteerThree />} />
-          <Route path="/volunteer-four/:userId" element={<VolunteerFour />} />
-          <Route
-            path="/volunteer-five/:scheduleId"
-            element={<VolunteerFive />}
-          />
-          <Route path="/volunteer-six/:userId" element={<VolunteerSix />} />
+        <Route path="/volunteer-one" element={<VolunteerOne/>} />
+        <Route path="/volunteer-two" element={<VolunteerTwo/>} />
+        <Route path="/volunteer-three" element={<VolunteerThree/>} />
+        <Route path="/volunteer-four/:foodbankId" element={<VolunteerFour/>} />
+        <Route path="/volunteer-five/:scheduleId/:foodbankId" element={<VolunteerFive/>} />
+        <Route path="/volunteer-six/:userId" element={<VolunteerSix/>} />
 
-          <Route element={<OnlyAdminPrivateRoute />}>
-            <Route path="/create-schedules" element={<CreateSchedules />} />
-            <Route
-              path="/update-schedules/:scheduleId"
-              element={<UpdateSchedules />}
-            />
-          </Route>
+        <Route element={<OnlyAdminPrivateRoute />}>
+          <Route path='/create-schedules' element={<CreateSchedules />} />
+          <Route path='/update-schedules/:scheduleId' element={<UpdateSchedules />} />
+            </Route>
+
+         
+          
+            
 
           {/* foodbank routes */}
           <Route path="/foodbankreg" element={<FbRegisterpage />} />
           <Route path="/foodbankhome" element={<Fbhome />} />
+          <Route element={<PrivateRoute />}>
           <Route path="/foodbankDash" element={<FoodbankDash />} />
+          </Route>
           <Route path="/AdminDashFb" element={<AdminDashFb />} />
 
           <Route path="/projects" element={<Project />} />
@@ -181,6 +183,7 @@ export default function App() {
           <Route path="/frpdonate-page/:frpId" element={<FrpDonate />} />
           <Route path="/osindutst" element={<OsinduTst />} />
           <Route path="/frp-create" element={<FRPCreate />} />
+          <Route path="/frp-search" element={<FrpSearch />} />
           <Route element={<PrivateRoute />}>
           <Route path="/fr-page/:frpId" element={<FRPage />} />
           <Route path="/fr-page/:frpId/:updatestat" element={<FRPage />} />
@@ -193,7 +196,13 @@ export default function App() {
 
         <InventorysContextProvider>
           <Routes>
+          <Route element={<PrivateRoute />}>
             <Route path="/inventory-home" element={<InventoryHome />} />
+
+            <Route path="/inventory-show" element={<InventoryShow />} />
+
+          </Route>
+
           </Routes>
         </InventorysContextProvider>
         <Footer />

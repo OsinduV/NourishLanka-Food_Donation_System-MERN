@@ -56,9 +56,9 @@ export default function Volunteers() {
           <Table.HeadCell>Email</Table.HeadCell>
           <Table.HeadCell>Address</Table.HeadCell>
           <Table.HeadCell>Phone Number</Table.HeadCell>
-          <Table.HeadCell>District</Table.HeadCell>
+          
           <Table.HeadCell>Date</Table.HeadCell>
-          <Table.HeadCell>Day</Table.HeadCell>
+          
           <Table.HeadCell>Volunteering activity</Table.HeadCell>
           <Table.HeadCell>Time</Table.HeadCell>
           <Table.HeadCell>
@@ -75,9 +75,9 @@ export default function Volunteers() {
               <Table.Cell>{volunteer.email}</Table.Cell>
               <Table.Cell>{volunteer.address}</Table.Cell>
               <Table.Cell>{volunteer.phoneNumber}</Table.Cell>
-              <Table.Cell>{volunteer.district}</Table.Cell>
+            
               <Table.Cell>{volunteer.date}</Table.Cell>
-              <Table.Cell>{volunteer.day}</Table.Cell>
+              
               <Table.Cell>{volunteer.category}</Table.Cell>
               <Table.Cell>{volunteer.time}</Table.Cell>
               <Table.Cell>

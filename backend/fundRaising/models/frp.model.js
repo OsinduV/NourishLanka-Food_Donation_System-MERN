@@ -21,12 +21,12 @@ const FRPSchema = new mongoose.Schema(
     pageImage: {
       type: String,
       default:
-        "https://images.pexels.com/photos/4968631/pexels-photo-4968631.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://firebasestorage.googleapis.com/v0/b/mern-community-nourish-lanka.appspot.com/o/1714459939102-drawn-clothing-donation-concept_23-2148832528.jpg?alt=media&token=2867e7ac-b0f9-458a-bfbb-7775608670f0",
     },
     bannerImage: {
       type: String,
       default:
-        "https://images.pexels.com/photos/4968631/pexels-photo-4968631.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://firebasestorage.googleapis.com/v0/b/mern-community-nourish-lanka.appspot.com/o/1714459946569-view-kid-practicing-health-wellness-activity_23-2151401973.jpg?alt=media&token=e39ae35d-94e6-4285-abc7-4ef96182dac1",
     },
   },
   { timestamps: true }
