@@ -95,7 +95,7 @@ export default function DashSchedules() {
                   
                <Table.HeadCell>Schedule ID</Table.HeadCell>
                <Table.HeadCell>Date </Table.HeadCell>
-               <Table.HeadCell>Day</Table.HeadCell>
+           
                <Table.HeadCell>Volunteering activity</Table.HeadCell>
                <Table.HeadCell>Time</Table.HeadCell>
                <Table.HeadCell>
@@ -116,7 +116,7 @@ export default function DashSchedules() {
                   </Link>
                 </Table.Cell>
                 <Table.Cell>{schedules.date}</Table.Cell>
-                <Table.Cell>{schedules.day}</Table.Cell>
+              
                 <Table.Cell>{schedules.category}</Table.Cell>
                 <Table.Cell>{schedules.time}</Table.Cell>
                 <Table.Cell>

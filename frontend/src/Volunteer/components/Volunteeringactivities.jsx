@@ -13,7 +13,7 @@ export default function Volunteeringactivities() {
     useEffect(() => {
       const fetchVolunteers = async () => {
         try {
-          const res = await fetch(`/api/volunteer/getvolunteer`);
+          const res = await fetch(`/api/volunteer/getvolunteer?userId=${currentUser._id}`);
           const data = await res.json();
           if (res.ok) {
             setVolunteers(data.volunteers || []);
@@ -89,7 +89,7 @@ export default function Volunteeringactivities() {
                     }}
                     className='font-medium text-red-500 hover:underline cursor-pointer'
                   >
-                    Reject
+                    Delete
                   </span>
                 </Table.Cell>
               </Table.Row>
