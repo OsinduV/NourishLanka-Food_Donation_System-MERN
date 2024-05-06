@@ -12,6 +12,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import InventoryHome from "./Inventory_Management/pages/InventoryHome";
 import { InventorysContextProvider } from "./Inventory_Management/context/InventoryContext";
 import Navbar from "./Inventory_Management/components/Navbar";
+import InventoryShow from "./Inventory_Management/pages/InventoryShow";
 
 import FRHome from "./fundRaising/pages/FRHome";
 import FRReg from "./fundRaising/pages/FRReg";
@@ -196,6 +197,7 @@ export default function App() {
         <InventorysContextProvider>
           <Routes>
             <Route path="/inventory-home" element={<InventoryHome />} />
+            <Route path="/inventory-show" element={<InventoryShow />} />
           </Routes>
         </InventorysContextProvider>
         <Footer />

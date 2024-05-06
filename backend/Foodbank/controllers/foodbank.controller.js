@@ -38,7 +38,20 @@ export const readFb = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+  //read the foodbank related to the current user id
 
+  export const readUserFb = async (req, res) => {
+    const { userID } = req.query;
+    try {
+        // Fetch only the approved food banks with required fields
+        const foodbanks = await Foodbank.find({ userID })
+        res.status(200).json(foodbanks);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+ 
   //read foodbanks with pending
   export const pendingfb = async (req, res) => {
     const { status } = req.query;
@@ -116,6 +129,26 @@ export const readFb = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+// Update current space
+export const updateCurrentSpace = async (req, res) => {
+  const { id } = req.params;
+  const { currentSpace } = req.body; // Extract new current space value from request body
+
+  try {
+    const updatedFoodbank = await Foodbank.findByIdAndUpdate(id, { currentspace: currentSpace }, { new: true });
+
+    if (!updatedFoodbank) {
+      return res.status(404).json({ message: 'Food bank not found' });
+    }
+
+    res.status(200).json(updatedFoodbank);
+  } catch (error) {
+    console.error('Internal server error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 //Status reject
 export const statusreject =async (req, res) => {
   const { id } = req.params;
