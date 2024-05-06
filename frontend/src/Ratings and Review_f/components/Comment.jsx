@@ -25,11 +25,13 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
     getUser();
   }, [comment]);
 
+  // Function to handle editing mode
   const handleEdit = () => {
     setIsEditing(true);
     setEditedContent(comment.content);
   };
 
+   // Function to save edited content
   const handleSave = async () => {
     try {
       const res = await fetch(`/api/comment/editComment/${comment._id}`, {
@@ -95,6 +97,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
             </div>
           </>
         ) : (
+          // Displaying comment content
           <>
             <p className='text-gray-500 pb-2'>{comment.content}</p>
             <div className='flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2'>

@@ -13,12 +13,16 @@ export default function CommentSection({ postId }) {
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
+
+  // Function to handle comment submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (comment.length > 200) {
+      // If comment exceeds 200 characters, return and do not submit
       return;
     }
     try {
+      // Send comment data to the server
       const res = await fetch('/api/comment/create', {
         method: 'POST',
         headers: {
@@ -40,7 +44,7 @@ export default function CommentSection({ postId }) {
       setCommentError(error.message);
     }
   };
-
+// Fetch comments when the component mounts or when postId changes
   useEffect(() => {
     const getComments = async () => {
       try {
@@ -83,7 +87,7 @@ export default function CommentSection({ postId }) {
       console.log(error.message);
     }
   };
-
+// Function to handle comment editing
   const handleEdit = async (comment, editedContent) => {
     setComments(
       comments.map((c) =>
@@ -91,7 +95,7 @@ export default function CommentSection({ postId }) {
       )
     );
   };
-
+// Function to handle comment deletion
   const handleDelete = async (commentId) => {
     setShowModal(false);
     try {
