@@ -15,12 +15,17 @@ export default function CommentSection({ postId }) {
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
 
+
+  // Function to handle comment submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (comment.length > 200) {
+      // If comment exceeds 200 characters, return and do not submit
       return;
     }
     try {
+      // Send comment data to the server
       const res = await fetch('/api/comment/create', {
         method: 'POST',
         headers: {
@@ -44,6 +49,9 @@ export default function CommentSection({ postId }) {
     }
   };
 
+// Fetch comments when the component mounts or when postId changes
+
+
   const sendEmail = async (userEmail) => {
     try {
       emailjs.init('user_your_user_id'); // Initialize EmailJS with your USER_ID
@@ -61,6 +69,7 @@ export default function CommentSection({ postId }) {
       console.error('Error sending email:', error);
     }
   };
+
 
   useEffect(() => {
     const getComments = async () => {
@@ -104,7 +113,7 @@ export default function CommentSection({ postId }) {
       console.log(error.message);
     }
   };
-
+// Function to handle comment editing
   const handleEdit = async (comment, editedContent) => {
     setComments(
       comments.map((c) =>
@@ -112,7 +121,7 @@ export default function CommentSection({ postId }) {
       )
     );
   };
-
+// Function to handle comment deletion
   const handleDelete = async (commentId) => {
     setShowModal(false);
     try {

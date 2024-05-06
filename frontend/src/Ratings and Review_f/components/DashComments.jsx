@@ -1,16 +1,15 @@
-
-import { Modal, Table, Button } from 'flowbite-react';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { Modal, Table, Button } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { FaCheck, FaTimes } from "react-icons/fa";
 
 export default function DashComments() {
   const { currentUser } = useSelector((state) => state.user);
   const [comments, setComments] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [commentIdToDelete, setCommentIdToDelete] = useState('');
+  const [commentIdToDelete, setCommentIdToDelete] = useState("");
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -55,7 +54,7 @@ export default function DashComments() {
       const res = await fetch(
         `/api/comment/deleteComment/${commentIdToDelete}`,
         {
-          method: 'DELETE',
+          method: "DELETE",
         }
       );
       const data = await res.json();
@@ -71,12 +70,38 @@ export default function DashComments() {
       console.log(error.message);
     }
   };
-
+  const generateReport = () => {
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      "Date updated,Comment content,Number of likes,PostId,UserId\n";
+    const rows = comments.map(
+      (request) =>
+        `${new Date(request.updatedAt).toLocaleDateString()},${
+          request.content
+        },${request.numberOfLikes},${request.postId},${request.userId},`
+    );
+    const csvRows = rows.join("\n");
+    const csv = csvContent + csvRows;
+    const encodedUri = encodeURI(csv);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "comment_report.csv");
+    document.body.appendChild(link);
+    link.click();
+  };
   return (
-    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
       {currentUser.isAdmin && comments.length > 0 ? (
         <>
-          <Table hoverable className='shadow-md'>
+          <Button
+            type="button"
+            gradientDuoTone="greenToBlue"
+            onClick={generateReport}
+            className="ml-auto mb-5 mt-5"
+          >
+            Generate Report
+          </Button>
+          <Table hoverable className="shadow-md">
             <Table.Head>
               <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>Comment content</Table.HeadCell>
@@ -86,8 +111,8 @@ export default function DashComments() {
               <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
             {comments.map((comment) => (
-              <Table.Body className='divide-y' key={comment._id}>
-                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+              <Table.Body className="divide-y" key={comment._id}>
+                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     {new Date(comment.updatedAt).toLocaleDateString()}
                   </Table.Cell>
@@ -101,7 +126,7 @@ export default function DashComments() {
                         setShowModal(true);
                         setCommentIdToDelete(comment._id);
                       }}
-                      className='font-medium text-red-500 hover:underline cursor-pointer'
+                      className="font-medium text-red-500 hover:underline cursor-pointer"
                     >
                       Delete
                     </span>
@@ -113,7 +138,7 @@ export default function DashComments() {
           {showMore && (
             <button
               onClick={handleShowMore}
-              className='w-full text-teal-500 self-center text-sm py-7'
+              className="w-full text-teal-500 self-center text-sm py-7"
             >
               Show more
             </button>
@@ -126,20 +151,20 @@ export default function DashComments() {
         show={showModal}
         onClose={() => setShowModal(false)}
         popup
-        size='md'
+        size="md"
       >
         <Modal.Header />
         <Modal.Body>
-          <div className='text-center'>
-            <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
-            <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
               Are you sure you want to delete this comment?
             </h3>
-            <div className='flex justify-center gap-4'>
-              <Button color='failure' onClick={handleDeleteComment}>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={handleDeleteComment}>
                 Yes, I'm sure
               </Button>
-              <Button color='gray' onClick={() => setShowModal(false)}>
+              <Button color="gray" onClick={() => setShowModal(false)}>
                 No, cancel
               </Button>
             </div>
