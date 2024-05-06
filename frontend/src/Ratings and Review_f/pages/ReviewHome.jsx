@@ -105,7 +105,7 @@ export default function ReviewHome() {
               alt="Card 3"
               className="card-image my-6"
             />
-            <a href="/" style={{ marginTop: "auto" }}>
+            <a href="/frp-search" style={{ marginTop: "auto" }}>
               <Button type="button" gradientDuoTone="greenToBlue">
                 Add Review for Fund Raising Page{" "}
               </Button>
