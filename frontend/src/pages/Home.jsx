@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Card } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-
+import CallToAction from '../CommunityManagement/components/CallToAction';
 
 export default function Home() {
   return (
@@ -93,7 +93,11 @@ export default function Home() {
   </div>
 </Card>
       </div>
-
+      <div className="max-w-4xl mx-auto w-full mt-5">
+       
+       <CallToAction />
+     </div>
+      
 
      
     </div>

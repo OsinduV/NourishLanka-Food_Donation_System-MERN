@@ -1,6 +1,6 @@
 import React from 'react'
 import { Alert, Button, FileInput, Select, TextInput,Card } from 'flowbite-react';
-
+import CallToAction from '../components/CallToAction';
 
 export default function CommunityHome() {
   return (
@@ -28,7 +28,7 @@ export default function CommunityHome() {
                 
                 {/* Banner image */}
                 <div>
-                    <img src="https://img.freepik.com/free-photo/food-donation-box-being-prepared-by-smiley-volunteers_23-2148732706.jpg?w=360" className='lg:h-[300px]'/>
+                    <img src="https://cafh.ca/wp-content/uploads/2023/08/494909426.jpg" className='lg:h-[300px]'/>
                 </div>
             </div>
         </div>
@@ -58,7 +58,11 @@ export default function CommunityHome() {
         </Card>
       </div> 
 
-
+      
+      <div className="max-w-4xl mx-auto w-full mt-5">
+       
+       <CallToAction />
+     </div>
       
 </div>
 

@@ -98,8 +98,6 @@ export default function DashFoodRequests() {
                 <Table.HeadCell>Recipient Name</Table.HeadCell>
                 <Table.HeadCell>District</Table.HeadCell>
                 <Table.HeadCell>Category</Table.HeadCell>
-                <Table.HeadCell>Email</Table.HeadCell>
-                <Table.HeadCell>Contact Number</Table.HeadCell>
                 <Table.HeadCell>Delete Food Request</Table.HeadCell>
                 <Table.HeadCell>Current Status</Table.HeadCell>  
               </Table.Head>
@@ -115,7 +113,7 @@ export default function DashFoodRequests() {
                       </Link>
                     </Table.Cell>
                     <Table.Cell>
-                      {foodrequest.foodrequestId}
+                      {foodrequest.foodrequestID}
                     </Table.Cell>
                     <Table.Cell>
                       {new Date(foodrequest.createdAt).toLocaleDateString()}
@@ -130,9 +128,6 @@ export default function DashFoodRequests() {
                     </Table.Cell>
                     <Table.Cell>{foodrequest.district}</Table.Cell>
                     <Table.Cell>{foodrequest.category}</Table.Cell>
-                    <Table.Cell>{foodrequest.email}</Table.Cell>
-                    <Table.Cell>{foodrequest.contactnumber}</Table.Cell>
-                  
                     <Table.Cell>
                     <span
                       onClick={() => {
