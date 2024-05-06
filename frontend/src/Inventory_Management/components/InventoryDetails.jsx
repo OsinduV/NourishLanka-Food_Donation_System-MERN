@@ -8,10 +8,13 @@ const InventoryDetails = ({ inventory }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(inventory.title);
   const [editedQuantity, setEditedQuantity] = useState(inventory.quantity);
-  const [editedlocation, setEditedlocation] = useState(inventory.location);
+  const [editedLocation, setEditedLocation] = useState(inventory.location);
   const [editedDate, setEditedDate] = useState(
     new Date(inventory.expdate).toLocaleDateString()
   );
+
+  // Array of district names in Sri Lanka
+  const districts = ['Colombo', 'Gampaha', 'Kalutara', 'Kandy', 'Matale', 'Nuwara Eliya','Galle','Matara','Hambantota','Jaffna','Kilinochchi','Mannar','Vavuniya','Mullaitivu','Batticaloa','Ampara','Trincomalee','Kurunegala','Puttalam','Anuradhapura','Polonnaruwa','Badulla','Monaragala','Ratnapura','Kegalle'];
 
   const handleDeleteClick = async () => {
     try {
@@ -37,7 +40,7 @@ const InventoryDetails = ({ inventory }) => {
     setIsEditing(false);
     setEditedTitle(inventory.title);
     setEditedQuantity(inventory.quantity);
-    setEditedlocation(inventory.location);
+    setEditedLocation(inventory.location);
     setEditedDate(inventory.expdate);
   };
 
@@ -46,7 +49,7 @@ const InventoryDetails = ({ inventory }) => {
       ...inventory,
       title: editedTitle,
       quantity: editedQuantity,
-      location: editedlocation,
+      location: editedLocation,
       expdate: editedDate,
     };
     try {
@@ -79,7 +82,7 @@ const InventoryDetails = ({ inventory }) => {
         setEditedQuantity(value);
         break;
       case "location":
-        setEditedlocation(value);
+        setEditedLocation(value);
         break;
       case "expdate":
         setEditedDate(value);
@@ -105,12 +108,12 @@ const InventoryDetails = ({ inventory }) => {
             value={editedQuantity}
             onChange={handleChange}
           />
-          <input
-            type="text"
-            name="location"
-            value={editedlocation}
-            onChange={handleChange}
-          />
+          <select name="location" onChange={handleChange} value={editedLocation}>
+            <option value="">Select District</option>
+            {districts.map((district, index) => (
+              <option key={index} value={district}>{district}</option>
+            ))}
+          </select>
           <input
             type="date"
             name="expdate"
@@ -139,7 +142,7 @@ const InventoryDetails = ({ inventory }) => {
           <h4>{inventory.title}</h4>
 
           <p>
-            <strong>Quantity :</strong> {inventory.quantity}
+            <strong>Quantity (KG):</strong> {inventory.quantity}
           </p>
           <p>
             <strong>Location :</strong> {inventory.location}

@@ -294,7 +294,7 @@ export default function DashProfile() {
                   gradientDuoTone='greenToBlue'
                   className='w-full'
                   >
-                    Manage Inventries
+                    Manage Inventories
                   </Button>
               </Link>
           

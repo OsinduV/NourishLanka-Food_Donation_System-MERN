@@ -10,13 +10,14 @@ const scheduleSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        
         date: {
             type: String,
             required: true,
         },
         day: {
             type: String,
-            required: true,
+           
         },
         category: {
             type: String,
@@ -32,6 +33,11 @@ const scheduleSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
+        foodbankId: {
+            type: mongoose.SchemaTypes.ObjectId,
+           
+            ref: "Foodbank"
+          },
         
     },{timestamp : true}
   
