@@ -222,10 +222,8 @@ export default function DonationRequest() {
             <div className='flex flex-col gap-7 sm:flex-row justify-between '>
                  <div>Event Date</div>
             <TextInput
-                type='text'
-                placeholder='dd/mm/yyyy'
+                type='date'
                 required={formData.type === 'onedaydrive'}
-                icon={BsCalendar2DateFill}
                 id='eventdate'
                 className='flex-1 ml-10'
                 onChange={(e) =>
@@ -288,8 +286,7 @@ export default function DonationRequest() {
         <div className='flex flex-col gap-3 sm:flex-row justify-between'>
             <div>Proposed Date (From)</div>
                 <TextInput
-                type='text'
-                placeholder='dd/mm/yyyy'
+                type='date'
                 required={formData.type === 'longdrive'}
                 icon={BsCalendar2DateFill}
                 id='DateFrom'
@@ -303,8 +300,7 @@ export default function DonationRequest() {
         <div className='flex flex-col gap-3 sm:flex-row justify-between'>
             <div>Proposed Date (To)</div>
             <TextInput
-                type='text'
-                placeholder='dd/mm/yyyy'
+                type='date'
                 required={formData.type === 'longdrive'}
                 icon={BsCalendar2DateFill}
                 id='DateTo'

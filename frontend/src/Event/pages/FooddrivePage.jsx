@@ -60,6 +60,7 @@ export default function FooddrivePage() {
               </Button>
             </Link>
             <h2 className='mx-auto mt-5 font-semibold text-red-600'>Current Status - {fooddrive && fooddrive.status}</h2>
+            <h2 className='mx-auto mt-5 font-semibold text-red-600'>Status Updated Date - {new Date(fooddrive.updatedAt).toLocaleDateString()}</h2>
 
             {/* Check if the note exists, if it is it will render the div tag and note */}
               {fooddrive && fooddrive.note && (

@@ -60,6 +60,7 @@ export default function DonationPage() {
               </Button>
             </Link>
             <h2 className='mx-auto mt-5 font-semibold text-red-600'>Current Event Status - {donation && donation.status}</h2>
+            <h2 className='mx-auto mt-5 font-semibold text-red-600'>Status Updated Date - {new Date(donation.updatedAt).toLocaleDateString()}</h2>
 
              {/* Check if the note exists, if it is it will render the div tag and note */}
             {donation && donation.note && (

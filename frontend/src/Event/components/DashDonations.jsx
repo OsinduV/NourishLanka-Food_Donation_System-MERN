@@ -1,5 +1,5 @@
 //component in event organiser dashboard where event organiser see all the requests made by donors
-import { Button, Modal, Spinner, Table } from 'flowbite-react';
+import { Button, Modal, Select, Spinner, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux'
@@ -13,19 +13,46 @@ export default function DashDonations() {
     const [showMore, setShowMore] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [donationIdToDelete, setDonationIdToDelete] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('');
+    const [selectedDate, setSelectedDate] = useState('');
     useEffect(() => {
       const fetchDonations = async () => {
         try {
           setLoading(true);
-         const res = await fetch(`/api/donation/getdonations`);
+// Corrected code for constructing API endpoint URL
+let apiUrl = '/api/donation/getdonations'; // Define apiUrl here
+
+// Construct the query parameters using URLSearchParams
+const queryParams = new URLSearchParams();
+if (selectedStatus) {
+  queryParams.append('status', selectedStatus);
+}
+if (selectedDate) {
+  // Convert selectedDate to ISO format to match with the createdAt date
+  const selectedISODate = new Date(selectedDate).toISOString().split('T')[0];
+  queryParams.append('date', selectedISODate);
+}
+
+// Append query parameters to apiUrl if any
+if (queryParams.toString()) {
+  apiUrl += `?${queryParams.toString()}`;
+}
+
+// Fetch data from the constructed API endpoint
+const res = await fetch(apiUrl);
+
           const data = await res.json();
           if (res.ok) {
+            // Sort the donations by creation date if selectedDate is provided
+            if (selectedDate) {
+                data.donations.sort((a, b) => new Date(a.eventdate) - new Date(b.eventdate));
+            }
             setUserDonations(data.donations);
             setLoading(false);
             if (data.donations.length < 9) {
-              setShowMore(false);
+                setShowMore(false);
             }
-          }
+        }
         } catch (error) {
           console.log(error.message);
           setLoading(false);
@@ -34,7 +61,7 @@ export default function DashDonations() {
       if (currentUser.isAdmin) {
         fetchDonations();
       }
-    },[currentUser._id])
+    },[currentUser._id, selectedStatus, selectedDate])
 
     const handleShowMore = async () => {
       const startIndex = userDonations.length;
@@ -80,6 +107,25 @@ export default function DashDonations() {
       </div>
     );
 
+    const generateReport = () => {
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        "DonationID, Date Created,Event Title,Event Date,Status\n";
+      const rows = userDonations.map(
+        (request) =>
+          `${request.donationId},${new Date(request.createdAt).toLocaleDateString()},${request.eventtitle},${request.eventdate},${request.status
+          }`
+      );
+      const csvRows = rows.join("\n");
+      const csv = csvContent + csvRows;
+      const encodedUri = encodeURI(csv);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "donation_request_report.csv");
+      document.body.appendChild(link);
+      link.click();
+    };
+
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
            {/*if the user is event orgniser and if the requests are more than 0 , then display the requests and if not just display a message no requests yet */}
@@ -90,27 +136,54 @@ export default function DashDonations() {
 
                               {/* Header-like section2 */}
                               <div className="flex justify-between items-center mb-5">
-            <h2 className="text-xl font-semibold"></h2>
-                {/* Add navigation links here */}
-                <div className="flex space-x-12 mr-10">
-                <Link to='/dashboard?tab=donations'>All</Link>
-                <Link to='/dashboard?tab=approveddonations'>Approved</Link>
-                <Link to='/dashboard?tab=declineddonations'>Declined</Link>
-                <Link to="/dashboard?tab=completeddonations">Completed</Link>
-                    {/* Add more navigation links as needed */}
-                </div>
+    <h2 className="text-xl font-semibold"></h2>
+    {/* Add navigation links here */}
+    <div className="flex space-x-12 font-semibold mr-10 items-center w-full">
+
+        <div className="flex items-center">
+            <p className="mr-2">Sort by Event date:</p>
+            <div className="flex items-center">
+                <input
+                    type="date"
+                    id="selectedDate"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="border border-gray-300 rounded px-2 py-1 max-w-xs" // Adjusted width
+                    max={new Date().toISOString().split("T")[0]} // Set max date to today's date
+                />
             </div>
+        </div>
+
+        <div className="flex space-x-4 font-semibold mr-10 items-center">
+            <Select className='w-full' onChange={(e) => setSelectedStatus(e.target.value)} value={selectedStatus}>
+                <option value="">Sort by Status</option>
+                <option value="approved">Approved</option>
+                <option value="processing">Processing</option>
+                <option value="completed">Completed</option>
+                <option value="declined">Declined</option>
+            </Select>
+        </div>
+    </div>
+
+    <Button
+                type="button"
+                gradientDuoTone="greenToBlue"
+                onClick={generateReport}
+              >
+                Generate Report
+              </Button>
+
+</div>
            {currentUser.isAdmin && userDonations.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
             <Table.Head>
-              <Table.HeadCell>Date created</Table.HeadCell>
+              <Table.HeadCell>Request created date</Table.HeadCell>
+              <Table.HeadCell>Request ID</Table.HeadCell>
               <Table.HeadCell>Donor ID</Table.HeadCell>
-              <Table.HeadCell>Donor Email</Table.HeadCell>
               <Table.HeadCell>Event date</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Current Status</Table.HeadCell>
-              <Table.HeadCell>Date updated</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit Status</span>
               </Table.HeadCell>
@@ -121,9 +194,9 @@ export default function DashDonations() {
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                 <Table.Cell>{new Date(donation.createdAt).toLocaleDateString()}</Table.Cell>
+                <Table.Cell>{donation.donationId}</Table.Cell>
                 <Table.Cell>{donation.dnid}</Table.Cell>
-                <Table.Cell>{donation.donoremail}</Table.Cell>
-                <Table.Cell>{donation.eventdate}</Table.Cell>
+                <Table.Cell>{new Date(donation.eventdate).toLocaleDateString('en-GB')}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/donation/${donation.slug}`}>
                     <span>View more Details</span>
@@ -131,7 +204,6 @@ export default function DashDonations() {
                 </Table.Cell>
                 <Table.Cell>{donation.status}</Table.Cell>
 
-                <Table.Cell>{new Date(donation.updatedAt).toLocaleDateString()}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/update-dstatus/${donation._id}`}>
                     <span>Edit status</span>

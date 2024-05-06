@@ -12,45 +12,6 @@ const validateEmail = (email) => {
   return emailRegex.test(email);
 };
 
-const isValidDate = (dateString) => {
-  // Regular expression for dd/mm/yyyy format
-  const dateFormat = /^\d{2}\/\d{2}\/2024$/;
-
-  // Check if the date string matches the format
-  if (!dateFormat.test(dateString)) {
-      return false;
-  }
-
-  // Parse the date parts to integers
-  const parts = dateString.split('/');
-  const day = parseInt(parts[0], 10);
-  const month = parseInt(parts[1], 10);
-  const year = parseInt(parts[2], 10);
-
-  // Check if the date is valid
-  if (year !== 2024 || month === 0 || month > 12 || day === 0 || day > 31) {
-      return false;
-  }
-
-  // Check for months with 30 days
-  if ([4, 6, 9, 11].includes(month) && day > 30) {
-      return false;
-  }
-
-  // Check for February and leap years
-  if (month === 2) {
-      if (day > 29) {
-          return false;
-      }
-      // February has 29 days in leap years, otherwise 28
-      const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-      if (!isLeapYear && day > 28) {
-          return false;
-      }
-  }
-
-  return true;
-};
 
 
 export const createdonation = async (req, res, next) => {
@@ -99,11 +60,6 @@ export const createdonation = async (req, res, next) => {
             return next(errorHandler(400, 'Please provide a valid number of attendees'));
         }
 
-        // Validate event date
-        if (!isValidDate(req.body.eventdate)) {
-            return next(errorHandler(400, 'Please provide a valid date (dd/mm/yyyy) for the event from current Year'));
-        }
-
         // Validate minimum length of event description
         if (req.body['eventdescription'].length < 50) {
               return next(errorHandler(400, 'Event description must be at least 50 characters long'));
@@ -135,63 +91,64 @@ export const createdonation = async (req, res, next) => {
 };
 
 export const getdonations = async (req, res, next) => {
-    try {
-    //localhost:3500/api/donation/getdonations?startIndex=1
-    const startIndex = parseInt(req.query.startIndex) || 0;
+  try {
+      const startIndex = parseInt(req.query.startIndex) || 0;
+      const limit = parseInt(req.query.limit) || 9;
+      const sortDirection = req.query.order === 'asc' ? 1 : -1;
 
-    //localhost:3500/api/donation/getdonations?limit=1
-    const limit = parseInt(req.query.limit) || 9; //9 is the requesting number of requests to the page
+      // Parse the selectedDate from the query parameters
+      const selectedDate = req.query.date;
 
-    //localhost:3500/api/donation/getdonations?oder=asc
-    const sortDirection = req.query.order === 'asc' ? 1 : -1;
+      // Construct query object to filter donations
+      const query = {
+          ...(req.query.userId && { userId: req.query.userId }),
+          ...(req.query.category && { category: req.query.category }),
+          ...(req.query.status && { status: req.query.status }),
+          ...(req.query.note && { status: req.query.note }),
+          ...(req.query.slug && { slug: req.query.slug }),
+          ...(req.query.donationId && { _id: req.query.donationId }),
+          ...(req.query.searchTerm && {
+              $or: [
+                  { title: { $regex: req.query.searchTerm, $options: 'i' } },
+                  { content: { $regex: req.query.searchTerm, $options: 'i' } },
+              ],
+          }),
+      };
 
-    //some more queries
-    const donations = await Donation.find({
-        ...(req.query.userId && { userId: req.query.userId }),
-        ...(req.query.category && { category: req.query.category }),
-        ...(req.query.status && { status: req.query.status }),
-        ...(req.query.note && { status: req.query.note }),
-        ...(req.query.slug && { slug: req.query.slug }),
-        ...(req.query.donationId && { _id: req.query.donationId }),
-        ...(req.query.searchTerm && {
-            //using or it alows us to search between two places
-          $or: [ 
-            { title: { $regex: req.query.searchTerm, $options: 'i' } }, //by regex tool it allows to search inside the title and from i, it tells that lowecase or uppercase is not important
-            { content: { $regex: req.query.searchTerm, $options: 'i' } },
-          ],
-        }),
-      })
+      // Add filter condition for selectedDate if provided
+      if (selectedDate) {
+          const startOfDay = new Date(selectedDate);
+          startOfDay.setUTCHours(0, 0, 0, 0);
 
-      .sort({ updatedAt: sortDirection })
-      .skip(startIndex)
-      .limit(limit);
+          const endOfDay = new Date(selectedDate);
+          endOfDay.setUTCHours(23, 59, 59, 999);
 
+          query.eventdate = { $gte: startOfDay, $lte: endOfDay };
+      }
 
-      //to count the total number of donation requests
-    const totalDonations = await Donation.countDocuments();
+      const donations = await Donation.find(query)
+          .sort({ eventdate: sortDirection })
+          .skip(startIndex)
+          .limit(limit);
 
-    //to count donation requests on last month
-      //from today to last months
-    const oneMonthAgo = new Date();
+      const totalDonations = await Donation.countDocuments(query);
 
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      const lastMonthDonations = await Donation.countDocuments({
+        eventdate: { $gte: oneMonthAgo },
+      });
 
-        //last month's
-        const lastMonthDonations = await Donation.countDocuments({
-            createdAt: { $gte: oneMonthAgo },
-          });
-      
-          //responce
-          res.status(200).json({
-            donations,
-            totalDonations,
-            lastMonthDonations,
-          });
-
-        } catch (error) {
-            next(error);
-    }
+      res.status(200).json({
+          donations,
+          totalDonations,
+          lastMonthDonations,
+      });
+  } catch (error) {
+      next(error);
+  }
 };
+
 
 export const deletedonation = async (req, res, next) => {
     if (!req.user.isAdmin) {
