@@ -21,7 +21,7 @@ const donationSchema = new mongoose.Schema(
         },
 
         eventdate: {
-            type: String,
+            type: Date,
         },
 
         eventtime: {
@@ -84,6 +84,13 @@ const donationSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
+        },
+
+        donationId: {
+            type: String,
+            unique: true,
+            required: true,
+            default: () => `Donationid${Math.floor(1000 + Math.random() * 9000)}` // Generates a random ID starting with "id" followed by 4 digits
         },
 
     },{ timestamps: true }

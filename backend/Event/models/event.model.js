@@ -106,7 +106,7 @@ const eventSchema = new mongoose.Schema(
         type: String,
         unique: true,
         required: true,
-        default: () => `id${Math.floor(1000 + Math.random() * 9000)}` // Generates a random ID starting with "id" followed by 4 digits
+        default: () => `Eventid${Math.floor(1000 + Math.random() * 9000)}` // Generates a random ID starting with "id" followed by 4 digits
     },
     },  
     { timestamps: true }

@@ -13,47 +13,6 @@ const validateEmail = (email) => {
   return emailRegex.test(email);
 };
 
-const isValidDate = (dateString) => {
-  // Regular expression for dd/mm/yyyy format
-  const dateFormat = /^\d{2}\/\d{2}\/2024$/;
-
-  // Check if the date string matches the format
-  if (!dateFormat.test(dateString)) {
-      return false;
-  }
-
-  // Parse the date parts to integers
-  const parts = dateString.split('/');
-  const day = parseInt(parts[0], 10);
-  const month = parseInt(parts[1], 10);
-  const year = parseInt(parts[2], 10);
-
-  // Check if the date is valid
-  if (year !== 2024 || month === 0 || month > 12 || day === 0 || day > 31) {
-      return false;
-  }
-
-  // Check for months with 30 days
-  if ([4, 6, 9, 11].includes(month) && day > 30) {
-      return false;
-  }
-
-  // Check for February and leap years
-  if (month === 2) {
-      if (day > 29) {
-          return false;
-      }
-      // February has 29 days in leap years, otherwise 28
-      const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-      if (!isLeapYear && day > 28) {
-          return false;
-      }
-  }
-
-  return true;
-};
-
-
 //add validations to disabled buttons///////////////////////////
 export const createfooddrive = async (req, res, next) => {
     try {
@@ -87,11 +46,6 @@ export const createfooddrive = async (req, res, next) => {
             return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for one day food drive'));
           }
 
-          // Validate event date
-          if (!isValidDate(req.body.eventdate)) {
-            return next(errorHandler(400, 'Please provide a valid date (dd/mm/yyyy) for the event from current Year for one day food drive'));
-          }
-
       } else if (req.body.type === 'longdrive') {
         const requiredFieldsLong = ['DateFrom', 'DateTo', 'eventtimelongfrom', 'eventtimelongto', 'eventlocationlong'];
         if (requiredFieldsLong.some(field => !req.body[field])) {
@@ -101,10 +55,6 @@ export const createfooddrive = async (req, res, next) => {
         // Validate event time format
         if (!validateTime(req.body.eventtimelongfrom) || !validateTime(req.body.eventtimelongto)) {
             return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for long drive food drive'));
-        }
-         // Validate event date
-        if (!isValidDate(req.body.DateFrom) || !isValidDate(req.body.DateTo)) {
-             return next(errorHandler(400, 'Please provide a valid date (dd/mm/yyyy) for the event from current Year for long day food drive'));
         }
       }
 
@@ -151,64 +101,58 @@ export const createfooddrive = async (req, res, next) => {
 };
 
 export const getfooddrives = async (req, res, next) => {
-    try {
-    //localhost:3500/api/fooddrive/getfooddrives?startIndex=1
+  try {
+    // Parse query parameters
     const startIndex = parseInt(req.query.startIndex) || 0;
-
-    //localhost:3500/api/fooddrive/getfooddrives?limit=1
-    const limit = parseInt(req.query.limit) || 9; //9 is the requesting number of requests to the page
-
-    //localhost:3500/api/fooddrive/getfooddrives?oder=asc
+    const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.order === 'asc' ? 1 : -1;
 
-    //some more queries
-    const fooddrives = await Fooddrive.find({
-        ...(req.query.userId && { userId: req.query.userId }),
-        ...(req.query.category && { category: req.query.category }),
-        ...(req.query.type && { type: req.query.type }),
-        ...(req.query.status && { status: req.query.status }),
-        ...(req.query.note && { status: req.query.note }),
-        ...(req.query.slug && { slug: req.query.slug }),
-        ...(req.query.fooddriveId && { _id: req.query.fooddriveId }),
-        ...(req.query.searchTerm && {
-            //using or it alows us to search between two places
-          $or: [ 
-            { eventtitle: { $regex: req.query.searchTerm, $options: 'i' } }, //by regex tool it allows to search inside the title and from i, it tells that lowecase or uppercase is not important
-            { eventdescription: { $regex: req.query.searchTerm, $options: 'i' } },
-          ],
-        }),
-      })
+    // Get selected date from query parameter
+    const selectedDate = req.query.date;
 
-      .sort({ updatedAt: sortDirection })
+
+    // Construct initial query object
+    const query = {};
+
+    // Append other query parameters
+    if (req.query.userId) query.userId = req.query.userId;
+    if (req.query.category) query.category = req.query.category;
+    if (req.query.type) query.type = req.query.type;
+    if (req.query.status) query.status = req.query.status; // Filter by status
+    if (req.query.note) query.note = req.query.note;
+    if (req.query.slug) query.slug = req.query.slug;
+        if (req.query.type) query.type = req.query.type;
+
+    // Search term query using regex
+    if (req.query.searchTerm) {
+      query.$or = [
+        { eventtitle: { $regex: req.query.searchTerm, $options: 'i' } },
+        { eventdescription: { $regex: req.query.searchTerm, $options: 'i' } },
+      ];
+    }
+
+    // Apply date filtering
+    if (selectedDate) {
+      query.eventdate = {
+        $gte: new Date(selectedDate),
+        $lt: new Date(selectedDate).setDate(new Date(selectedDate).getDate() + 1),
+      };
+    }
+
+    // Perform the query
+    const fooddrives = await Fooddrive.find(query)
+      .sort({ eventdate: sortDirection }) // Sort by event date
       .skip(startIndex)
       .limit(limit);
 
-
-      //to count the total number of fooddrive requests
-    const totalFooddrives = await Fooddrive.countDocuments();
-
-    //to count donation requests on last month
-      //from today to last months
-    const oneMonthAgo = new Date();
-
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-
-        //last month's
-        const lastMonthFooddrives = await Fooddrive.countDocuments({
-            createdAt: { $gte: oneMonthAgo },
-          });
-
-          //responce
-          res.status(200).json({
-            fooddrives,
-            totalFooddrives,
-            lastMonthFooddrives,
-          });
-
-        } catch (error) {
-            next(error);
-    }
+    // Respond with results
+    res.status(200).json({ fooddrives });
+  } catch (error) {
+    next(error);
+  }
 };
+
+
 
 export const deletefooddrive = async (req, res, next) => {
     if (!req.user.isAdmin) {

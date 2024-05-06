@@ -136,7 +136,7 @@ export default function EventDescription() {
             <Link to={'/'}>
             <Button gradientDuoTone='greenToBlue' 
                 type='button'
-                className='mr-4 text-white mt-12'
+                className='mr-4 text-white mt-6'
             >
              Start a Virtual Food Drive
             </Button>

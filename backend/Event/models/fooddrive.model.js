@@ -46,7 +46,7 @@ const fooddriveSchema = new mongoose.Schema(
         },
 
         eventdate: {
-            type: String,
+            type: Date,
 
         },
 
@@ -64,12 +64,12 @@ const fooddriveSchema = new mongoose.Schema(
         },
 
         DateFrom: {
-            type: String,
+            type: Date,
 
         },
 
         DateTo: {
-            type: String,
+            type: Date,
 
         },
 
@@ -132,6 +132,13 @@ const fooddriveSchema = new mongoose.Schema(
 
         note: {
             type: String,
+        },
+
+        fooddriveId: {
+            type: String,
+            unique: true,
+            required: true,
+            default: () => `Fooddriveid${Math.floor(1000 + Math.random() * 9000)}` // Generates a random ID starting with "id" followed by 4 digits
         },
 
     },{ timestamps: true }

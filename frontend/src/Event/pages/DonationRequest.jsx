@@ -153,10 +153,8 @@ export default function DonationRequest() {
       <div className='flex flex-col gap-4 sm:flex-row justify-between'>
               Event Date 
               <TextInput
-                 type='text'
-                 placeholder='dd/mm/yyyy'
+                 type='date'
                  required
-                 icon={BsCalendar2DateFill}
                  id='eventdate'
                  className='flex-1 ml-7'
                  onChange={(e) =>
