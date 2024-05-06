@@ -193,7 +193,9 @@ export default function App() {
 
         <InventorysContextProvider>
           <Routes>
+          <Route element={<PrivateRoute />}>
             <Route path="/inventory-home" element={<InventoryHome />} />
+          </Route>
           </Routes>
         </InventorysContextProvider>
         <Footer />

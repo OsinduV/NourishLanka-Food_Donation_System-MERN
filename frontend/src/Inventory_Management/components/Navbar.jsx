@@ -9,17 +9,25 @@ const Navbar = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = async () => {
-        if (searchTerm === '') {
+        if (searchTerm === '' && location === '') {
             dispatch({ type: 'FETCH_HOME' });
             return;
         }
-
+    
         try {
-            const response = await fetch(`${endpoints.inventorys}/search?title=${searchTerm}`);
+            const queryParams = new URLSearchParams();
+            if (searchTerm !== '') {
+                queryParams.append('title', searchTerm);
+            }
+            if (location !== '') {
+                queryParams.append('location', searchTerm);
+            }
+    
+            const response = await fetch(`${endpoints.inventorys}/search?${queryParams.toString()}`);
             if (response.ok) {
                 const searchResult = await response.json();
                 dispatch({ type: 'SEARCH_INVENTORY', payload: searchResult });
-
+    
                 if (searchResult.length === 0) {
                     dispatch({ type: 'EMPTY_SEARCH' })
                 }
@@ -28,6 +36,24 @@ const Navbar = () => {
             }
         } catch (error) {
             console.error('Error searching inventory:', error);
+        }
+    };
+    
+
+    // Function to handle PDF report generation
+    const handleGenerateReport = async () => {
+        try {
+            const response = await fetch(`${endpoints.inventorys}/report/reportgen`);
+            if (response.ok) {
+                // Handle successful PDF generation, e.g., open in new tab
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                window.open(url);
+            } else {
+                console.error('Error generating PDF report:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error generating PDF report:', error);
         }
     };
 
@@ -72,6 +98,7 @@ const Navbar = () => {
                 <div className="sort-buttons">
                     <button onClick={handleSortByQuantity}>Sort by Quantity</button>
                     <button onClick={handleSortByExpDate}>Sort by Exp Date</button>
+                    <button onClick={handleGenerateReport}>Generate Report</button>
                 </div>
             </div>
         </header>
