@@ -63,7 +63,7 @@ export default function FoodRequestPage() {
       <h1 className='text-3xl mt-10 mb-1 p-3 text-center font-bold max-w-2xl mx-auto lg:text-4xl'>Food Request Details</h1>
       <div className='text-center top-0 left-0 bg-red-500 text-white px-3 py-1 rounded-full font-bold'>Status -{foodrequest && foodrequest.status}</div>
       <h1 className='text-3xl mt-3 p-3 text-center font-semibold max-w-2xl mx-auto lg:text-4xl'>District - {foodrequest && foodrequest.district}</h1>
-      <h1 className='text-3xl mt-3 p-3 text-center font-semibold max-w-2xl mx-auto lg:text-2xl'>Food Request ID - {foodrequest && foodrequest.foodrequestId}</h1>
+      <h1 className='text-3xl mt-3 p-3 text-center font-semibold max-w-2xl mx-auto lg:text-2xl'>Food Request ID - {foodrequest && foodrequest.foodrequestID}</h1>
       <Link to={`/communitysearch?category=${foodrequest && foodrequest.category}`} className='self-center mt-5'>
         <Button color='gray' pill size='xs'>
           {foodrequest && foodrequest.category}
@@ -81,7 +81,7 @@ export default function FoodRequestPage() {
           <TableRow label="Recipient Address" value={foodrequest && foodrequest.address} />
            <TableRow label="Recipient Zipcode" value={foodrequest && foodrequest.zipcode} />
           <TableRow label="Population of the Orphnage" value={foodrequest && foodrequest.porphange ?  foodrequest.porphange: "No Population of the Orphange mentioned"} />
-          <TableRow label="Population of the Elders Care Home" value={foodrequest && foodrequest.pelders  ?  foodrequest.elders: "No Population of the Elders Home mentioned"} />
+          <TableRow label="Population of the Elders Care Home" value={foodrequest && foodrequest.pelders  ?  foodrequest.pelders: "No Population of the Elders Home mentioned"} />
           <TableRow label="Population of the School" value={foodrequest && foodrequest.pschool  ?  foodrequest.pschool: "No Population of the School mentioned"} />
           <TableRow label="Family incomeLevel" value={foodrequest && foodrequest.incomeLevel  ?  foodrequest.incomeLevel: "No Income Level mentioned"} /> 
            <TableRow label="Household Size" value={foodrequest && foodrequest.householdSize  ?  foodrequest.householdSize: "No House hold size mentioned"} />
