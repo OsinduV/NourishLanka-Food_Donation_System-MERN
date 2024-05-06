@@ -40,6 +40,7 @@ import CompletedFooddrives from '../Event/pages/CompletedFooddrives';
 import DashComments from '../Ratings and Review_f/components/DashComments';
 import DashMyDonationHistory from '../fundRaising/components/DashMyDonationHistory';
 import DashAdminDonations from '../fundRaising/components/DashAdminDonations';
+import AdminDashFb from '../Foodbank/pages/AdminDashFb';
 
 
 
@@ -181,6 +182,8 @@ export default function Dashboard() {
       {/* my completed fooddrive requests... */}
       {tab === 'fcompleted' && <CompletedFooddrives />}
 
+
+      {tab === 'FoodBanks' && <AdminDashFb />}
 
 
       {/* comments  */}

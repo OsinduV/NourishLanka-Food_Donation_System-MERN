@@ -94,19 +94,25 @@ export default function DashSidebar() {
           )}
           {currentUser.isAdmin && (
             <Link to="/dashboard?tab=admindonations">
-              <Sidebar.Item active={tab === "admindonations"} icon={RiRefund2Fill} as="div">
+              <Sidebar.Item
+                active={tab === "admindonations"}
+                icon={RiRefund2Fill}
+                as="div"
+              >
                 All Donations
               </Sidebar.Item>
             </Link>
           )}
 
-            <Link to="/dashboard?tab=mydonationHistory">
-              <Sidebar.Item active={tab === "mydonationHistory"} icon={FaHistory} as="div">
-                My Donation History
-              </Sidebar.Item>
-            </Link>
-
-
+          <Link to="/dashboard?tab=mydonationHistory">
+            <Sidebar.Item
+              active={tab === "mydonationHistory"}
+              icon={FaHistory}
+              as="div"
+            >
+              My Donation History
+            </Sidebar.Item>
+          </Link>
 
           {currentUser.isAdmin && (
             <Link to="/dashboard?tab=schedules">
@@ -253,6 +259,18 @@ export default function DashSidebar() {
                 as="div"
               >
                 Comments
+              </Sidebar.Item>
+            </Link>
+          )}
+
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=FoodBanks">
+              <Sidebar.Item
+                active={tab === "FoodBanks"}
+                icon={HiAnnotation}
+                as="div"
+              >
+                FoodBanks
               </Sidebar.Item>
             </Link>
           )}

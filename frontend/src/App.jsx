@@ -115,7 +115,9 @@ export default function App() {
           {/* foodbank routes */}
           <Route path="/foodbankreg" element={<FbRegisterpage />} />
           <Route path="/foodbankhome" element={<Fbhome />} />
+          <Route element={<PrivateRoute />}>
           <Route path="/foodbankDash" element={<FoodbankDash />} />
+          </Route>
           <Route path="/AdminDashFb" element={<AdminDashFb />} />
 
           <Route path="/projects" element={<Project />} />
