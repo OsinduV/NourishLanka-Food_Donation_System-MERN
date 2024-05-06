@@ -1,5 +1,6 @@
 import { Button } from 'flowbite-react'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function CalltoAction() {
     return (
@@ -8,17 +9,18 @@ export default function CalltoAction() {
                 <h2 className='text-2xl'>
                     More about NourishLanka?
                 </h2>
-                <p className='text-gray-500 my-2'>
-                    Checkout our projects
-                </p>
-                <Button className='px-2 py-1 bg-gradient-to-r from-green-500 via-green-300 to-green-400 rounded-lg text-white'>
-                    <a href="https://www.100jsprojects.com" target='_blank' rel='noopener noreferrer'>
-                        Projects
-                    </a>
-                </Button>
+
+                <Link to={'/'}>
+            <Button gradientDuoTone='greenToBlue'
+                type='button'
+                className=' text-white rounded-lg px-2 py-1 mx-auto mt-5'
+            >
+             NourishLanka
+            </Button>
+            </Link>
             </div>
             <div className="p-7 flex-1">
-                <img src="https://www.patriotsoftware.com/wp-content/uploads/2018/07/charitable-donations.jpg" />
+                <img src="https://www.thefoodcloset.org/uploads/2/2/4/3/22433308/4_orig.png" />
             </div>
         </div>
       )

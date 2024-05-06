@@ -90,10 +90,9 @@ export default function EventDescription() {
             <h1 className='max-w-3xl mt-3 font-bold'>
             What is a Physical Food Drive?
           </h1>
-            <p>A virtual food drive allows you to collect online donations rather than food.
-                 The money you collect from your virtual food drive become meals and other 
-                 services for people facing hunger. These fundraisers allow you to have a greater
-                  impact in the fight against hunger.</p>
+            <p>Physical food drives, including one-way and long-day variations, are organized 
+              events where individuals or groups collect non-perishable food items from donors
+               at designated locations and then gathered and distributed to those in need through food banks  </p>
      
             <div className='mt-12'>
               <Link
@@ -137,7 +136,7 @@ export default function EventDescription() {
             <Link to={'/'}>
             <Button gradientDuoTone='greenToBlue' 
                 type='button'
-                className='mr-4 text-white mt-10'
+                className='mr-4 text-white mt-12'
             >
              Start a Virtual Food Drive
             </Button>

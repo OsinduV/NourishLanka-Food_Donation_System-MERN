@@ -12,7 +12,7 @@ export default function CallToAction() {
             Be a beacon of hope by extending a meal to those in need
             </p>
             <Button gradientDuoTone='greenToBlue' className='rounded-tl-xl rounded-bl-none'>
-                <a href="https://www.100jsprojects.com" target='_blank' rel='noopener noreferrer'>
+                <a href="/fr-home" target='_blank' rel='noopener noreferrer'>
                     Donate Now
                 </a>
             </Button>

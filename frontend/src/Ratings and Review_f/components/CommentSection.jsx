@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Comment from './Comment';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import emailjs from 'emailjs-com'; // Import emailjs-com library
 
 export default function CommentSection({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -13,6 +14,7 @@ export default function CommentSection({ postId }) {
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (comment.length > 200) {
@@ -35,9 +37,28 @@ export default function CommentSection({ postId }) {
         setComment('');
         setCommentError(null);
         setComments([data, ...comments]);
+        sendEmail(currentUser.email); // Call the sendEmail function after submitting the comment
       }
     } catch (error) {
       setCommentError(error.message);
+    }
+  };
+
+  const sendEmail = async (userEmail) => {
+    try {
+      emailjs.init('user_your_user_id'); // Initialize EmailJS with your USER_ID
+      const emailResponse = await emailjs.send(
+        'service_your_service_id',
+        'template_your_template_id',
+        {
+          userEmail,
+          subject: 'Comment Submitted Successfully',
+          message: `Your comment "${comment}" has been successfully submitted.`,
+        }
+      );
+      console.log('Email sent:', emailResponse);
+    } catch (error) {
+      console.error('Error sending email:', error);
     }
   };
 
@@ -106,6 +127,7 @@ export default function CommentSection({ postId }) {
         const data = await res.json();
         setComments(comments.filter((comment) => comment._id !== commentId));
       }
+      
     } catch (error) {
       console.log(error.message);
     }

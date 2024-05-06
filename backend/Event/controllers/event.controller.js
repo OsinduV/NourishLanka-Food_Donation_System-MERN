@@ -1,11 +1,57 @@
 import Event from "../models/event.model.js";
 import { errorHandler } from "../../utills/error.js";
 
+//validate time
 const validateTime = (time) => {
   const timeRegex = /^\d{1,2}(\:\d{1,2})?\s?(?:AM|PM|am|pm)$/;
   return timeRegex.test(time);
 };
 
+// Validate email format
+const validateEmail = (email) => {
+  const emailRegex = /\S+@\S+\.\S+/;
+  return emailRegex.test(email);
+};
+
+const isValidDate = (dateString) => {
+  // Regular expression for dd/mm/yyyy format
+  const dateFormat = /^\d{2}\/\d{2}\/2024$/;
+
+  // Check if the date string matches the format
+  if (!dateFormat.test(dateString)) {
+      return false;
+  }
+
+  // Parse the date parts to integers
+  const parts = dateString.split('/');
+  const day = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10);
+  const year = parseInt(parts[2], 10);
+
+  // Check if the date is valid
+  if (year !== 2024 || month === 0 || month > 12 || day === 0 || day > 31) {
+      return false;
+  }
+
+  // Check for months with 30 days
+  if ([4, 6, 9, 11].includes(month) && day > 30) {
+      return false;
+  }
+
+  // Check for February and leap years
+  if (month === 2) {
+      if (day > 29) {
+          return false;
+      }
+      // February has 29 days in leap years, otherwise 28
+      const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+      if (!isLeapYear && day > 28) {
+          return false;
+      }
+  }
+
+  return true;
+};
 
 
 export const create = async (req, res, next) => {
@@ -14,14 +60,66 @@ export const create = async (req, res, next) => {
         if (!req.user.isAdmin) {
             return next(errorHandler(403, 'You are not allowed to create a post'));
         }
-        //if there is no title or ocontent for the publishing podt
-        if (!req.body.title || !req.body.content || !req.body.date || !req.body.location || !req.body.time || !req.body.donorid) {
-            return next(errorHandler(400, 'Please provide all required fields'))
+
+        // Validate request body
+        const requiredFields = ['title', 'donorid', 'donoremail', 'content'];
+        if (requiredFields.some(field => !req.body[field])) {
+              return next(errorHandler(400, 'Please provide all required fields'));
         }
 
-        if (!validateTime(req.body.time)) {
-          return next(errorHandler(400, 'Please provide a valid time (e.g., "12:00 PM")'));
+         // Validate donor email format
+            if (!validateEmail(req.body.donoremail)) {
+              return next(errorHandler(400, 'Please provide a valid donor email address'));
+          }
+
+         if (req.body.category === 'DonationEvent') {
+               // Validate event date
+              if (!isValidDate(req.body.date)) {
+              return next(errorHandler(400, 'Please provide a valid date (dd/mm/yyyy) for the event from current Year for donation event'));
         }
+                // Validate event time format
+                if (!validateTime(req.body.time)) {
+                  return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for donation event'));
+                }
+
+                if (!req.body.location){
+                  return next(errorHandler(400, 'Please provide location for donation event'));
+                }
+         }
+
+
+      // Validate based on food drive type
+      if (req.body.type === 'onedaydrive') {
+        const requiredFieldsOneday = ['eventdate', 'eventtimefrom', 'eventtimeto', 'eventlocation'];
+        if (requiredFieldsOneday.some(field => !req.body[field])) {
+            return next(errorHandler(400, 'Please provide all required fields for a one day food drive'));
+        }
+        // Validate event time format
+        if (!validateTime(req.body.eventtimefrom) || !validateTime(req.body.eventtimeto)) {
+          return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for one day food drive'));
+        }
+
+        // Validate event date
+        if (!isValidDate(req.body.eventdate)) {
+          return next(errorHandler(400, 'Please provide a valid date (dd/mm/yyyy) for the event from current Year for one day food drive'));
+        }
+
+    } else if (req.body.type === 'longdrive') {
+      const requiredFieldsLong = ['DateFrom', 'DateTo', 'eventtimelongfrom', 'eventtimelongto', 'eventlocationlong'];
+      if (requiredFieldsLong.some(field => !req.body[field])) {
+          return next(errorHandler(400, 'Please provide all required fields for a long drive food drive'));
+      }
+
+      // Validate event time format
+      if (!validateTime(req.body.eventtimelongfrom) || !validateTime(req.body.eventtimelongto)) {
+          return next(errorHandler(400, 'Please provide a valid time format (e.g., "12:00 PM") for long drive food drive'));
+      }
+       // Validate event date
+      if (!isValidDate(req.body.DateFrom) || !isValidDate(req.body.DateTo)) {
+           return next(errorHandler(400, 'Please provide a valid date (dd/mm/yyyy) for the event from current Year for long day food drive'));
+      }
+    }
+
 
         //a slug to split it and join it again by dash(-) and make it lowercase and also and remove anything that is not letters and numbers with the dash(-)
         const slug = req.body.title
@@ -132,7 +230,19 @@ export const updateevent = async (req, res, next) => {
           time: req.body.time,
           location: req.body.location,
           donorid: req.body.donorid,
+          donoremail: req.body.donoremail,
           status: req.body.status,
+          category: req.body.category,
+          type: req.body.type,
+          eventdate: req.body.eventdate,
+          eventlocation: req.body.eventlocation,
+          eventtimefrom: req.body.eventtimefrom,
+          eventtimeto: req.body.eventtimeto,
+          DateFrom: req.body.DateFrom,
+          DateTo: req.body.DateTo,
+          eventtimelongfrom: req.body.eventtimelongfrom,
+          eventtimelongto: req.body.eventtimelongto,
+          eventlocationlong: req.body.eventlocationlong,
         },
       },
       { new: true }

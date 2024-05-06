@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function foodbank_register() {
   const [formData, setFormData] = useState({});
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(true);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -17,7 +17,7 @@ export default function foodbank_register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/api/foodbank/register', {
+    const res = await fetch('http://localhost:3500/api/foodbank/register', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -25,7 +25,11 @@ export default function foodbank_register() {
       body: JSON.stringify(formData),
     });
     const data = await res.json();
-    if (res.ok) {
+    if (!res.ok) {
+      setRegistrationSuccess(false);
+      
+    }
+    else{
       setRegistrationSuccess(true);
       navigate('/foodbankhome');
     }
@@ -175,10 +179,10 @@ export default function foodbank_register() {
               Register FoodBank
             </Button>  
           </form>
-          {/* Alert for registration success */}
+          {/* Alert for registration failure */}
           {registrationSuccess && (
-            <Alert color='success' onDismiss={() => setRegistrationSuccess(false)} className='mt-4'>
-              <span className='font-medium'>Registration successful!</span> 
+            <Alert color='error' onDismiss={() => setRegistrationSuccess(false)} className='mt-4'>
+              <span className='font-medium'>Registration failed. Please try again..!!</span> 
             </Alert>
           )}
         </div>

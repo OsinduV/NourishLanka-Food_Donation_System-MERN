@@ -104,9 +104,8 @@ export default function DashFooddrives() {
           <Table hoverable className='shadow-md'>
             <Table.Head>
               <Table.HeadCell>Request created date</Table.HeadCell>
-              <Table.HeadCell>Event title</Table.HeadCell>
               <Table.HeadCell>Donor ID</Table.HeadCell>
-              <Table.HeadCell>Donor Email</Table.HeadCell>
+              <Table.HeadCell>FoodDrive Type</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Current Status</Table.HeadCell>
               <Table.HeadCell>Status update date</Table.HeadCell>
@@ -121,13 +120,8 @@ export default function DashFooddrives() {
               <Table.Body className='divide-y'>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                 <Table.Cell>{new Date(fooddrive.createdAt).toLocaleDateString()}</Table.Cell>
-                <Table.Cell>
-                  <Link className='font-medium text-gray-900 dark:text-white' to={`/fooddrive/${fooddrive.slug}`}>
-                    {fooddrive.eventtitle}
-                  </Link>
-                </Table.Cell>
                 <Table.Cell>{fooddrive.dnid}</Table.Cell>
-                <Table.Cell>{fooddrive.donoremail}</Table.Cell>
+                <Table.Cell>{fooddrive.type}</Table.Cell>
                 <Table.Cell>
                   <Link className='text-teal-500 hover:underline' to={`/fooddrive/${fooddrive.slug}`}>
                     <span>View more Details</span>

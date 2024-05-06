@@ -124,7 +124,7 @@ export default function Search() {
         </div>
 
 
-        <div className='flex items-center gap-2'>
+        {/* <div className='flex items-center gap-2'>
             <label className='font-semibold'>Sort:</label>
             <Select
               onChange={handleChange} 
@@ -133,7 +133,7 @@ export default function Search() {
                 <option value='desc'>Latest</option>
                 <option value='asc'>Oldest</option>
             </Select>
-          </div>
+          </div> */}
 
           <div className='flex items-center gap-2'>
             <label className='font-semibold'>Status:</label>
@@ -161,7 +161,7 @@ export default function Search() {
               <option value='FoodDrive'>Food drive</option>
             </Select>
           </div>
-          <Button type='submit' outline gradientDuoTone='purpleToPink'>
+          <Button type='submit' outline gradientDuoTone='greenToBlue'>
             Apply Filter
           </Button>
         </form>

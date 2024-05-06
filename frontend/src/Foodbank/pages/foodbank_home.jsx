@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button ,Table, Progress } from "flowbite-react";
+import { useState } from "react";
+import { Button ,Table, Progress,Popover } from "flowbite-react";
 import { Carousel } from "flowbite-react";
 import { Card } from "flowbite-react";
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ export default function foodbank_home() {
 
     const handleSearch = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/foodbank/searchfb?district=${selectedDistrict}`);
+            const response = await fetch(`http://localhost:3500/api/foodbank/searchfb?district=${selectedDistrict}`);
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -46,9 +46,11 @@ export default function foodbank_home() {
                     Volunteer
                 </Button>
                 </Link>
+                <Link to='/event-description'>
                 <Button outline gradientDuoTone="greenToBlue">
                     Event Host
                 </Button>
+                </Link>
             </div>
             <div className="h-56 sm:h-64 xl:h-80 2xl:h-80">
                 <Carousel>
@@ -61,7 +63,7 @@ export default function foodbank_home() {
             </div>
             <div className='flex row mt-2 justify-center'>
                 <form>
-                    <div className="flex gap-2 mt-2">
+                    <div className="flex gap-2 mt-2 ">
                         <select id="district"
 
                             className="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
@@ -103,7 +105,7 @@ export default function foodbank_home() {
                 
             </div>
             {showFoodBankDetails && (
-    <div className='flex row mt-6 justify-center'>
+    <div className='flex row mt-6 justify-center h-50'>
         <div className="overflow-x-auto">
             {foodBanks.length > 0 ? (
                 <Table>
@@ -114,6 +116,7 @@ export default function foodbank_home() {
                         <Table.HeadCell>Phone Number</Table.HeadCell>
                         <Table.HeadCell>Open time</Table.HeadCell>
                         <Table.HeadCell>Email</Table.HeadCell>
+                        <Table.HeadCell></Table.HeadCell>
                     </Table.Head>
                     <Table.Body>
                         {foodBanks.map((foodBank, index) => (
@@ -131,6 +134,20 @@ export default function foodbank_home() {
                                 <Table.Cell>{foodBank.phoneno}</Table.Cell>
                                 <Table.Cell><p>{foodBank.opentime} to {foodBank.closetime}</p></Table.Cell>
                                 <Table.Cell>{foodBank.email} </Table.Cell>
+                                <Table.Cell>
+                                    <Popover
+                                        aria-labelledby="Inquires"
+                                        content={
+                                            <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
+                                            <div className="px-3 py-2">
+                                                <p>Add Inquiry to foodbank..</p>
+                                            </div>
+                                            </div>
+                                        }
+                                        >
+                                        <Button outline gradientDuoTone="tealToLime">Inquires</Button> 
+                                    </Popover>
+                                </Table.Cell>
                             </Table.Row>
                         ))}
                     </Table.Body>
@@ -143,7 +160,7 @@ export default function foodbank_home() {
     </div>
 )}
 
-            <div className='flex row mt-2 justify-center' mb-5>
+            <div className='flex row mt-2 justify-center mb-2' >
                 <Card className="max-w-sm mt-3 ml-3 mx-auto">
                     <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         Wanna Donate food ?

@@ -61,7 +61,7 @@ export default function Home() {
        <div className="card-content">
        <img src="https://www.shutterstock.com/image-photo/group-multiethnic-volunteers-putting-food-600nw-752375233.jpg" alt="Card 1" className="card-image" />
        <div className="text-center mb-6 mt-7">
-      <Link to="/event-home" className="text-2xl font-bold mb-6 mt-7">
+      <Link to="/event-description" className="text-2xl font-bold mb-6 mt-7">
         Host an Event
       </Link>
     </div>

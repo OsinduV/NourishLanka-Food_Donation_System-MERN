@@ -29,9 +29,12 @@ export const getFrpDonations = async (req, res, next) => {
 
     const frpId = req.query.frpId;
     const frpIdObject = frpId ? new mongoose.Types.ObjectId(frpId) : null;
+    
+    const userId = req.query.userId;
+    const userIdObject = userId ? new mongoose.Types.ObjectId(userId) : null;
 
     const frpDonationsQuery = {
-      ...(req.query.userId && { userId: req.query.userId }),
+      ...(userIdObject && { userId: userIdObject }),
       ...(frpIdObject && { frpId: frpIdObject }),
       ...(req.query.frpDonationId && { _id: req.query.frpDonationId }),
       ...(req.query.amount && { amount: req.query.amount }),
@@ -40,6 +43,7 @@ export const getFrpDonations = async (req, res, next) => {
 
     const frpDonations = await FrpDonation.find(frpDonationsQuery)
       .populate("frpId")
+      .populate("userId")
       .sort({ updatedAt: sortDirection })
       .skip(startIndex)
       .limit(limit);
@@ -119,14 +123,25 @@ export const getTopFrpDonations = async (req, res, next) => {
         },
       }, // Group by frpId and keep the first frpIdData
       { $sort: { totalAmount: -1 } }, // Sort in descending order
+      { $limit: 5 } // Limit to 5 records
     ]);
 
     res.status(200).json({
-      totalAmountwithtopfrp,
-      totalAmountForFrpId,
-      // sortedFundRaisingPages
+      totalAmountwithtopfrp
     });
   } catch (error) {
     next(error);
   }
 };
+
+export const deletedonation = async (req, res, next) => {
+  if (!req.user.isAdmin && req.user.id !== req.params.userId) {
+    return next(errorHandler(403, 'You are not allowed to delete this fundraising page'));
+  }
+  try {
+    await FrpDonation.findByIdAndDelete(req.params.donationId);
+    res.status(200).json('The donation has been deleted');
+  } catch (error) {
+    next(error);
+  }
+}

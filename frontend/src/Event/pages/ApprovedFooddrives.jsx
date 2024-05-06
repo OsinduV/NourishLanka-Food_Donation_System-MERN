@@ -110,7 +110,6 @@ export default function ApprovedFooddrives() {
               <Table.HeadCell>Event type</Table.HeadCell>
               <Table.HeadCell>Event Details</Table.HeadCell>
               <Table.HeadCell>Your event status</Table.HeadCell>
-              <Table.HeadCell>Delete your event</Table.HeadCell>
             </Table.Head>
 
             {userFooddrives.map((fooddrive) => (
@@ -130,13 +129,6 @@ export default function ApprovedFooddrives() {
                   </Link>
                 </Table.Cell>
                 <Table.Cell>{fooddrive.type}</Table.Cell>
-                <Table.Cell>
-                         <span onClick={()=>{
-                      setShowModal(true);
-                      setmyFooddriveIdToDelete(fooddrive._id);
-                  }}
-                  className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
-                </Table.Cell>
 
                 </Table.Row>
               </Table.Body>

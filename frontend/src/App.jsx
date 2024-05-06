@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -9,7 +8,6 @@ import About from "./pages/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
-
 
 import InventoryHome from "./Inventory_Management/pages/InventoryHome";
 import { InventorysContextProvider } from "./Inventory_Management/context/InventoryContext";
@@ -22,6 +20,7 @@ import DonatePage from "./fundRaising/pages/DonatePage";
 import OsinduTst from "./fundRaising/pages/OsinduTst";
 import FRPCreate from "./fundRaising/pages/FRPCreate";
 import FrpDonate from "./fundRaising/pages/FrpDonate";
+
 
 
 import VolunteerOne from "./Volunteer/pages/VolunteerOne"
@@ -66,11 +65,11 @@ import PreviousDonations from "./Event/pages/PreviousDonations"
 import PreviousFooddrives from "./Event/pages/PreviousFooddrives"
 
 import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute"
+import Dshedules from "./Event/pages/Dshedules"
 
 import ReviewPage from "./Ratings and Review_f/pages/ReviewPage"
 import ReviewHome from "./Ratings and Review_f/pages/ReviewHome"
-
-
+import FrpSearch from "./fundRaising/pages/FrpSearch";
 
 
 export default function App() {
@@ -78,6 +77,7 @@ export default function App() {
     <div>
       <BrowserRouter>
         <Header />
+
 
 
 
@@ -89,6 +89,8 @@ export default function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/sign-in" element={<SignIn/>} />
         <Route path="/sign-up" element={<SignUp/>} />
+        <Route path="/shedules" element={<Dshedules/>} />
+
 
           {/* volunteer routes */}
         <Route path="/volunteer-one" element={<VolunteerOne/>} />
@@ -103,80 +105,101 @@ export default function App() {
           <Route path='/update-schedules/:scheduleId' element={<UpdateSchedules />} />
             </Route>
 
+         
+          
+            
 
           {/* foodbank routes */}
-        <Route path='/foodbankreg' element={<FbRegisterpage />} />
-        <Route path='/foodbankhome' element={<Fbhome />} />
-        <Route path='/foodbankDash' element={<FoodbankDash />} />
-        <Route path='/AdminDashFb' element={<AdminDashFb />} />
+          <Route path="/foodbankreg" element={<FbRegisterpage />} />
+          <Route path="/foodbankhome" element={<Fbhome />} />
+          <Route path="/foodbankDash" element={<FoodbankDash />} />
+          <Route path="/AdminDashFb" element={<AdminDashFb />} />
 
-    
-        <Route path="/projects" element={<Project/>} />        
+          <Route path="/projects" element={<Project />} />
 
+          <Route path="/communitysearch" element={<CommunitySearch />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/previousdonations" element={<PreviousDonations />} />
+          <Route path="/previousfooddrives" element={<PreviousFooddrives />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/create-foodrequest" element={<CreateFoodRequest />} />
+            <Route
+              path="/foodrequest/:foodrequestSlug"
+              element={<FoodRequestPage />}
+            />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/donation-request" element={<DonationRequest />} />
+            <Route path="/fooddrive-request" element={<FoodDriveRequest />} />
+            <Route path="/donation/:donationSlug" element={<DonationPage />} />
+            <Route
+              path="/fooddrive/:fooddriveSlug"
+              element={<FooddrivePage />}
+            />
+          </Route>
 
-        <Route path='/communitysearch' element={<CommunitySearch />} />
-        <Route path="/search" element={<Search/>} />
-        <Route path="/previousdonations" element={<PreviousDonations/>} />
-        <Route path="/previousfooddrives" element={<PreviousFooddrives/>} />
-        <Route element={<PrivateRoute />}>
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path="/create-foodrequest" element={<CreateFoodRequest/>} />
-          <Route path='/foodrequest/:foodrequestSlug' element={<FoodRequestPage/>}/>
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path="/donation-request" element={<DonationRequest />} />
-          <Route path="/fooddrive-request" element={<FoodDriveRequest />} />
-          <Route path="/donation/:donationSlug" element={<DonationPage/>} />
-          <Route path="/fooddrive/:fooddriveSlug" element={<FooddrivePage/>} />
-        </Route>
+          <Route element={<OnlyAdminPrivateRoute />}>
+            <Route
+              path="/create-recipientpost"
+              element={<CreateRecipientPost />}
+            />
+            <Route
+              path="/update-recipientpost/:postId"
+              element={<UpdateRecipientPost />}
+            />
+            <Route
+              path="update-foodrequest/:foodrequestId"
+              element={<UpdateStatus />}
+            />
 
-        <Route element={<OnlyAdminPrivateRoute/>}>
-          <Route path='/create-recipientpost' element={<CreateRecipientPost/>} />
-          <Route path='/update-recipientpost/:postId' element={<UpdateRecipientPost/>} />
-          <Route path='update-foodrequest/:foodrequestId'element={<UpdateStatus/>}/>
+            <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/update-event/:eventId" element={<UpdateEvent />} />
+            <Route
+              path="/update-dstatus/:donationId"
+              element={<UpdateDStatus />}
+            />
+            <Route
+              path="/update-fstatus/:fooddriveId"
+              element={<UpdateFStatus />}
+            />
+          </Route>
 
-          <Route path='/create-event' element={<CreateEvent />} />
-         <Route path='/update-event/:eventId' element={<UpdateEvent />} />
-         <Route path='/update-dstatus/:donationId' element={<UpdateDStatus />} />
-         <Route path='/update-fstatus/:fooddriveId' element={<UpdateFStatus />} />
-        </Route>
+          <Route path="/projects" element={<Project />} />
+          <Route path="/community" element={<CommunityHome />} />
+          <Route path="/review-home" element={<ReviewHome />} />
 
+          <Route
+            path="/recipientpost/:postSlug"
+            element={<RecipientPostPage />}
+          />
+          <Route path="/event/:eventSlug" element={<EventPage />} />
 
-        <Route path="/projects" element={<Project/>} />
-        <Route path="/community" element={<CommunityHome/>} />
-        <Route path="/review-home" element={<ReviewHome/>} />
-      
-
-        <Route path='/recipientpost/:postSlug' element={<RecipientPostPage/>} />
-         <Route path="/event/:eventSlug" element={<EventPage/>} />
-           
-           
           {/* fundraising */}
-            <Route path="/fr-home" element={<FRHome />} />
-          <Route path="/fr-page/:frpId" element={<FRPage />} />
-          <Route path="/fr-page/:frpId/:updatestat" element={<FRPage />} />
+          <Route path="/fr-home" element={<FRHome />} />
           <Route path="/donate-page" element={<DonatePage />} />
           <Route path="/frpdonate-page/:frpId" element={<FrpDonate />} />
           <Route path="/osindutst" element={<OsinduTst />} />
           <Route path="/frp-create" element={<FRPCreate />} />
+          <Route path="/frp-search" element={<FrpSearch />} />
+          <Route element={<PrivateRoute />}>
+          <Route path="/fr-page/:frpId" element={<FRPage />} />
+          <Route path="/fr-page/:frpId/:updatestat" element={<FRPage />} />
           <Route path="/fr-reg" element={<FRReg />} />
+          </Route>
 
+          {/* Reviwe management */}
+          <Route path="/review-page" element={<ReviewPage />} />
+        </Routes>
 
-        {/* Reviwe management */}
-        <Route path="/review-page" element={<ReviewPage/>} />
-
-
-      </Routes>
-
-          
-          <InventorysContextProvider>
+        <InventorysContextProvider>
           <Routes>
+          <Route element={<PrivateRoute />}>
             <Route path="/inventory-home" element={<InventoryHome />} />
+          </Route>
           </Routes>
         </InventorysContextProvider>
-      <Footer/>
-    </BrowserRouter>
-
-
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }

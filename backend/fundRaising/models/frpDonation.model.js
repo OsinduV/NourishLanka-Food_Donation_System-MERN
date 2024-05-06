@@ -8,8 +8,9 @@ const frpDonationSchema = new mongoose.Schema(
       ref: "FundRaisingPage"
     },
     userId: {
-      type: String,
+      type: mongoose.SchemaTypes.ObjectId,
       required: true,
+      ref: "User"
     },
     amount: {
       type: Number,
