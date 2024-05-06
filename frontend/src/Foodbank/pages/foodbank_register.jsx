@@ -2,9 +2,11 @@ import { Alert, Button, Label, Spinner, TextInput, Select } from 'flowbite-react
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function foodbank_register() {
-  const [formData, setFormData] = useState({});
+  const { currentUser } = useSelector((state) => state.user);
+  const [formData, setFormData] = useState({userID:currentUser._id});
   const [registrationSuccess, setRegistrationSuccess] = useState(true);
   const navigate = useNavigate();
 
@@ -14,6 +16,8 @@ export default function foodbank_register() {
       [e.target.id]: e.target.value,
     });
   };
+    console.log(formData);
+    console.log(currentUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

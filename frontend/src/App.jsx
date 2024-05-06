@@ -12,6 +12,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import InventoryHome from "./Inventory_Management/pages/InventoryHome";
 import { InventorysContextProvider } from "./Inventory_Management/context/InventoryContext";
 import Navbar from "./Inventory_Management/components/Navbar";
+import InventoryShow from "./Inventory_Management/pages/InventoryShow";
 
 import FRHome from "./fundRaising/pages/FRHome";
 import FRReg from "./fundRaising/pages/FRReg";
@@ -112,7 +113,9 @@ export default function App() {
           {/* foodbank routes */}
           <Route path="/foodbankreg" element={<FbRegisterpage />} />
           <Route path="/foodbankhome" element={<Fbhome />} />
+          <Route element={<PrivateRoute />}>
           <Route path="/foodbankDash" element={<FoodbankDash />} />
+          </Route>
           <Route path="/AdminDashFb" element={<AdminDashFb />} />
 
           <Route path="/projects" element={<Project />} />
@@ -195,7 +198,11 @@ export default function App() {
           <Routes>
           <Route element={<PrivateRoute />}>
             <Route path="/inventory-home" element={<InventoryHome />} />
+
+            <Route path="/inventory-show" element={<InventoryShow />} />
+
           </Route>
+
           </Routes>
         </InventorysContextProvider>
         <Footer />

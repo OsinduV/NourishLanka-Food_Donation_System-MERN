@@ -3,7 +3,11 @@ import mongoose from "mongoose";
 const foodbankSchema = new mongoose.Schema({
     /*ownername foodbankname storagespace currentspace address district
     email phoneno opentime closetime status password*/
-
+    
+    userID:{                //current user id saving 
+        type:String,
+        required:true,
+    },
     foodbankname:{
         type:String,
         required:true,
