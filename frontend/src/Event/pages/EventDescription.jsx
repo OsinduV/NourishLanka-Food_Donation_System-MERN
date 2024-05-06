@@ -133,7 +133,7 @@ export default function EventDescription() {
                  services for people facing hunger. These fundraisers allow you to have a greater
                   impact in the fight against hunger.</p>
             <div className='mt-2 flex flex-wrap w-full'>
-            <Link to={'/'}>
+            <Link to={'/fr-home'}>
             <Button gradientDuoTone='greenToBlue' 
                 type='button'
                 className='mr-4 text-white mt-6'
