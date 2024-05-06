@@ -24,6 +24,9 @@ import fooddriveRoutes from './Event/routes/fooddrive.route.js';
 
 import commentRoutes from './Ratings and Reviews_b/routes/comment.route.js';
 
+import path from 'path';
+
+
 
 dotenv.config()
 mongoose
@@ -33,6 +36,8 @@ mongoose
 }).catch(err => {
     console.log(err)
 })
+
+const __dirname = path.resolve();
 
 const app = express();
 
@@ -79,6 +84,13 @@ app.use('/api/comment', commentRoutes);
 
 //inventory
 app.use('/api/inventorys', inventoryRoutes);
+
+
+app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+});
 
 
 app.use((err,req,res,next) =>{
