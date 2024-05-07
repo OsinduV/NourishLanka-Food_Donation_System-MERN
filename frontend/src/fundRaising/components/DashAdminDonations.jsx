@@ -20,7 +20,6 @@ export default function DashAdminDonations() {
   const [donationCount, setDonationCount] = useState("");
   const [totalDonationAmount, setTotalDonationAmount] = useState("");
 
-
   useEffect(() => {
     const fetchDonations = async () => {
       try {
@@ -62,6 +61,28 @@ export default function DashAdminDonations() {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const generateReport = () => {
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      "Date,Doner Name,Fundraising Page,Amount\n";
+
+    const rows = donations.map(
+      (donation) =>
+        `${donation.updatedAt},${donation.userId.username},${donation.frpId.displayName},${donation.amount}`
+    );
+
+    const csvRows = rows.join("\n");
+
+    const csv = csvContent + csvRows;
+
+    const encodedUri = encodeURI(csv);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "user_report.csv");
+    document.body.appendChild(link);
+    link.click();
   };
 
   const handleDeleteDonation = async () => {
@@ -106,6 +127,12 @@ export default function DashAdminDonations() {
           />
         </div>
       )}
+      <button
+        onClick={generateReport}
+        className="w-32 text-teal-500 text-sm py-2 px-4 border border-teal-500 rounded-md hover:bg-teal-500 hover:text-white"
+      >
+        Generate Report
+      </button>
       <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
         {donations.length > 0 ? (
           <>
