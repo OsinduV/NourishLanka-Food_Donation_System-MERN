@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.3.3",
+    "@emailjs/browser": "^4.4.1",
     "@reduxjs/toolkit": "^2.2.1",
     "emailjs-com": "^3.2.0",
     "firebase": "^10.9.0",
